@@ -43,7 +43,7 @@ const projects: Project[] = [
     description:
       "Technology platform helping protect and support missing autistic individuals and their families.",
     impact:
-      "Leading development of a production nonprofit platform — delivering web, mobile, and admin systems that support families, responders, and community safety at scale.",
+      "Leading development of a production React + .NET 8 platform with JWT, OAuth, 2FA, and HIPAA-style compliance — improving performance by 70% while scaling for high community usage.",
     stack: [
       "React",
       ".NET 8",

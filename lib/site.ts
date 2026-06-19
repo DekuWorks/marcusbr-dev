@@ -1,14 +1,15 @@
 export const SITE = {
   name: "Marcus Brown",
   title: "Senior Full-Stack Developer & AI Engineer",
+  location: "Spartanburg, SC",
   url: "https://marcusbr.dev",
   email: "marcusb0611@gmail.com",
   phone: "8645247473",
   recruiterSummary:
-    "Senior Full-Stack Developer with 7+ years building SaaS platforms, cloud-native applications, AI-powered products, and mobile experiences.",
+    "Full Stack Engineer with 5+ years in .NET/C# and 8+ years overall experience building scalable, secure, production-grade applications — with strong expertise in AWS cloud deployments, CI/CD pipelines, authentication systems, and high-availability SaaS platforms.",
   social: {
     github: "https://github.com/DekuWorks",
-    linkedin: "https://www.linkedin.com/in/marcusbrown",
+    linkedin: "https://www.linkedin.com/in/marcus-brown-6b1643259/",
   },
 } as const;
 
@@ -22,11 +23,12 @@ export const FEATURED_TECHNOLOGIES = [
   "Next.js",
   "TypeScript",
   ".NET 8",
+  "C#",
+  "AWS",
   "Azure",
-  "React Native",
-  "Supabase",
+  "Django",
   "PostgreSQL",
-  "OpenAI",
   "Docker",
+  "CI/CD",
   "GitHub Actions",
 ] as const;

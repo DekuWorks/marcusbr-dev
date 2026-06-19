@@ -19,9 +19,9 @@ const contactButtonClass =
   "min-w-[140px] justify-center px-4 py-2.5 text-sm sm:min-w-[150px]";
 
 export const skillTrackers = [
-  { label: "Full-Stack", value: "7+", unit: "Years" },
-  { label: "AI Engineering", value: "Expert", unit: "Level" },
-  { label: "Mobile / React Native", value: "Advanced", unit: "Level" },
+  { label: "Software Development", value: "8+", unit: "Years" },
+  { label: ".NET / Full-Stack", value: "5+", unit: "Years" },
+  { label: "Cloud & DevOps", value: "Production", unit: "Level" },
 ];
 
 export const achievementBadges = [

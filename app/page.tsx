@@ -8,6 +8,7 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import ResultsImpact from "@/components/ResultsImpact";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
+import Education from "@/components/Education";
 import Experience from "@/components/Experience";
 import Process from "@/components/Process";
 import Contact from "@/components/Contact";
@@ -28,6 +29,7 @@ export default function Home() {
         <ResultsImpact />
         <CurrentlyBuilding />
         <Experience />
+        <Education />
         <Process />
         <Contact />
       </main>

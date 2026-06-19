@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Code2, FolderKanban, Rocket, Brain } from "lucide-react";
 
 const stats = [
-  { icon: Code2, label: "7+ Years Professional Development" },
+  { icon: Code2, label: "8+ Years Professional Development" },
   { icon: FolderKanban, label: "15+ Production Projects Delivered" },
   { icon: Rocket, label: "Founder of DekuWorks" },
   { icon: Brain, label: "AI & SaaS Product Builder" },

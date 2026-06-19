@@ -6,40 +6,23 @@ import SectionHeader from "./SectionHeader";
 const skillGroups = [
   {
     title: "Frontend",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Vite",
-      "Redux Toolkit",
-    ],
+    skills: ["HTML", "CSS", "JavaScript", "React", "Redux", "Tailwind CSS", "Next.js", "TypeScript"],
   },
   {
     title: "Backend",
-    skills: [
-      "ASP.NET Core",
-      "Node.js",
-      "Express",
-      "Django",
-      "REST APIs",
-      "EF Core",
-    ],
+    skills: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Express"],
   },
   {
-    title: "Mobile",
-    skills: ["React Native", "Expo", "Firebase"],
+    title: "Database",
+    skills: ["SQL Server", "PostgreSQL", "Firebase", "Supabase", "EF Core"],
   },
   {
-    title: "Cloud & Database",
-    skills: [
-      "Azure",
-      "Supabase",
-      "PostgreSQL",
-      "Firebase",
-      "Docker",
-      "GitHub Actions",
-    ],
+    title: "Cloud & DevOps",
+    skills: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions"],
+  },
+  {
+    title: "Auth & Security",
+    skills: ["JWT", "OAuth", "RBAC", "MFA", "2FA"],
   },
   {
     title: "AI Engineering",
@@ -48,7 +31,6 @@ const skillGroups = [
       "AI Agents",
       "Prompt Engineering",
       "RAG Systems",
-      "AI Automation",
       "LLM Integrations",
     ],
   },
@@ -60,7 +42,7 @@ export default function Skills() {
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title="Tech Stack"
-          subtitle="Detailed breakdown of technologies behind the banner stats"
+          subtitle="Technologies from production systems, SaaS builds, and client platforms"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group, index) => (
@@ -70,11 +52,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className={`apex-skill-card rounded-2xl p-6 text-center transition-all hover:border-gold/30 hover:shadow-glow-gold ${
-                group.title === "AI Engineering"
-                  ? "md:col-span-2 lg:col-span-1"
-                  : ""
-              }`}
+              className="apex-skill-card rounded-2xl p-6 text-center transition-all hover:border-gold/30 hover:shadow-glow-gold"
             >
               <h3 className="mb-4 flex items-center justify-center gap-2 text-lg font-semibold text-jade">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(201,162,39,0.6)]" />
