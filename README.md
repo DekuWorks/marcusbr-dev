@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# marcusbr.dev
 
-## Getting Started
+Developer portfolio for **Marcus Brown** — Senior Full-Stack Developer & AI Engineer, founder of [DekuWorks](https://marcusbr.dev).
 
-First, run the development server:
+A polished one-page portfolio showcasing projects, skills, experience, and contact actions. Built as a static site and deployed to GitHub Pages with a custom domain.
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) (App Router, static export)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide React](https://lucide.dev/)
+- [GitHub Pages](https://pages.github.com/)
+
+## Local Setup
 
 ```bash
+git clone https://github.com/<your-username>/marcusbr-dev.git
+cd marcusbr-dev
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Other Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # Static export to ./out
+npm run lint    # Run ESLint
+npm start       # Serve production build (after build)
+```
 
-## Learn More
+## GitHub Pages Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is configured for static export and GitHub Pages deployment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Push to GitHub
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Create a repository named `marcusbr-dev` (or your preferred name) and push this project to the `main` branch.
 
-## Deploy on Vercel
+### 2. Enable GitHub Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Go to your repository **Settings → Pages**
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. The workflow in `.github/workflows/deploy.yml` runs automatically on every push to `main`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Custom Domain
+
+The `public/CNAME` file is configured for:
+
+```
+marcusbr.dev
+```
+
+In **Settings → Pages → Custom domain**, enter `marcusbr.dev` and configure your DNS:
+
+| Type  | Name | Value              |
+| ----- | ---- | ------------------ |
+| A     | @    | 185.199.108.153    |
+| A     | @    | 185.199.109.153    |
+| A     | @    | 185.199.110.153    |
+| A     | @    | 185.199.111.153    |
+| CNAME | www  | `<username>.github.io` |
+
+Enable **Enforce HTTPS** once DNS propagates.
+
+### 4. Replace Resume
+
+Replace `public/Marcus-Brown-Resume.pdf` with your actual resume PDF. The download button in the Hero section links to this file.
+
+## Project Structure
+
+```
+marcusbr-dev/
+├── app/
+│   ├── globals.css      # Brand theme & utilities
+│   ├── layout.tsx       # Root layout & metadata
+│   └── page.tsx         # Main portfolio page
+├── components/          # Section & UI components
+├── public/
+│   ├── CNAME            # Custom domain for GitHub Pages
+│   └── Marcus-Brown-Resume.pdf
+├── .github/workflows/
+│   └── deploy.yml       # GitHub Pages CI/CD
+├── next.config.ts       # Static export config
+└── tailwind.config.ts   # Brand colors & theme
+```
+
+## Brand Colors
+
+| Token      | Hex       |
+| ---------- | --------- |
+| Background | `#0D1310` |
+| Jade Green | `#3EB489` |
+| Cream Text | `#EEE7DC` |
+| Card       | `#151C18` |
+| Muted Text | `#B7B2A8` |
+
+## License
+
+© 2026 Marcus Brown • DekuWorks • [marcusbr.dev](https://marcusbr.dev)
