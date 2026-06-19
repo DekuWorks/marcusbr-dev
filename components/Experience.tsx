@@ -5,15 +5,15 @@ import SectionHeader from "./SectionHeader";
 
 const experiences = [
   {
-    company: "Cipher Spectacle Media",
-    role: "Lead Front-End Developer & AI Engineer",
+    company: "Cipher Specter Media",
+    role: "Developer | AI Engineer",
     period: "2026 – Present",
     description:
-      "Leading frontend architecture, AI initiatives, automation systems, and scalable React applications.",
+      "Develop modern web applications and AI-powered features for scalable software solutions.",
     highlights: [
-      "Lead frontend architecture for production web applications",
-      "Drive AI initiatives and workflow automation systems",
-      "Build scalable React and TypeScript application experiences",
+      "Build production applications with React, TypeScript, and cloud technologies",
+      "Design and implement AI-powered features and automation workflows",
+      "Contribute to architecture decisions, code quality, and engineering best practices",
     ],
   },
   {
@@ -21,35 +21,35 @@ const experiences = [
     role: "Lead Developer",
     period: "2024 – Present",
     description:
-      "Architected React, React Native, and .NET solutions with Azure cloud infrastructure for a production nonprofit platform.",
+      "Architect and maintain React, React Native, and .NET 8 applications for a production nonprofit platform.",
     highlights: [
-      "Built secure APIs with JWT, OAuth, and 2FA authentication",
-      "Designed compliance-focused (HIPAA-style) secure systems",
-      "Improved performance by 70% and scaled for high usage",
+      "Built authentication, RBAC, case management, and administrative dashboards",
+      "Implemented emergency contacts and secure platform features",
+      "Manage Azure infrastructure, APIs, and platform growth initiatives",
+    ],
+  },
+  {
+    company: "DekuWorks LLC",
+    role: "Founder & Full Stack Developer",
+    period: "2021 – Present",
+    description:
+      "Build SaaS platforms, client software, mobile applications, and AI-powered solutions.",
+    highlights: [
+      "Lead software architecture, development strategy, and client delivery",
+      "Deliver SaaS products, client platforms, and AI integrations end to end",
+      "Own the full SDLC from planning through deployment",
     ],
   },
   {
     company: "Event Garage Parking",
-    role: "Lead Backend Developer",
-    period: "2025 · 3 Months",
+    role: "Lead Backend Developer (Contract)",
+    period: "Jan 2026 – Mar 2026",
     description:
-      "Led backend development for high-traffic event parking systems during a focused 3-month engagement.",
+      "Contract engagement architecting Django backend services and PostgreSQL databases for event parking systems.",
     highlights: [
-      "Designed Django and PostgreSQL backend architecture",
-      "Managed AWS EC2 and Docker deployments",
-      "Implemented CI/CD pipelines and automation",
-    ],
-  },
-  {
-    company: "DekuWorks",
-    role: "Founder & Senior Full-Stack Developer",
-    period: "2021 – Present",
-    description:
-      "Founded and operate a software studio delivering SaaS products, client solutions, and AI integrations.",
-    highlights: [
-      "Built SaaS products, client platforms, and AI-powered tools",
-      "Led full SDLC from planning to deployment",
-      "Developed secure cloud-based production systems",
+      "Architected Django backend services and PostgreSQL databases",
+      "Built secure REST APIs and backend business logic",
+      "Supported AWS infrastructure, Docker deployments, and Nginx configurations",
     ],
   },
 ];
