@@ -10,6 +10,7 @@ export const SITE = {
   social: {
     github: "https://github.com/DekuWorks",
     linkedin: "https://www.linkedin.com/in/marcus-brown-6b1643259/",
+    linktree: "https://linktr.ee/DekuWorks",
   },
   resumePath: "/Marcus-Brown-Resume.pdf",
   resumeFilename: "Marcus-Brown-Resume.pdf",

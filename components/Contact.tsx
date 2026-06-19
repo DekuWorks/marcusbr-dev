@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Globe } from "lucide-react";
+import { Mail, MessageSquare, Globe, Link2 } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import Button from "./Button";
 import CopyButton from "./CopyButton";
@@ -41,6 +41,12 @@ const contactInfo = [
     label: "LinkedIn",
     value: "Marcus Brown",
     href: SITE.social.linkedin,
+  },
+  {
+    icon: Link2,
+    label: "Linktree",
+    value: "DekuWorks",
+    href: SITE.social.linktree,
   },
 ];
 
@@ -112,6 +118,14 @@ export default function Contact() {
             >
               <LinkedInIcon className="h-4 w-4" />
               LinkedIn
+            </Button>
+            <Button
+              href={SITE.social.linktree}
+              variant="secondary"
+              className={contactButtonClass}
+            >
+              <Link2 className="h-4 w-4" aria-hidden />
+              Linktree
             </Button>
             <CopyButton
               text={SITE.email}

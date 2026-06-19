@@ -9,6 +9,7 @@ import {
   Brain,
   Layers,
   Server,
+  Link2,
 } from "lucide-react";
 import Button from "./Button";
 import CopyButton from "./CopyButton";
@@ -228,6 +229,14 @@ export default function ApexBanner() {
           >
             <LinkedInIcon className="h-4 w-4" />
             LinkedIn
+          </Button>
+          <Button
+            href={SITE.social.linktree}
+            variant="secondary"
+            className={contactButtonClass}
+          >
+            <Link2 className="h-4 w-4" aria-hidden />
+            Linktree
           </Button>
           <CopyButton
             text={CONTACT_TEXT}

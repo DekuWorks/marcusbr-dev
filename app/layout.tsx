@@ -73,7 +73,7 @@ const jsonLd = {
   email: SITE.email,
   jobTitle: SITE.title,
   description,
-  sameAs: [SITE.social.github, SITE.social.linkedin],
+  sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.linktree],
   knowsAbout: [
     "Full-Stack Development",
     "AI Engineering",
