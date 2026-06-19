@@ -22,7 +22,7 @@ interface Project {
   impact: string;
   stack: string[];
   status: ProjectStatus;
-  liveDemo?: string;
+  link?: string;
   github?: string;
   caseStudy?: string;
 }
@@ -36,7 +36,7 @@ const projects: Project[] = [
       "Architecting an intelligent scheduling SaaS that reduces manual coordination, automates workflows, and helps teams scale operations with AI-driven productivity.",
     stack: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS"],
     status: "In Development",
-    liveDemo: "https://www.daypilot.co",
+    link: "https://www.daypilot.co",
   },
   {
     name: "241Runners Awareness",
@@ -52,7 +52,7 @@ const projects: Project[] = [
       "React Native",
     ],
     status: "Production / Active Client",
-    liveDemo: "https://241runnersawareness.org",
+    link: "https://241runnersawareness.org",
   },
   {
     name: "Bookmarked",
@@ -62,7 +62,7 @@ const projects: Project[] = [
       "Building a community-driven reading platform that connects readers through discovery, reviews, clubs, and events — designed for engagement and long-term retention.",
     stack: ["React", "TypeScript", "Tailwind CSS", "Supabase"],
     status: "Client Project",
-    liveDemo: "https://www.bookmarked.online",
+    link: "https://www.bookmarked.online",
   },
   {
     name: "SoleVault",
@@ -94,19 +94,19 @@ const statusColors: Record<ProjectStatus, string> = {
 };
 
 function ProjectActions({ project }: { project: Project }) {
-  const hasActions = project.liveDemo || project.github || project.caseStudy;
+  const hasActions = project.link || project.github || project.caseStudy;
   if (!hasActions) return null;
 
   return (
     <div className="relative z-10 mt-6 flex flex-wrap items-center justify-center gap-2">
-      {project.liveDemo && (
+      {project.link && (
         <Button
-          href={project.liveDemo}
+          href={project.link}
           variant="primary"
           className="min-w-[120px] px-4 py-2 text-xs sm:text-sm"
         >
           <ExternalLink className="h-3.5 w-3.5" />
-          Live Demo
+          Link
         </Button>
       )}
       {project.github && (
