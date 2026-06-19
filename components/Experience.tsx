@@ -5,7 +5,7 @@ import SectionHeader from "./SectionHeader";
 
 const experiences = [
   {
-    company: "Cipher Specter Media",
+    company: "Cipher Spectacle Media",
     role: "Developer | AI Engineer",
     period: "2026 – Present",
     description:
@@ -13,6 +13,7 @@ const experiences = [
     highlights: [
       "Build production applications with React, TypeScript, and cloud technologies",
       "Design and implement AI-powered features and automation workflows",
+      "Collaborate with cross-functional teams to deliver scalable software solutions",
       "Contribute to architecture decisions, code quality, and engineering best practices",
     ],
   },
