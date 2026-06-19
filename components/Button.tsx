@@ -7,7 +7,7 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   variant?: ButtonVariant;
-  download?: boolean;
+  download?: boolean | string;
   className?: string;
   type?: "button" | "submit";
 }

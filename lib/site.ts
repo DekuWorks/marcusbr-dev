@@ -11,6 +11,8 @@ export const SITE = {
     github: "https://github.com/DekuWorks",
     linkedin: "https://www.linkedin.com/in/marcus-brown-6b1643259/",
   },
+  resumePath: "/Marcus-Brown-Resume.pdf",
+  resumeFilename: "Marcus-Brown-Resume.pdf",
 } as const;
 
 export const CONTACT_TEXT = `${SITE.name}

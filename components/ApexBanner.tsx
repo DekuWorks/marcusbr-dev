@@ -189,8 +189,8 @@ export default function ApexBanner() {
           aria-label="Contact actions"
         >
           <Button
-            href="/Marcus-Brown-Resume.pdf"
-            download
+            href={SITE.resumePath}
+            download={SITE.resumeFilename}
             variant="primary"
             className={contactButtonClass}
           >
