@@ -13,12 +13,12 @@ const education = [
   {
     school: "Full Sail University",
     credential: "Application Development Fundamentals",
-    period: "2025",
+    period: "",
   },
   {
     school: "Codecademy",
     credential: "Front-End Engineer Certificate",
-    period: "2025",
+    period: "",
   },
 ];
 
@@ -43,7 +43,9 @@ export default function Education() {
               <div>
                 <h3 className="font-semibold text-cream">{item.credential}</h3>
                 <p className="mt-1 text-sm text-jade">{item.school}</p>
-                <p className="mt-1 text-xs text-muted">{item.period}</p>
+                {item.period && (
+                  <p className="mt-1 text-xs text-muted">{item.period}</p>
+                )}
               </div>
             </motion.div>
           ))}

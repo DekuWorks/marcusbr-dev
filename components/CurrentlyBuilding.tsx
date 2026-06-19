@@ -6,6 +6,10 @@ import SectionHeader from "./SectionHeader";
 
 const building = [
   {
+    name: "Cipher Jobs",
+    description: "AI-powered job platform at Cipher Spectacle Media",
+  },
+  {
     name: "DayPilot",
     description: "AI scheduling SaaS",
   },

@@ -6,7 +6,7 @@ export const SITE = {
   email: "marcusb0611@gmail.com",
   phone: "8645247473",
   recruiterSummary:
-    "Full Stack Engineer with 5+ years in .NET/C# and 8+ years overall experience building scalable, secure, production-grade applications — with strong expertise in AWS cloud deployments, CI/CD pipelines, authentication systems, and high-availability SaaS platforms.",
+    "Senior Full-Stack Developer and AI Engineer with 8+ years of software development experience specializing in React, TypeScript, C#, .NET, cloud architecture, AI-powered applications, and scalable SaaS platforms.",
   social: {
     github: "https://github.com/DekuWorks",
     linkedin: "https://www.linkedin.com/in/marcus-brown-6b1643259/",

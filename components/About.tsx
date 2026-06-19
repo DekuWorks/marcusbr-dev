@@ -18,14 +18,15 @@ export default function About() {
         >
           <p className="text-lg leading-relaxed text-muted">
             I&apos;m Marcus Brown, a Senior Full-Stack Developer and AI Engineer
-            based in {SITE.location}, focused on building modern SaaS platforms,
-            secure cloud-native systems, mobile apps, and AI-powered products.
+            based in {SITE.location}, with 8+ years of experience building modern
+            SaaS platforms, cloud-native systems, mobile apps, and AI-powered
+            products.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
-            With 5+ years in .NET/C# and 8+ years overall in software
-            development, I specialize in production-grade applications, AWS and
-            Azure deployments, CI/CD automation, and authentication systems
-            aligned with security and compliance best practices.
+            I specialize in React, TypeScript, C#, .NET, Azure and AWS cloud
+            architecture, CI/CD automation, and AI integrations — delivering
+            scalable applications from frontend architecture through backend
+            systems and deployment.
           </p>
           <p className="mt-6 text-lg leading-relaxed text-muted">
             As the founder of{" "}

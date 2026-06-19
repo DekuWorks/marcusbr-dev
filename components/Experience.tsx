@@ -5,13 +5,25 @@ import SectionHeader from "./SectionHeader";
 
 const experiences = [
   {
+    company: "Cipher Spectacle Media",
+    role: "Lead Front-End Developer & AI Engineer",
+    period: "2026 – Present",
+    description:
+      "Leading frontend architecture, AI initiatives, automation systems, and scalable React applications.",
+    highlights: [
+      "Lead frontend architecture for production web applications",
+      "Drive AI initiatives and workflow automation systems",
+      "Build scalable React and TypeScript application experiences",
+    ],
+  },
+  {
     company: "241Runners Awareness",
     role: "Lead Developer",
     period: "2024 – Present",
     description:
-      "Built a React + .NET 8 platform with secure APIs and role-based access control for a production nonprofit client.",
+      "Architected React, React Native, and .NET solutions with Azure cloud infrastructure for a production nonprofit platform.",
     highlights: [
-      "Implemented JWT, OAuth, and 2FA authentication",
+      "Built secure APIs with JWT, OAuth, and 2FA authentication",
       "Designed compliance-focused (HIPAA-style) secure systems",
       "Improved performance by 70% and scaled for high usage",
     ],
@@ -19,37 +31,25 @@ const experiences = [
   {
     company: "Event Garage Parking",
     role: "Lead Backend Developer",
-    period: "2024 – Present",
+    period: "2025 · 3 Months",
     description:
-      "Led backend development for high-traffic event parking systems with cloud deployment and automation.",
+      "Led backend development for high-traffic event parking systems during a focused 3-month engagement.",
     highlights: [
-      "Built Django backend with PostgreSQL",
+      "Designed Django and PostgreSQL backend architecture",
       "Managed AWS EC2 and Docker deployments",
       "Implemented CI/CD pipelines and automation",
     ],
   },
   {
     company: "DekuWorks",
-    role: "Founder / Senior Full-Stack Developer & AI Engineer",
+    role: "Founder & Senior Full-Stack Developer",
     period: "2021 – Present",
     description:
-      "Founded and operate a software studio delivering SaaS products, client platforms, and cloud-native systems.",
+      "Founded and operate a software studio delivering SaaS products, client solutions, and AI integrations.",
     highlights: [
-      "Developed SaaS apps and multi-tenant systems",
+      "Built SaaS products, client platforms, and AI-powered tools",
       "Led full SDLC from planning to deployment",
-      "Built secure cloud-based production systems",
-    ],
-  },
-  {
-    company: "Amptier",
-    role: "Associate Developer",
-    period: "2025",
-    description:
-      "Contributed to EMS dashboards and backend integrations in an Agile delivery environment.",
-    highlights: [
-      "Built EMS dashboards and backend integrations",
-      "Worked in Agile/Scrum environments",
-      "Delivered real-time analytics systems",
+      "Developed secure cloud-based production systems",
     ],
   },
 ];

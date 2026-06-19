@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Marcus Brown is a Senior Full-Stack Developer & AI Engineer with 8+ years building scalable, secure production applications across .NET, React, AWS, Azure, SaaS platforms, and AI-powered products. Founder of DekuWorks.";
+  "Marcus Brown is a Senior Full-Stack Developer and AI Engineer with 8+ years building React, TypeScript, .NET, cloud-native SaaS platforms, and AI-powered products. Founder of DekuWorks.";
 
 export const metadata: Metadata = {
   title: "Marcus Brown | Senior Full-Stack Developer & AI Engineer",
