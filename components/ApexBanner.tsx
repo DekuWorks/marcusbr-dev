@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Download, Mail, MessageSquare, Building2, Layers, Sparkles } from "lucide-react";
+import { Download, Mail, MessageSquare, Brain, Layers, Server } from "lucide-react";
 import Button from "./Button";
 import CopyButton from "./CopyButton";
 
@@ -17,9 +18,9 @@ export const skillTrackers = [
 ];
 
 export const achievementBadges = [
-  { title: "SaaS Founder", icon: Sparkles },
-  { title: "DekuWorks", icon: Building2 },
-  { title: "Senior Full-Stack", icon: Layers },
+  { title: "AI Engineer", icon: Brain },
+  { title: "Senior Full Stack Developer", icon: Layers },
+  { title: "Backend Engineer", icon: Server },
 ];
 
 function TrackerBar({
@@ -64,7 +65,7 @@ function AchievementBadge({
   index,
 }: {
   title: string;
-  icon: typeof Sparkles;
+  icon: typeof Brain;
   index: number;
 }) {
   return (
@@ -91,16 +92,21 @@ function PortraitFrame() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, delay: 0.15 }}
-      className="apex-portrait-wrap mx-auto w-full max-w-[240px] sm:max-w-[260px] lg:mx-0 lg:max-w-none"
+      className="apex-portrait-wrap mx-auto w-full max-w-[240px] sm:max-w-[280px]"
     >
       <div className="apex-portrait-frame">
         <div className="apex-portrait-glow" aria-hidden />
         <div className="apex-portrait-rays" aria-hidden />
         <div className="apex-portrait-arch" aria-hidden />
         <div className="apex-portrait-inner">
-          <div className="apex-avatar">
-            <span className="apex-avatar-initials">MB</span>
-          </div>
+          <Image
+            src="/marcus-brown.jpg"
+            alt="Marcus Brown"
+            width={576}
+            height={1024}
+            className="apex-portrait-image"
+            priority
+          />
         </div>
         <div className="apex-portrait-pedestal" aria-hidden />
       </div>
@@ -110,7 +116,7 @@ function PortraitFrame() {
 
 export default function ApexBanner() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pt-24 pb-16 sm:px-6">
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 pt-24 pb-16 sm:px-6">
       <div className="glow-orb pointer-events-none absolute top-1/4 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2" />
       <div className="glow-orb-gold pointer-events-none absolute right-0 bottom-0 h-[300px] w-[300px] opacity-40" />
 
@@ -127,12 +133,17 @@ export default function ApexBanner() {
             <div className="apex-banner-corner apex-banner-corner-bl" aria-hidden />
             <div className="apex-banner-corner apex-banner-corner-br" aria-hidden />
 
-            <div className="relative z-10 flex flex-col gap-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-start lg:gap-10">
-              <div className="order-2 flex flex-col gap-6 lg:order-1">
+            <div className="relative z-10 flex flex-col items-center gap-8 text-center">
+              <div className="flex w-full justify-center">
+                <PortraitFrame />
+              </div>
+
+              <div className="flex w-full max-w-xl flex-col items-center gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
+                  className="w-full"
                 >
                   <p className="mb-1 text-[10px] font-medium tracking-[0.25em] text-jade uppercase sm:text-xs">
                     marcusbr.dev
@@ -149,15 +160,11 @@ export default function ApexBanner() {
                   ))}
                 </div>
 
-                <div className="flex flex-col gap-2.5 sm:gap-3">
+                <div className="flex w-full max-w-lg flex-col gap-2.5 sm:gap-3">
                   {skillTrackers.map((tracker, index) => (
                     <TrackerBar key={tracker.label} {...tracker} index={index} />
                   ))}
                 </div>
-              </div>
-
-              <div className="order-1 flex items-center justify-center lg:order-2 lg:items-start lg:pt-2">
-                <PortraitFrame />
               </div>
             </div>
           </div>

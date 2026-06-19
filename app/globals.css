@@ -160,6 +160,7 @@ body {
   letter-spacing: -0.02em;
   color: var(--foreground);
   text-shadow: 0 0 20px rgba(62, 180, 137, 0.3);
+  text-align: center;
 }
 
 @media (min-width: 640px) {
@@ -173,13 +174,14 @@ body {
 .apex-badge-stack {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.65rem;
-  padding-left: 0.25rem;
 }
 
 .apex-badge-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -346,9 +348,11 @@ body {
   z-index: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   height: 100%;
   padding: 0 1rem;
+  text-align: center;
 }
 
 .apex-tracker-label {
@@ -363,6 +367,7 @@ body {
 .apex-tracker-value-row {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.35rem;
   margin-top: 2px;
 }
@@ -502,15 +507,25 @@ body {
       var(--gold) 100%
     )
     1;
-  background: linear-gradient(
-    180deg,
-    rgba(21, 28, 24, 0.6) 0%,
-    rgba(13, 19, 16, 0.95) 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba(13, 19, 16, 0.95);
   overflow: hidden;
+  clip-path: polygon(
+    0% 8%,
+    8% 0%,
+    92% 0%,
+    100% 8%,
+    100% 92%,
+    92% 100%,
+    8% 100%,
+    0% 92%
+  );
+}
+
+.apex-portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
 }
 
 .apex-portrait-inner::before {
@@ -519,12 +534,14 @@ body {
   inset: 0;
   border: 1px solid rgba(201, 162, 39, 0.2);
   pointer-events: none;
+  z-index: 1;
 }
 
 .apex-avatar {
   width: 72%;
   aspect-ratio: 1;
   border-radius: 50%;
+  overflow: hidden;
   background: linear-gradient(
     145deg,
     rgba(62, 180, 137, 0.3) 0%,

@@ -35,7 +35,7 @@ export default function Navbar() {
           href="#"
           className="text-lg font-bold text-cream transition-colors hover:text-jade"
         >
-          MB<span className="text-jade">.</span><span className="text-gold">dev</span>
+          Marcus Brown
         </a>
 
         <ul className="hidden items-center gap-8 md:flex">

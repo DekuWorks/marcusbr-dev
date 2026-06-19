@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="grid-background relative min-h-screen overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="flex w-full flex-col items-center">
         <ApexBanner />
         <About />
         <Stats />

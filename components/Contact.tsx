@@ -29,7 +29,7 @@ const contactInfo = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-24">
+    <section id="contact" className="w-full px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <SectionHeader
           title="Let's Build Something"
@@ -41,14 +41,14 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="glass-card rounded-2xl p-8 shadow-glow sm:p-10"
+          className="glass-card rounded-2xl p-8 text-center shadow-glow sm:p-10"
         >
           <div className="mb-8 space-y-4">
             {contactInfo.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="flex items-center gap-4 rounded-lg p-3 transition-colors hover:bg-jade/5"
+                className="flex flex-col items-center gap-2 rounded-lg p-3 transition-colors hover:bg-jade/5 sm:flex-row sm:justify-center sm:gap-4"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-jade/10">
                   <item.icon className="h-5 w-5 text-jade" />
@@ -63,7 +63,7 @@ export default function Contact() {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <Button href="mailto:marcusb0611@gmail.com" variant="primary">
               <Mail className="h-4 w-4" />
               Send Email

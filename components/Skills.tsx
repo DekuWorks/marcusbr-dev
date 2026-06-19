@@ -56,7 +56,7 @@ const skillGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="px-4 py-24 sm:px-6">
+    <section id="skills" className="w-full px-4 py-24 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title="Tech Stack"
@@ -70,17 +70,17 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className={`apex-skill-card rounded-2xl p-6 transition-all hover:border-gold/30 hover:shadow-glow-gold ${
+              className={`apex-skill-card rounded-2xl p-6 text-center transition-all hover:border-gold/30 hover:shadow-glow-gold ${
                 group.title === "AI Engineering"
                   ? "md:col-span-2 lg:col-span-1"
                   : ""
               }`}
             >
-              <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-jade">
+              <h3 className="mb-4 flex items-center justify-center gap-2 text-lg font-semibold text-jade">
                 <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(201,162,39,0.6)]" />
                 {group.title}
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2">
                 {group.skills.map((skill) => (
                   <span
                     key={skill}

@@ -5,7 +5,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function About() {
   return (
-    <section id="about" className="px-6 py-24">
+    <section id="about" className="w-full px-6 py-24">
       <div className="mx-auto max-w-4xl">
         <SectionHeader title="About Me" />
         <motion.div
@@ -13,7 +13,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="glass-card rounded-2xl p-8 shadow-glow-sm sm:p-10"
+          className="glass-card rounded-2xl p-8 text-center shadow-glow-sm sm:p-10"
         >
           <p className="text-lg leading-relaxed text-muted">
             I&apos;m Marcus Brown, a Senior Full-Stack Developer and AI Engineer

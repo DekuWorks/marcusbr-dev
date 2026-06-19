@@ -71,7 +71,7 @@ const statusColors: Record<ProjectStatus, string> = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="px-6 py-24">
+    <section id="projects" className="w-full px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title="Featured Projects"
@@ -85,14 +85,14 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="glass-card group flex flex-col rounded-2xl p-6 transition-all hover:border-jade/25 hover:shadow-glow"
+              className="glass-card group flex flex-col items-center rounded-2xl p-6 text-center transition-all hover:border-jade/25 hover:shadow-glow"
             >
-              <div className="mb-3 flex items-start justify-between gap-3">
+              <div className="mb-3 flex flex-col items-center gap-2">
                 <h3 className="text-xl font-bold text-cream group-hover:text-jade transition-colors">
                   {project.name}
                 </h3>
                 <span
-                  className={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-medium ${statusColors[project.status]}`}
+                  className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${statusColors[project.status]}`}
                 >
                   {project.status}
                 </span>
@@ -100,7 +100,7 @@ export default function Projects() {
               <p className="mb-5 flex-1 text-sm leading-relaxed text-muted">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center gap-2">
                 {project.stack.map((tech) => (
                   <span
                     key={tech}

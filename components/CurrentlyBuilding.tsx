@@ -29,7 +29,7 @@ const building = [
 
 export default function CurrentlyBuilding() {
   return (
-    <section className="px-6 py-24">
+    <section className="w-full px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title="Currently Building"
@@ -43,9 +43,9 @@ export default function CurrentlyBuilding() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="glass-card flex items-start gap-4 rounded-xl p-5 transition-all hover:border-jade/25 hover:shadow-glow-sm"
+              className="glass-card flex flex-col items-center rounded-xl p-5 text-center transition-all hover:border-jade/25 hover:shadow-glow-sm"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-jade/10">
+              <div className="mb-3 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-jade/10">
                 <Hammer className="h-5 w-5 text-jade" />
               </div>
               <div>
