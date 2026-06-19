@@ -5,31 +5,48 @@ import { Mail, MessageSquare, Globe } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import Button from "./Button";
 import CopyButton from "./CopyButton";
+import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
+import { SITE } from "@/lib/site";
+
+const contactButtonClass =
+  "min-w-[140px] justify-center px-4 py-2.5 text-sm sm:min-w-[150px]";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "marcusb0611@gmail.com",
-    href: "mailto:marcusb0611@gmail.com",
+    value: SITE.email,
+    href: `mailto:${SITE.email}`,
   },
   {
     icon: MessageSquare,
     label: "Phone",
-    value: "8645247473",
-    href: "sms:8645247473",
+    value: SITE.phone,
+    href: `sms:${SITE.phone}`,
   },
   {
     icon: Globe,
     label: "Website",
     value: "marcusbr.dev",
-    href: "https://marcusbr.dev",
+    href: SITE.url,
+  },
+  {
+    icon: GitHubIcon,
+    label: "GitHub",
+    value: "DekuWorks",
+    href: SITE.social.github,
+  },
+  {
+    icon: LinkedInIcon,
+    label: "LinkedIn",
+    value: "Marcus Brown",
+    href: SITE.social.linkedin,
   },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="w-full px-6 py-24">
+    <section id="contact" className="w-full px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-3xl">
         <SectionHeader
           title="Let's Build Something"
@@ -64,25 +81,51 @@ export default function Contact() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Button href="mailto:marcusb0611@gmail.com" variant="primary">
-              <Mail className="h-4 w-4" />
+            <Button
+              href={`mailto:${SITE.email}`}
+              variant="primary"
+              className={contactButtonClass}
+            >
+              <Mail className="h-4 w-4" aria-hidden />
               Send Email
             </Button>
-            <Button href="sms:8645247473" variant="secondary">
-              <MessageSquare className="h-4 w-4" />
+            <Button
+              href={`sms:${SITE.phone}`}
+              variant="secondary"
+              className={contactButtonClass}
+            >
+              <MessageSquare className="h-4 w-4" aria-hidden />
               Text Me
             </Button>
+            <Button
+              href={SITE.social.github}
+              variant="secondary"
+              className={contactButtonClass}
+            >
+              <GitHubIcon className="h-4 w-4" />
+              GitHub
+            </Button>
+            <Button
+              href={SITE.social.linkedin}
+              variant="secondary"
+              className={contactButtonClass}
+            >
+              <LinkedInIcon className="h-4 w-4" />
+              LinkedIn
+            </Button>
             <CopyButton
-              text="marcusb0611@gmail.com"
+              text={SITE.email}
               label="Copy Email"
               copiedLabel="Copied"
               variant="ghost"
+              className={contactButtonClass}
             />
             <CopyButton
-              text="8645247473"
+              text={SITE.phone}
               label="Copy Phone"
               copiedLabel="Copied"
               variant="ghost"
+              className={contactButtonClass}
             />
           </div>
         </motion.div>

@@ -5,7 +5,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function About() {
   return (
-    <section id="about" className="w-full px-6 py-24">
+    <section id="about" className="w-full px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <SectionHeader title="About Me" />
         <motion.div

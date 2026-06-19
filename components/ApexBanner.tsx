@@ -2,14 +2,21 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Download, Mail, MessageSquare, Brain, Layers, Server } from "lucide-react";
+import {
+  Download,
+  Mail,
+  MessageSquare,
+  Brain,
+  Layers,
+  Server,
+} from "lucide-react";
 import Button from "./Button";
 import CopyButton from "./CopyButton";
+import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
+import { CONTACT_TEXT, SITE } from "@/lib/site";
 
-const contactText = `Marcus Brown
-Email: marcusb0611@gmail.com
-Phone: 8645247473
-Website: marcusbr.dev`;
+const contactButtonClass =
+  "min-w-[140px] justify-center px-4 py-2.5 text-sm sm:min-w-[150px]";
 
 export const skillTrackers = [
   { label: "Full-Stack", value: "7+", unit: "Years" },
@@ -152,6 +159,9 @@ export default function ApexBanner() {
                   <p className="mt-1 text-sm font-medium text-gold-light sm:text-base">
                     Senior Full-Stack Developer &amp; AI Engineer
                   </p>
+                  <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted sm:text-base">
+                    {SITE.recruiterSummary}
+                  </p>
                 </motion.div>
 
                 <div className="apex-badge-stack">
@@ -175,24 +185,56 @@ export default function ApexBanner() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.45 }}
           className="mt-8 flex flex-wrap items-center justify-center gap-3"
+          role="group"
+          aria-label="Contact actions"
         >
-          <Button href="/Marcus-Brown-Resume.pdf" download variant="primary">
-            <Download className="h-4 w-4" />
+          <Button
+            href="/Marcus-Brown-Resume.pdf"
+            download
+            variant="primary"
+            className={contactButtonClass}
+          >
+            <Download className="h-4 w-4" aria-hidden />
             Download Resume
           </Button>
-          <Button href="mailto:marcusb0611@gmail.com" variant="secondary">
-            <Mail className="h-4 w-4" />
+          <Button
+            href={`mailto:${SITE.email}`}
+            variant="secondary"
+            className={contactButtonClass}
+          >
+            <Mail className="h-4 w-4" aria-hidden />
             Email Me
           </Button>
-          <Button href="sms:8645247473" variant="secondary">
-            <MessageSquare className="h-4 w-4" />
+          <Button
+            href={`sms:${SITE.phone}`}
+            variant="secondary"
+            className={contactButtonClass}
+          >
+            <MessageSquare className="h-4 w-4" aria-hidden />
             Text Me
           </Button>
+          <Button
+            href={SITE.social.github}
+            variant="secondary"
+            className={contactButtonClass}
+          >
+            <GitHubIcon className="h-4 w-4" />
+            GitHub
+          </Button>
+          <Button
+            href={SITE.social.linkedin}
+            variant="secondary"
+            className={contactButtonClass}
+          >
+            <LinkedInIcon className="h-4 w-4" />
+            LinkedIn
+          </Button>
           <CopyButton
-            text={contactText}
+            text={CONTACT_TEXT}
             label="Copy Contact"
             copiedLabel="Contact copied."
             variant="ghost"
+            className={contactButtonClass}
           />
         </motion.div>
       </div>

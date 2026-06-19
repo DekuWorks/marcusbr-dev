@@ -56,7 +56,7 @@ const skillGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="w-full px-4 py-24 sm:px-6">
+    <section id="skills" className="w-full px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title="Tech Stack"

@@ -30,7 +30,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="w-full px-6 py-24">
+    <section className="w-full px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeader title="Process" subtitle="How I approach every project" />
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
