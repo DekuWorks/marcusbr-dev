@@ -40,7 +40,7 @@ const projects: Project[] = [
       "React Native",
     ],
     status: "Production / Active Client",
-    url: "https://www.241RunnerAwareness.org",
+    url: "https://241runnersawareness.org",
   },
   {
     name: "Bookmarked",
