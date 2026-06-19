@@ -34,39 +34,34 @@ npm start       # Serve production build (after build)
 
 ## GitHub Pages Deployment
 
-This project is configured for static export and GitHub Pages deployment.
+The site auto-deploys on every push to `main` via `.github/workflows/deploy.yml`.
 
-### 1. Push to GitHub
+- **Repository:** [DekuWorks/marcusbr-dev](https://github.com/DekuWorks/marcusbr-dev)
+- **Domain:** [marcusbr.dev](https://marcusbr.dev)
 
-Create a repository named `marcusbr-dev` (or your preferred name) and push this project to the `main` branch.
+### GitHub Pages Settings
 
-### 2. Enable GitHub Pages
+In **Settings → Pages**:
 
-1. Go to your repository **Settings → Pages**
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. The workflow in `.github/workflows/deploy.yml` runs automatically on every push to `main`
+1. **Source:** GitHub Actions
+2. **Custom domain:** `marcusbr.dev`
+3. **Enforce HTTPS:** enabled
 
-### 3. Custom Domain
+### GoDaddy DNS
 
-The `public/CNAME` file is configured for:
+Configure these records at GoDaddy:
 
-```
-marcusbr.dev
-```
+| Type  | Name | Value                  |
+| ----- | ---- | ---------------------- |
+| A     | @    | 185.199.108.153        |
+| A     | @    | 185.199.109.153        |
+| A     | @    | 185.199.110.153        |
+| A     | @    | 185.199.111.153        |
+| CNAME | www  | dekuworks.github.io    |
 
-In **Settings → Pages → Custom domain**, enter `marcusbr.dev` and configure your DNS:
+The `public/CNAME` file contains `marcusbr.dev` for GitHub Pages custom domain support.
 
-| Type  | Name | Value              |
-| ----- | ---- | ------------------ |
-| A     | @    | 185.199.108.153    |
-| A     | @    | 185.199.109.153    |
-| A     | @    | 185.199.110.153    |
-| A     | @    | 185.199.111.153    |
-| CNAME | www  | `<username>.github.io` |
-
-Enable **Enforce HTTPS** once DNS propagates.
-
-### 4. Replace Resume
+### Replace Resume
 
 Replace `public/Marcus-Brown-Resume.pdf` with your actual resume PDF. The download button in the Hero section links to this file.
 
