@@ -60,10 +60,10 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       asset("shuchu", "screenshot-04.webp"),
     ],
     screenshotAlts: [
-      "Shuchu login screen with Sign in with Apple and offline mode",
-      "Shuchu goals overview screen",
-      "Shuchu task details view",
-      "Shuchu progress and insights screen",
+      "Shuchu Today home dashboard with focus session card",
+      "Shuchu focus session hub screen",
+      "Shuchu tasks list with add task action",
+      "Shuchu insights and focus score screen",
     ],
     technologies: [
       "React Native",
@@ -194,7 +194,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     caseStudyUrl: "/projects/bookmarked/",
     featured: true,
     filters: ["saas", "client"],
-    conceptUI: false,
+    conceptUI: true,
     problem:
       "Readers use fragmented tools for tracking, reviews, clubs, and events — losing community connection and discovery opportunities.",
     solution:
@@ -231,9 +231,9 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     ],
     screenshotAlts: [
       "Avryo net-worth dashboard overview",
-      "Avryo connected accounts screen",
-      "Avryo spending breakdown chart",
-      "Avryo AI financial health insights screen",
+      "Avryo Hub accounts and money management screen",
+      "Avryo activity transactions feed",
+      "Avryo AI financial assistant screen",
     ],
     technologies: [
       "React Native",
@@ -291,8 +291,8 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       asset("gridlock", "screenshot-04.webp"),
     ],
     screenshotAlts: [
-      "Gridlock inventory dashboard",
-      "Gridlock individual item profile",
+      "Gridlock sign-in screen for secure armory access",
+      "Gridlock welcome landing screen with brand identity",
       "Gridlock loadout and accessory organizer",
       "Gridlock bill-of-sale document generator preview",
     ],

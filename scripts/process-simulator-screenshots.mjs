@@ -10,41 +10,64 @@ const TMP = path.join(ROOT, "tmp-screenshots");
 const PUBLIC = path.join(ROOT, "public", "projects");
 
 const captures = [
-  { id: "shuchu", file: "shuchu-raw-01.png", slots: [1] },
-  { id: "avryo", file: "avryo-raw-01.png", slots: [1] },
+  {
+    id: "shuchu",
+    files: [
+      { file: "shuchu-raw-01.png", slot: 1 },
+      { file: "shuchu-raw-02.png", slot: 2 },
+      { file: "shuchu-raw-03.png", slot: 3 },
+      { file: "shuchu-raw-04.png", slot: 4 },
+    ],
+  },
+  {
+    id: "avryo",
+    files: [
+      { file: "avryo-raw-01.png", slot: 1 },
+      { file: "avryo-raw-02.png", slot: 2 },
+      { file: "avryo-raw-03.png", slot: 3 },
+      { file: "avryo-raw-04.png", slot: 4 },
+    ],
+  },
+  {
+    id: "gridlock",
+    files: [
+      { file: "gridlock-raw-01.png", slot: 1 },
+      { file: "gridlock-raw-03.png", slot: 2 },
+    ],
+  },
 ];
 
-async function processCapture({ id, file, slots }) {
+async function processCapture({ id, file, slot }) {
   const input = path.join(TMP, file);
   if (!fs.existsSync(input)) {
-    console.warn(`⚠ Skipping ${id}: ${file} not found`);
+    console.warn(`⚠ Skipping ${id} slot ${slot}: ${file} not found`);
     return false;
   }
 
   const dir = path.join(PUBLIC, id);
   fs.mkdirSync(dir, { recursive: true });
 
-  for (const slot of slots) {
-    const base = `screenshot-0${slot}`;
-    const pngPath = path.join(dir, `${base}.png`);
-    const webpPath = path.join(dir, `${base}.webp`);
+  const base = `screenshot-0${slot}`;
+  const pngPath = path.join(dir, `${base}.png`);
+  const webpPath = path.join(dir, `${base}.webp`);
 
-    await sharp(input)
-      .resize(390, 844, { fit: "cover", position: "top" })
-      .png({ quality: 90 })
-      .toFile(pngPath);
+  await sharp(input)
+    .resize(390, 844, { fit: "cover", position: "top" })
+    .png({ quality: 90 })
+    .toFile(pngPath);
 
-    await sharp(pngPath).webp({ quality: 82 }).toFile(webpPath);
-    console.log(`✓ ${id}/${base}.webp`);
-  }
-
+  await sharp(pngPath).webp({ quality: 82 }).toFile(webpPath);
+  console.log(`✓ ${id}/${base}.webp`);
   return true;
 }
 
 async function main() {
   const results = [];
   for (const capture of captures) {
-    results.push({ id: capture.id, ok: await processCapture(capture) });
+    for (const { file, slot } of capture.files) {
+      const ok = await processCapture({ id: capture.id, file, slot });
+      results.push({ id: capture.id, slot, ok });
+    }
   }
   console.log(JSON.stringify(results, null, 2));
 }

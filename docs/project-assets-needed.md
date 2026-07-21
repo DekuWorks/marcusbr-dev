@@ -4,54 +4,44 @@ Track approved final assets for the Featured Products section.
 
 ## App Icons
 
-- [ ] DayPilot approved app icon — **placeholder generated**
 - [x] Bookmarked approved app icon
 - [x] Gridlock approved app icon
 - [x] Shuchu approved app icon
 - [x] Avryo approved app icon
 
-## DayPilot Screenshots
-
-- [x] DayPilot calendar dashboard screenshot (production) — `screenshot-01` captured from https://www.daypilot.co
-- [ ] DayPilot team scheduling screenshot (production)
-- [ ] DayPilot AI assistant screenshot (production)
-- [ ] DayPilot workflow automation screenshot (production)
-
 ## Bookmarked Screenshots
 
-- [x] Bookmarked Library page screenshot (production) — `screenshot-01` captured from https://www.bookmarked.online/library
+- [ ] Bookmarked dashboard screenshot (production) — **blocked: missing `babel-preset-expo` in mobile app; Metro bundle fails**
 - [ ] Bookmarked book-details screenshot (production)
 - [ ] Bookmarked book club / community screenshot (production)
 - [ ] Bookmarked events / messaging screenshot (production)
 
 ## Gridlock Screenshots
 
-- [ ] Gridlock inventory screenshot (production) — **blocked: simulator build error (`PlatformConstants` not found)**
-- [ ] Gridlock record-details screenshot (production)
-- [ ] Gridlock loadout organizer screenshot (production)
-- [ ] Gridlock bill-of-sale preview screenshot (production)
+- [x] Gridlock sign-in screenshot (production) — `screenshot-01` captured from iOS simulator
+- [x] Gridlock welcome landing screenshot (production) — `screenshot-02` captured from iOS simulator
+- [ ] Gridlock inventory dashboard screenshot (production) — **blocked: requires authenticated session**
+- [ ] Gridlock loadout organizer screenshot (production) — concept placeholder retained
+- [ ] Gridlock bill-of-sale preview screenshot (production) — concept placeholder retained
 
 ## Shuchu Screenshots
 
-- [x] Shuchu login / onboarding screenshot (production) — `screenshot-01` captured from iOS simulator
-- [ ] Shuchu Today dashboard screenshot (production)
-- [ ] Shuchu goals screenshot (production)
-- [ ] Shuchu task details screenshot (production)
-- [ ] Shuchu progress / insights screenshot (production)
+- [x] Shuchu Today home dashboard screenshot (production) — `screenshot-01`
+- [x] Shuchu focus session hub screenshot (production) — `screenshot-02`
+- [x] Shuchu tasks list screenshot (production) — `screenshot-03`
+- [x] Shuchu insights screen screenshot (production) — `screenshot-04`
 
 ## Avryo Screenshots
 
-- [x] Avryo net-worth dashboard screenshot (production) — `screenshot-01` captured from iOS simulator
-- [ ] Avryo account overview screenshot (production)
-- [ ] Avryo spending breakdown screenshot (production)
-- [ ] Avryo AI insights screenshot (production)
+- [x] Avryo net-worth dashboard screenshot (production) — `screenshot-01`
+- [x] Avryo Hub accounts screen screenshot (production) — `screenshot-02`
+- [x] Avryo activity transactions screenshot (production) — `screenshot-03`
+- [x] Avryo AI assistant screenshot (production) — `screenshot-04`
 
 ## Notes
 
-- DayPilot `screenshot-02` through `screenshot-04` remain **Concept UI** placeholders until additional production screens are captured.
-- DayPilot approved app icon is still a placeholder.
-- `screenshot-02` through `screenshot-04` for Shuchu and Avryo remain **Concept UI** placeholders until additional simulator screens are captured.
-- Bookmarked `screenshot-02` through `screenshot-04` remain **Concept UI** placeholders until additional production screens are captured.
-- Gridlock simulator builds currently crash on launch with a React Native `PlatformConstants` TurboModule error — placeholders retained.
+- Shuchu and Avryo now use four production simulator captures each (`conceptUI: false`).
+- Gridlock has two production auth/onboarding screens; `screenshot-03` and `screenshot-04` remain concept UI until login credentials are available for simulator capture.
+- Bookmarked mobile simulator builds fail on Metro (`babel-preset-expo` missing); concept placeholders retained.
 - Capture script: `scripts/process-simulator-screenshots.mjs` (processes raw PNGs from `tmp-screenshots/`).
 - Do not display sensitive serial numbers, private owner information, or real financial account data in public screenshots.
