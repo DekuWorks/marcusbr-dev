@@ -147,13 +147,13 @@ export default function Hero() {
         >
           <div className="relative mx-auto aspect-[3/4] w-full max-w-[300px] sm:max-w-[320px] lg:max-w-[340px]">
             <div className="hero-portrait-glow" aria-hidden />
-            <div className="relative h-full overflow-hidden rounded-2xl border border-jade-border bg-transparent shadow-glow">
+            <div className="relative h-full overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310] shadow-glow">
               <Image
                 src="/marcus-brown.webp"
                 alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
                 width={576}
                 height={1024}
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full rounded-2xl object-cover object-top"
                 priority
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-4 pt-16">
