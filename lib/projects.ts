@@ -119,7 +119,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       asset("daypilot", "screenshot-04.webp"),
     ],
     screenshotAlts: [
-      "DayPilot calendar dashboard overview",
+      "DayPilot dashboard with tasks, schedule, and Pilot Brief AI",
       "DayPilot team scheduling view",
       "DayPilot AI scheduling assistant",
       "DayPilot workflow automation settings",
@@ -138,7 +138,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     caseStudyUrl: "/projects/daypilot/",
     featured: true,
     filters: ["saas", "ai"],
-    conceptUI: true,
+    conceptUI: false,
     problem:
       "Teams waste hours coordinating schedules, rescheduling meetings, and juggling calendars across tools — manual scheduling does not scale.",
     solution:
