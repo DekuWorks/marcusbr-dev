@@ -174,7 +174,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       asset("bookmarked", "screenshot-04.webp"),
     ],
     screenshotAlts: [
-      "Bookmarked discovery and home dashboard",
+      "Bookmarked Library page with bookshelf view and reading shelves",
       "Bookmarked book details and reading tracker",
       "Bookmarked book club and community screen",
       "Bookmarked events and messaging screen",
@@ -194,7 +194,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     caseStudyUrl: "/projects/bookmarked/",
     featured: true,
     filters: ["saas", "client"],
-    conceptUI: true,
+    conceptUI: false,
     problem:
       "Readers use fragmented tools for tracking, reviews, clubs, and events — losing community connection and discovery opportunities.",
     solution:

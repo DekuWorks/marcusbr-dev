@@ -19,7 +19,7 @@ Track approved final assets for the Featured Products section.
 
 ## Bookmarked Screenshots
 
-- [ ] Bookmarked dashboard screenshot (production) — **blocked: simulator build error (`PlatformConstants` not found)**
+- [x] Bookmarked Library page screenshot (production) — `screenshot-01` captured from https://www.bookmarked.online/library
 - [ ] Bookmarked book-details screenshot (production)
 - [ ] Bookmarked book club / community screenshot (production)
 - [ ] Bookmarked events / messaging screenshot (production)
@@ -50,6 +50,7 @@ Track approved final assets for the Featured Products section.
 
 - DayPilot icon and screenshots are **Concept UI** placeholders until production assets are captured from https://www.daypilot.co.
 - `screenshot-02` through `screenshot-04` for Shuchu and Avryo remain **Concept UI** placeholders until additional simulator screens are captured.
-- Bookmarked and Gridlock simulator builds currently crash on launch with a React Native `PlatformConstants` TurboModule error — placeholders retained.
+- Bookmarked `screenshot-02` through `screenshot-04` remain **Concept UI** placeholders until additional production screens are captured.
+- Gridlock simulator builds currently crash on launch with a React Native `PlatformConstants` TurboModule error — placeholders retained.
 - Capture script: `scripts/process-simulator-screenshots.mjs` (processes raw PNGs from `tmp-screenshots/`).
 - Do not display sensitive serial numbers, private owner information, or real financial account data in public screenshots.
