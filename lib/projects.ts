@@ -194,7 +194,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     caseStudyUrl: "/projects/bookmarked/",
     featured: true,
     filters: ["saas", "client"],
-    conceptUI: true,
+    conceptUI: false,
     problem:
       "Readers use fragmented tools for tracking, reviews, clubs, and events — losing community connection and discovery opportunities.",
     solution:
