@@ -104,6 +104,61 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       "Simplicity wins — users respond better to clear tasks and goals than gamified complexity. Mobile-first focus sessions drive daily engagement.",
   },
   {
+    id: "daypilot",
+    name: "DayPilot",
+    category: "AI-Powered Calendar and Scheduling Platform",
+    synopsis:
+      "DayPilot is an AI-powered calendar and scheduling platform for individuals, teams, and businesses.",
+    longDescription:
+      "DayPilot combines intelligent scheduling, automated workflows, and AI-driven productivity tools to help individuals, teams, and businesses reduce manual coordination and scale operations.",
+    icon: asset("daypilot", "icon.webp"),
+    screenshots: [
+      asset("daypilot", "screenshot-01.webp"),
+      asset("daypilot", "screenshot-02.webp"),
+      asset("daypilot", "screenshot-03.webp"),
+      asset("daypilot", "screenshot-04.webp"),
+    ],
+    screenshotAlts: [
+      "DayPilot calendar dashboard overview",
+      "DayPilot team scheduling view",
+      "DayPilot AI scheduling assistant",
+      "DayPilot workflow automation settings",
+    ],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Supabase",
+      "Tailwind CSS",
+    ],
+    status: "In Development",
+    statusLabel: "AI Scheduling SaaS",
+    accent: "#818CF8",
+    liveUrl: "https://www.daypilot.co",
+    caseStudyUrl: "/projects/daypilot/",
+    featured: true,
+    filters: ["saas", "ai"],
+    conceptUI: true,
+    problem:
+      "Teams waste hours coordinating schedules, rescheduling meetings, and juggling calendars across tools — manual scheduling does not scale.",
+    solution:
+      "DayPilot uses AI to automate scheduling workflows, surface optimal meeting times, and unify calendars for individuals, teams, and businesses in one platform.",
+    features: [
+      "Unified calendar dashboard for individuals and teams",
+      "AI-assisted scheduling and availability matching",
+      "Automated meeting coordination and reminders",
+      "Team and business scheduling workflows",
+      "Integration-ready architecture with Supabase backend",
+      "Responsive web experience built with Next.js",
+    ],
+    architecture:
+      "Next.js + React web app with TypeScript, Supabase for auth and data, and an AI layer for intelligent scheduling suggestions and workflow automation.",
+    developmentFocus:
+      "Shipping core calendar views, AI scheduling assistant, and team coordination features while refining the onboarding flow for business accounts.",
+    lessonsLearned:
+      "Scheduling UX lives or dies on speed — users need instant clarity on availability before AI suggestions add value.",
+  },
+  {
     id: "bookmarked",
     name: "Bookmarked",
     category: "Social Reading and Book Discovery Platform",
@@ -283,6 +338,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
 
 export const FEATURED_PROJECT_ORDER = [
   "shuchu",
+  "daypilot",
   "bookmarked",
   "avryo",
   "gridlock",

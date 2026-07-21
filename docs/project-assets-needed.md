@@ -4,10 +4,18 @@ Track approved final assets for the Featured Products section.
 
 ## App Icons
 
+- [ ] DayPilot approved app icon — **placeholder generated**
 - [x] Bookmarked approved app icon
 - [x] Gridlock approved app icon
 - [x] Shuchu approved app icon
 - [x] Avryo approved app icon
+
+## DayPilot Screenshots
+
+- [ ] DayPilot calendar dashboard screenshot (production)
+- [ ] DayPilot team scheduling screenshot (production)
+- [ ] DayPilot AI assistant screenshot (production)
+- [ ] DayPilot workflow automation screenshot (production)
 
 ## Bookmarked Screenshots
 
@@ -40,6 +48,7 @@ Track approved final assets for the Featured Products section.
 
 ## Notes
 
+- DayPilot icon and screenshots are **Concept UI** placeholders until production assets are captured from https://www.daypilot.co.
 - `screenshot-02` through `screenshot-04` for Shuchu and Avryo remain **Concept UI** placeholders until additional simulator screens are captured.
 - Bookmarked and Gridlock simulator builds currently crash on launch with a React Native `PlatformConstants` TurboModule error — placeholders retained.
 - Capture script: `scripts/process-simulator-screenshots.mjs` (processes raw PNGs from `tmp-screenshots/`).

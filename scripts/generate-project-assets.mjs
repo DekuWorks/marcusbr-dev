@@ -14,6 +14,19 @@ const PUBLIC = path.join(ROOT, "public", "projects");
 
 const projects = [
   {
+    id: "daypilot",
+    name: "DayPilot",
+    accent: "#818CF8",
+    iconLetter: "D",
+    screens: [
+      { title: "Calendar", subtitle: "Week at a glance" },
+      { title: "Team Schedule", subtitle: "Shared availability" },
+      { title: "AI Assistant", subtitle: "Smart scheduling" },
+      { title: "Workflows", subtitle: "Automated coordination" },
+    ],
+    mobile: false,
+  },
+  {
     id: "bookmarked",
     name: "Bookmarked",
     accent: "#E8B86D",
@@ -152,7 +165,17 @@ async function writeImage(dir, name, svg, width, height) {
 }
 
 async function main() {
-  for (const project of projects) {
+  const onlyId = process.argv.find((arg) => arg.startsWith("--only="))?.split("=")[1];
+  const selected = onlyId
+    ? projects.filter((project) => project.id === onlyId)
+    : projects;
+
+  if (onlyId && selected.length === 0) {
+    console.error(`Unknown project id: ${onlyId}`);
+    process.exit(1);
+  }
+
+  for (const project of selected) {
     const dir = path.join(PUBLIC, project.id);
     fs.mkdirSync(dir, { recursive: true });
 
