@@ -9,7 +9,10 @@ const config: Config = {
     extend: {
       colors: {
         background: "#0D1310",
+        "background-secondary": "#101813",
         jade: "#3EB489",
+        "jade-bright": "#4ADE9A",
+        "jade-border": "rgba(62, 180, 137, 0.22)",
         cream: "#EEE7DC",
         card: "#151C18",
         muted: "#B7B2A8",

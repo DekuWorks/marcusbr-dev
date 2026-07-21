@@ -70,25 +70,63 @@ Replace `public/Marcus-Brown-Resume.pdf` with your actual resume PDF. The downlo
 ```
 marcusbr-dev/
 ├── app/
-│   ├── globals.css      # Brand theme & utilities
-│   ├── layout.tsx       # Root layout & metadata
-│   └── page.tsx         # Main portfolio page
-├── components/          # Section & UI components
-├── public/
-│   ├── CNAME            # Custom domain for GitHub Pages
-│   └── Marcus-Brown-Resume.pdf
+│   ├── globals.css           # Brand theme & utilities
+│   ├── layout.tsx            # Root layout & metadata
+│   ├── page.tsx              # Main portfolio page
+│   └── projects/[slug]/      # Featured product detail pages
+├── components/
+│   ├── projects/             # Featured product cards & gallery
+│   └── sections/             # Page sections (FeaturedProducts)
+├── lib/
+│   ├── projects.ts           # Typed featured product data model
+│   └── site.ts               # Site metadata & contact info
+├── public/projects/          # Per-project icons & screenshots
+│   ├── bookmarked/
+│   ├── gridlock/
+│   ├── shuchu/
+│   └── avryo/
+├── docs/
+│   └── project-assets-needed.md
+├── scripts/
+│   └── generate-project-assets.mjs
 ├── .github/workflows/
-│   └── deploy.yml       # GitHub Pages CI/CD
-├── next.config.ts       # Static export config
-└── tailwind.config.ts   # Brand colors & theme
+│   └── deploy.yml            # GitHub Pages CI/CD
+├── next.config.ts            # Static export config
+└── tailwind.config.ts        # Brand colors & theme
 ```
+
+## Featured Products Architecture
+
+The **Featured Products** section (`components/sections/FeaturedProjects.tsx`) showcases four platforms:
+
+1. **Shuchu** — Focus and goal management
+2. **Bookmarked** — Social reading platform
+3. **Avryo** — Unified financial intelligence
+4. **Gridlock** — Secure ownership management
+
+- **Data model:** `lib/projects.ts` (`FeaturedProject` type)
+- **Cards:** `components/projects/FeaturedProjectCard.tsx`
+- **Gallery:** `components/projects/ProjectScreenshotGallery.tsx` (carousel + lightbox)
+- **Detail pages:** `app/projects/[slug]/page.tsx` with `generateStaticParams` for static export
+- **Assets:** `public/projects/{id}/icon.png`, `icon.webp`, `screenshot-0X.webp`
+
+Regenerate concept UI placeholders:
+
+```bash
+node scripts/generate-project-assets.mjs
+```
+
+See `docs/project-assets-needed.md` for the asset checklist.
 
 ## Brand Colors
 
 | Token      | Hex       |
 | ---------- | --------- |
 | Background | `#0D1310` |
+| Secondary Background | `#101813` |
 | Jade Green | `#3EB489` |
+| Jade Bright | `#4ADE9A` |
+| Jade Border | `rgba(62, 180, 137, 0.22)` |
 | Cream Text | `#EEE7DC` |
 | Card       | `#151C18` |
 | Muted Text | `#B7B2A8` |

@@ -108,8 +108,8 @@ function PortraitFrame() {
         <div className="apex-portrait-arch" aria-hidden />
         <div className="apex-portrait-inner">
           <Image
-            src="/marcus-brown.jpg"
-            alt="Marcus Brown"
+            src="/marcus-brown.webp"
+            alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
             width={576}
             height={1024}
             className="apex-portrait-image"

@@ -1,62 +1,145 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Hammer } from "lucide-react";
-import SectionHeader from "./SectionHeader";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Zap } from "lucide-react";
+import Image from "next/image";
 
 const building = [
   {
-    name: "Cipher Jobs",
-    description: "AI-powered job platform at Cipher Spectacle Media",
-  },
-  {
     name: "DayPilot",
     description: "AI scheduling SaaS",
+    status: "75% Complete",
+    progress: 75,
+    icon: "/projects/avryo/icon.webp",
   },
   {
     name: "241Runners AI",
     description: "Image matching, chatbot, predictive sightings",
+    status: "Active",
+    progress: null,
+    icon: null,
   },
   {
     name: "Bookmarked",
     description: "Book tracking and social reader platform",
+    status: "Active Client",
+    progress: null,
+    icon: "/projects/bookmarked/icon.webp",
   },
   {
     name: "SoleVault",
     description: "Custom sneaker box ordering platform",
+    status: "Planning",
+    progress: null,
+    icon: null,
   },
   {
-    name: "DekuWorks",
-    description: "Software and creative technology brand",
+    name: "ForgeOne",
+    description: "Productivity and workflow tooling",
+    status: "In Research",
+    progress: null,
+    icon: null,
   },
-];
+] as const;
 
 export default function CurrentlyBuilding() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section className="w-full px-4 py-20 sm:px-6 sm:py-24">
+    <section
+      id="building"
+      aria-labelledby="building-heading"
+      className="w-full px-4 py-16 sm:px-6 sm:py-20"
+    >
       <div className="mx-auto max-w-6xl">
-        <SectionHeader
-          title="Currently Building"
-          subtitle="Active focus areas and work in progress"
-        />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {building.map((item, index) => (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="glass-card flex flex-col items-center rounded-xl p-5 text-center transition-all hover:border-jade/25 hover:shadow-glow-sm"
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-jade uppercase">
+              <Zap className="h-4 w-4" aria-hidden />
+              Currently Building
+            </p>
+            <h2
+              id="building-heading"
+              className="text-2xl font-bold text-cream sm:text-3xl"
             >
-              <div className="mb-3 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-jade/10">
-                <Hammer className="h-5 w-5 text-jade" />
+              Active Focus Areas
+            </h2>
+          </div>
+          <a
+            href="#projects"
+            className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+          >
+            View All Projects
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </a>
+        </div>
+
+        <div
+          className="carousel-track flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+          role="list"
+          aria-label="Projects currently in development"
+        >
+          {building.map((item, index) => (
+            <motion.article
+              key={item.name}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.35,
+                delay: prefersReducedMotion ? 0 : index * 0.06,
+              }}
+              role="listitem"
+              className="glass-card w-[min(100%,280px)] shrink-0 snap-start rounded-xl p-5 transition-all hover:border-jade/25 hover:shadow-glow-sm sm:w-[300px]"
+            >
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-jade-border bg-jade/10">
+                  {item.icon ? (
+                    <Image
+                      src={item.icon}
+                      alt=""
+                      width={44}
+                      height={44}
+                      className="h-full w-full object-cover"
+                      aria-hidden
+                    />
+                  ) : (
+                    <Zap className="h-5 w-5 text-jade" aria-hidden />
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-cream">{item.name}</h3>
+                  <p className="mt-1 text-sm text-muted">{item.description}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-cream">{item.name}</h3>
-                <p className="mt-1 text-sm text-muted">{item.description}</p>
-              </div>
-            </motion.div>
+              {item.progress !== null ? (
+                <div className="mt-4">
+                  <div className="mb-1 flex items-center justify-between text-xs">
+                    <span className="text-muted">{item.status}</span>
+                    <span className="font-medium text-jade-bright">
+                      {item.progress}%
+                    </span>
+                  </div>
+                  <div
+                    className="h-1.5 overflow-hidden rounded-full bg-jade/10"
+                    role="progressbar"
+                    aria-valuenow={item.progress}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label={`${item.name} progress`}
+                  >
+                    <div
+                      className="h-full rounded-full bg-jade"
+                      style={{ width: `${item.progress}%` }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <p className="mt-4 text-xs font-semibold tracking-wide text-jade-bright uppercase">
+                  {item.status}
+                </p>
+              )}
+            </motion.article>
           ))}
         </div>
       </div>

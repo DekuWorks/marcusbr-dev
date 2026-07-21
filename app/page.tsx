@@ -1,17 +1,10 @@
 import Navbar from "@/components/Navbar";
-import ApexBanner from "@/components/ApexBanner";
-import TechBanner from "@/components/TechBanner";
-import About from "@/components/About";
-import Stats from "@/components/Stats";
-import AvailableFor from "@/components/AvailableFor";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import ResultsImpact from "@/components/ResultsImpact";
+import Hero from "@/components/Hero";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
-import Education from "@/components/Education";
+import FeaturedProjects from "@/components/sections/FeaturedProjects";
+import AboutStatsTech from "@/components/sections/AboutStatsTech";
 import Experience from "@/components/Experience";
-import Process from "@/components/Process";
-import Contact from "@/components/Contact";
+import CTABar from "@/components/CTABar";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,19 +12,12 @@ export default function Home() {
     <div className="grid-background relative min-h-screen overflow-x-hidden">
       <Navbar />
       <main className="flex w-full flex-col items-center">
-        <ApexBanner />
-        <TechBanner />
-        <About />
-        <Stats />
-        <AvailableFor />
-        <Skills />
-        <Projects />
-        <ResultsImpact />
+        <Hero />
         <CurrentlyBuilding />
+        <FeaturedProjects />
+        <AboutStatsTech />
         <Experience />
-        <Education />
-        <Process />
-        <Contact />
+        <CTABar />
       </main>
       <Footer />
     </div>

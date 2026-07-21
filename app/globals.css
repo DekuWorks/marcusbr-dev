@@ -3,8 +3,11 @@
 
 :root {
   --background: #0d1310;
+  --background-secondary: #101813;
   --foreground: #eee7dc;
   --jade: #3eb489;
+  --jade-bright: #4ade9a;
+  --jade-border: rgba(62, 180, 137, 0.22);
   --card: #151c18;
   --muted: #b7b2a8;
   --gold: #c9a227;
@@ -15,8 +18,11 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
   --color-jade: var(--jade);
+  --color-jade-bright: var(--jade-bright);
+  --color-jade-border: var(--jade-border);
   --color-cream: var(--foreground);
   --color-card: var(--card);
   --color-muted: var(--muted);
@@ -48,7 +54,27 @@ body {
 .glass-card {
   background: rgba(21, 28, 24, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(62, 180, 137, 0.12);
+  border: 1px solid var(--jade-border);
+}
+
+.featured-product-card {
+  background: linear-gradient(
+    145deg,
+    rgba(21, 28, 24, 0.92) 0%,
+    rgba(16, 24, 19, 0.88) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .project-card,
+  .featured-product-card,
+  .project-card-shine {
+    transition: none;
+  }
 }
 
 .project-card {
@@ -672,4 +698,41 @@ body {
   background: rgba(21, 28, 24, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(201, 162, 39, 0.12);
+}
+
+/* ── Hero portrait ── */
+
+.hero-portrait-glow {
+  position: absolute;
+  inset: -12%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(62, 180, 137, 0.18) 0%,
+    transparent 70%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* ── Carousel tracks ── */
+
+.carousel-track {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(62, 180, 137, 0.35) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carousel-track::-webkit-scrollbar-thumb {
+  background: rgba(62, 180, 137, 0.35);
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    scroll-behavior: auto;
+  }
 }
