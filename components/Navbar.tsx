@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
+import SiteLogo from "./SiteLogo";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -40,9 +41,7 @@ export default function Navbar() {
           href="#home"
           className="flex items-center gap-2 rounded-sm text-cream transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-jade/30 bg-jade/10 text-xs font-bold text-jade-bright">
-            MB
-          </span>
+          <SiteLogo priority />
           <span className="text-sm font-bold tracking-wide sm:text-base">
             Marcus Brown
           </span>

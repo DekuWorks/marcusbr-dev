@@ -1,4 +1,5 @@
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
+import SiteLogo from "./SiteLogo";
 import { SITE } from "@/lib/site";
 
 const quickLinks = [
@@ -24,9 +25,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div>
           <a href="#home" className="inline-flex items-center gap-2 text-cream">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-jade/30 bg-jade/10 text-xs font-bold text-jade-bright">
-              MB
-            </span>
+            <SiteLogo />
             <span className="font-bold">Marcus Brown</span>
           </a>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
