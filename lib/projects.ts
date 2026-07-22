@@ -368,9 +368,9 @@ export function getProjectById(id: string): FeaturedProject | undefined {
 }
 
 export function getProjectLiveUrlLabel(
-  project: Pick<FeaturedProject, "id">,
+  project: Pick<FeaturedProject, "liveUrl">,
 ): string {
-  return project.id === "bookmarked" ? "Link" : "Live Demo";
+  return project.liveUrl ? "Link" : "Live Demo";
 }
 
 export function isConceptScreenshot(
