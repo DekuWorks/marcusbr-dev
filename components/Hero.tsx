@@ -159,11 +159,7 @@ export default function Hero() {
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-4 pt-16">
                 <div className="rounded-xl border border-jade-border bg-card/90 p-3 backdrop-blur-sm">
                   <p className="text-sm font-semibold text-cream">
-                    <span className="text-jade-bright">MB</span> Founder of
-                    DekuWorks
-                  </p>
-                  <p className="mt-1 text-xs text-muted">
-                    Building software. Solving problems. Creating impact.
+                    Marcus <span className="text-jade-bright">B.</span>, 29
                   </p>
                 </div>
               </div>
