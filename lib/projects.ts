@@ -75,7 +75,6 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     status: "In Development",
     statusLabel: "Focus & Goal Management",
     accent: "#4ADE9A",
-    liveUrl: "https://apps.apple.com/us/app/shuchu-focus/id6792583924",
     caseStudyUrl: "/projects/shuchu/",
     featured: true,
     filters: ["mobile", "saas", "ai"],
@@ -366,6 +365,12 @@ export function getCurrentlyBuildingProjects(): FeaturedProject[] {
 
 export function getProjectById(id: string): FeaturedProject | undefined {
   return FEATURED_PROJECTS.find((p) => p.id === id);
+}
+
+export function getProjectLiveUrlLabel(
+  project: Pick<FeaturedProject, "id">,
+): string {
+  return project.id === "bookmarked" ? "Link" : "Live Demo";
 }
 
 export function isConceptScreenshot(

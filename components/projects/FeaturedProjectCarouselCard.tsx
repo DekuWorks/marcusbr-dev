@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import type { FeaturedProject } from "@/lib/projects";
+import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
 
@@ -113,7 +113,7 @@ export default function FeaturedProjectCarouselCard({
                 className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
               >
                 <ExternalLink className="h-4 w-4" aria-hidden />
-                Live Demo
+                {getProjectLiveUrlLabel(project)}
               </a>
             )}
             <Link

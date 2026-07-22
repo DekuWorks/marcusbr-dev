@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import type { FeaturedProject } from "@/lib/projects";
+import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 import Button from "@/components/Button";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
@@ -75,7 +75,7 @@ export default function ProjectDetailContent({
               {project.liveUrl && (
                 <Button href={project.liveUrl} variant="primary">
                   <ExternalLink className="h-4 w-4" />
-                  Live Demo
+                  {getProjectLiveUrlLabel(project)}
                 </Button>
               )}
               {project.repositoryUrl && (

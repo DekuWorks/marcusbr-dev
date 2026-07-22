@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
-import type { FeaturedProject } from "@/lib/projects";
+import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import Button from "@/components/Button";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
 import ProjectAppIcon from "./ProjectAppIcon";
@@ -149,7 +149,7 @@ export default function FeaturedProjectCard({
             className="min-h-11 w-full sm:min-w-[140px] sm:flex-1"
           >
             <ExternalLink className="h-4 w-4" />
-            Live Demo
+            {getProjectLiveUrlLabel(project)}
           </Button>
         )}
         {project.repositoryUrl && (
