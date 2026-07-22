@@ -23,7 +23,7 @@ const techStack = [
   },
   {
     title: "Backend",
-    items: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs"],
+    items: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Supabase"],
   },
   {
     title: "Cloud & DevOps",
@@ -37,7 +37,6 @@ const techStack = [
       "OpenAI API",
       "AI Agents",
       "RAG Systems",
-      "Supabase",
       "PostgreSQL",
     ],
   },

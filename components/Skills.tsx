@@ -14,11 +14,11 @@ const skillGroups = [
   },
   {
     title: "Backend",
-    skills: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Express"],
+    skills: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Express", "Supabase"],
   },
   {
     title: "Database",
-    skills: ["SQL Server", "PostgreSQL", "Firebase", "Supabase", "EF Core"],
+    skills: ["SQL Server", "PostgreSQL", "Firebase", "EF Core"],
   },
   {
     title: "Cloud & DevOps",
