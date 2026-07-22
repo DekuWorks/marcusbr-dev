@@ -25,6 +25,7 @@ export const FEATURED_TECHNOLOGIES = [
   "React",
   "Next.js",
   "TypeScript",
+  "Flutter",
   ".NET 8",
   "C#",
   "AWS",

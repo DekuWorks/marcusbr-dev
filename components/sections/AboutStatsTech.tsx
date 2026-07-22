@@ -18,6 +18,10 @@ const techStack = [
     items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux"],
   },
   {
+    title: "Mobile",
+    items: ["React Native", "Expo", "Flutter"],
+  },
+  {
     title: "Backend",
     items: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs"],
   },

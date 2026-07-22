@@ -58,19 +58,10 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     longDescription:
       "Shuchu combines tasks, personal goals, routines, progress tracking, focus tools, reminders, and intelligent insights into a simple experience designed to help users consistently complete meaningful real-world objectives.",
     icon: asset("shuchu", "icon.webp"),
-    screenshots: [
-      asset("shuchu", "screenshot-01.webp"),
-      asset("shuchu", "screenshot-02.webp"),
-      asset("shuchu", "screenshot-03.webp"),
-      asset("shuchu", "screenshot-04.webp"),
-    ],
+    screenshots: [asset("shuchu", "screenshot-01.webp")],
     screenshotAlts: [
       "Shuchu Today home dashboard with focus session card",
-      "Shuchu app icon — upcoming feature preview",
-      "Shuchu app icon — upcoming feature preview",
-      "Shuchu app icon — upcoming feature preview",
     ],
-    conceptScreenshotIndices: [1, 2, 3],
     technologies: [
       "React Native",
       "Expo",
@@ -122,17 +113,9 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     longDescription:
       "DayPilot combines intelligent scheduling, automated workflows, and AI-driven productivity tools to help individuals, teams, and businesses reduce manual coordination and scale operations.",
     icon: asset("daypilot", "icon.webp"),
-    screenshots: [
-      asset("daypilot", "screenshot-01.webp"),
-      asset("daypilot", "screenshot-02.webp"),
-      asset("daypilot", "screenshot-03.webp"),
-      asset("daypilot", "screenshot-04.webp"),
-    ],
+    screenshots: [asset("daypilot", "screenshot-01.webp")],
     screenshotAlts: [
       "DayPilot dashboard with tasks, schedule, and Pilot Brief AI",
-      "DayPilot team scheduling view",
-      "DayPilot AI scheduling assistant",
-      "DayPilot workflow automation settings",
     ],
     technologies: [
       "Next.js",
@@ -181,17 +164,9 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     longDescription:
       "Bookmarked combines book tracking, reviews, reading progress, community groups, event discovery, chat, author and affiliate links, and reader-focused social features in one modern platform.",
     icon: asset("bookmarked", "icon.webp"),
-    screenshots: [
-      asset("bookmarked", "screenshot-01.webp"),
-      asset("bookmarked", "screenshot-02.webp"),
-      asset("bookmarked", "screenshot-03.webp"),
-      asset("bookmarked", "screenshot-04.webp"),
-    ],
+    screenshots: [asset("bookmarked", "screenshot-01.webp")],
     screenshotAlts: [
       "Bookmarked Library page with bookshelf view and reading shelves",
-      "Bookmarked book details and reading tracker",
-      "Bookmarked book club and community screen",
-      "Bookmarked events and messaging screen",
     ],
     technologies: [
       "React",
@@ -241,19 +216,8 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     longDescription:
       "Avryo brings checking, savings, prepaid cards, trust distributions, credit cards, bills, spending, net worth, and AI-powered financial explanations into one secure platform.",
     icon: asset("avryo", "icon.webp"),
-    screenshots: [
-      asset("avryo", "screenshot-01.webp"),
-      asset("avryo", "screenshot-02.webp"),
-      asset("avryo", "screenshot-03.webp"),
-      asset("avryo", "screenshot-04.webp"),
-    ],
-    screenshotAlts: [
-      "Avryo net-worth dashboard overview",
-      "Avryo app icon — upcoming feature preview",
-      "Avryo app icon — upcoming feature preview",
-      "Avryo app icon — upcoming feature preview",
-    ],
-    conceptScreenshotIndices: [1, 2, 3],
+    screenshots: [asset("avryo", "screenshot-01.webp")],
+    screenshotAlts: ["Avryo net-worth dashboard overview"],
     technologies: [
       "React Native",
       "Expo",
@@ -310,16 +274,11 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     screenshots: [
       asset("gridlock", "screenshot-01.webp"),
       asset("gridlock", "screenshot-02.webp"),
-      asset("gridlock", "screenshot-03.webp"),
-      asset("gridlock", "screenshot-04.webp"),
     ],
     screenshotAlts: [
       "Gridlock sign-in screen for secure armory access",
       "Gridlock welcome landing screen with brand identity",
-      "Gridlock app icon — upcoming feature preview",
-      "Gridlock app icon — upcoming feature preview",
     ],
-    conceptScreenshotIndices: [2, 3],
     technologies: [
       "React Native",
       "Expo",
@@ -335,7 +294,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     caseStudyUrl: "/projects/gridlock/",
     featured: true,
     filters: ["mobile", "planning"],
-    conceptUI: true,
+    conceptUI: false,
     deviceFrame: true,
     disclaimer:
       "Gridlock is an inventory and documentation tool — not a marketplace. Firearm laws vary by jurisdiction; users are responsible for compliance.",

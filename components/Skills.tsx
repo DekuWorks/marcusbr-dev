@@ -9,6 +9,10 @@ const skillGroups = [
     skills: ["HTML", "CSS", "JavaScript", "React", "Redux", "Tailwind CSS", "Next.js", "TypeScript"],
   },
   {
+    title: "Mobile",
+    skills: ["React Native", "Expo", "Flutter"],
+  },
+  {
     title: "Backend",
     skills: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Express"],
   },
