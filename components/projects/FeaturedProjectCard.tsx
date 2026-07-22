@@ -106,6 +106,7 @@ export default function FeaturedProjectCard({
         detail={project.trackerDetail}
         label={project.name}
         size="sm"
+        showPercentage={project.status !== "Client Project"}
       />
 
       <div className="mt-5">

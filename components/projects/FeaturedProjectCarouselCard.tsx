@@ -127,6 +127,7 @@ export default function FeaturedProjectCarouselCard({
           detail={project.trackerDetail}
           label={project.name}
           size="sm"
+          showPercentage={project.status !== "Client Project"}
         />
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">

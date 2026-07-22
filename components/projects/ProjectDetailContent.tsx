@@ -146,7 +146,9 @@ export default function ProjectDetailContent({
             <ProjectTrackerProgress
               phase={project.trackerPhase}
               progress={project.trackerProgress}
+              detail={project.trackerDetail}
               label={project.name}
+              showPercentage={project.status !== "Client Project"}
             />
             <p className="mt-4">{project.developmentFocus}</p>
           </DetailSection>

@@ -38,6 +38,9 @@ export type FeaturedProject = {
   features: string[];
   architecture: string;
   developmentFocus: string;
+  trackerPhase: string;
+  trackerProgress: number;
+  trackerDetail?: string;
   lessonsLearned: string;
   disclaimer?: string;
   deviceFrame?: boolean;
@@ -79,7 +82,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       "AI-assisted insights",
     ],
     status: "In Development",
-    statusLabel: "Focus and Goal Management",
+    statusLabel: "Focus & Goal Management",
     accent: "#4ADE9A",
     liveUrl: "https://apps.apple.com/us/app/shuchu-focus/id6792583924",
     caseStudyUrl: "/projects/shuchu/",
@@ -102,9 +105,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React Native + Expo client with Supabase for auth, PostgreSQL data, real-time sync, and server-side logic for notifications and insight generation.",
     developmentFocus:
-      "Refining the Today experience, improving goal-to-task linking, and expanding AI-assisted progress insights while keeping the interface minimal.",
+      "App Store release live — refining Today dashboard, goal-to-task linking, and AI-assisted insights.",
+    trackerPhase: "In Development",
+    trackerProgress: 80,
+    trackerDetail:
+      "App Store live — refining tasks, goals, and insights.",
     lessonsLearned:
-      "Simplicity wins — users respond better to clear tasks and goals than gamified complexity. Mobile-first focus sessions drive daily engagement.",
+      "Shipping to the App Store early validated the core loop; simplicity wins over gamified complexity for daily focus habits.",
   },
   {
     id: "daypilot",
@@ -157,9 +164,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "Next.js + React web app with TypeScript, Supabase for auth and data, and an AI layer for intelligent scheduling suggestions and workflow automation.",
     developmentFocus:
-      "Shipping core calendar views, AI scheduling assistant, and team coordination features while refining the onboarding flow for business accounts.",
+      "Live beta at daypilot.co — shipping core dashboard, Pilot Brief AI, and team scheduling workflows.",
+    trackerPhase: "In Development",
+    trackerProgress: 75,
+    trackerDetail:
+      "Live beta — core dashboard and Pilot Brief AI shipping next.",
     lessonsLearned:
-      "Scheduling UX lives or dies on speed — users need instant clarity on availability before AI suggestions add value.",
+      "A live beta surfaces real scheduling friction fast — users need instant availability clarity before AI suggestions add value.",
   },
   {
     id: "bookmarked",
@@ -213,9 +224,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React + TypeScript SPA with Supabase backend, PostgreSQL for relational data, and real-time channels for chat and community updates.",
     developmentFocus:
-      "Expanding community features, improving event discovery, and strengthening reader engagement through clubs and social discovery.",
+      "Production site live at bookmarked.online — expanding clubs, messaging, and event discovery for ongoing reader engagement.",
+    trackerPhase: "Live in Production",
+    trackerProgress: 100,
+    trackerDetail:
+      "Production client site — ongoing feature delivery.",
     lessonsLearned:
-      "Community features drive retention — readers stay when they can connect around shared stories, not just track shelves.",
+      "A live client platform proves community features drive retention — readers stay when they connect around shared stories.",
   },
   {
     id: "avryo",
@@ -275,9 +290,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React Native + Expo mobile client, Supabase for auth and data, Plaid for financial account aggregation, and AI layer for natural-language financial insights.",
     developmentFocus:
-      "Defining the data model for multi-account aggregation, designing net-worth visualizations, and scoping secure Plaid integration.",
+      "MVP net-worth dashboard UI built in simulator — scoping Plaid integration and multi-account data model.",
+    trackerPhase: "Planning",
+    trackerProgress: 25,
+    trackerDetail:
+      "MVP dashboard UI built — Plaid integration scoped.",
     lessonsLearned:
-      "Financial clarity starts with trustworthy aggregation — users need one honest view before AI explanations add value.",
+      "Concept UI validated the dashboard layout early — trustworthy account aggregation must come before AI explanations add value.",
   },
   {
     id: "gridlock",
@@ -335,15 +354,28 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React Native + Expo with Supabase backend, encrypted local storage for sensitive fields, and biometric gate for app access.",
     developmentFocus:
-      "MVP scoping around secure inventory CRUD, document generation templates, and jurisdiction-aware compliance disclaimers.",
+      "Auth and onboarding screens built — inventory CRUD, document generation, and compliance disclaimers next for MVP.",
+    trackerPhase: "Planning",
+    trackerProgress: 15,
+    trackerDetail:
+      "Auth and onboarding built — inventory MVP next.",
     lessonsLearned:
-      "Security and clarity matter more than feature breadth — owners need trust in how their records are stored and accessed.",
+      "Nailing secure sign-in and onboarding first sets the trust bar — inventory features depend on that foundation.",
   },
 ];
 
 export const FEATURED_PROJECT_ORDER = [
   "shuchu",
   "daypilot",
+  "bookmarked",
+  "avryo",
+  "gridlock",
+] as const;
+
+/** Display order for the Currently Building tracker on the homepage. */
+export const CURRENTLY_BUILDING_ORDER = [
+  "daypilot",
+  "shuchu",
   "bookmarked",
   "avryo",
   "gridlock",
@@ -363,6 +395,12 @@ export const PROJECT_FILTERS: {
 
 export function getFeaturedProjects(): FeaturedProject[] {
   return FEATURED_PROJECT_ORDER.map(
+    (id) => FEATURED_PROJECTS.find((p) => p.id === id)!,
+  );
+}
+
+export function getCurrentlyBuildingProjects(): FeaturedProject[] {
+  return CURRENTLY_BUILDING_ORDER.map(
     (id) => FEATURED_PROJECTS.find((p) => p.id === id)!,
   );
 }
