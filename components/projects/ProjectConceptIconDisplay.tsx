@@ -1,15 +1,17 @@
 import Image from "next/image";
 
-type ProjectConceptIconSize = "card" | "gallery" | "lightbox";
+type ProjectConceptIconSize = "card" | "hero" | "gallery" | "lightbox";
 
 const SIZE_CLASSES: Record<ProjectConceptIconSize, string> = {
   card: "h-[52px] w-[52px] sm:h-16 sm:w-16",
+  hero: "h-20 w-20 sm:h-[120px] sm:w-[120px]",
   gallery: "h-24 w-24 sm:h-28 sm:w-28",
   lightbox: "h-32 w-32 sm:h-40 sm:w-40",
 };
 
 const DIMENSIONS: Record<ProjectConceptIconSize, number> = {
   card: 64,
+  hero: 120,
   gallery: 112,
   lightbox: 160,
 };
@@ -19,6 +21,7 @@ interface ProjectConceptIconDisplayProps {
   alt: string;
   size?: ProjectConceptIconSize;
   className?: string;
+  priority?: boolean;
 }
 
 export default function ProjectConceptIconDisplay({
@@ -26,6 +29,7 @@ export default function ProjectConceptIconDisplay({
   alt,
   size = "gallery",
   className = "",
+  priority = false,
 }: ProjectConceptIconDisplayProps) {
   const dimension = DIMENSIONS[size];
 
@@ -40,6 +44,7 @@ export default function ProjectConceptIconDisplay({
           width={dimension}
           height={dimension}
           className={`project-concept-icon ${SIZE_CLASSES[size]}`}
+          priority={priority}
         />
       </div>
     </div>

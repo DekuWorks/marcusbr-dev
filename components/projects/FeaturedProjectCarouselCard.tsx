@@ -1,11 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { FeaturedProject } from "@/lib/projects";
-import { isConceptScreenshot } from "@/lib/projects";
-import ProjectAppIcon from "./ProjectAppIcon";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
 
@@ -42,9 +39,6 @@ export default function FeaturedProjectCarouselCard({
 }: FeaturedProjectCarouselCardProps) {
   const statusStyle = STATUS_STYLES[project.status];
   const detailUrl = `/projects/${project.id}/`;
-  const heroIsConcept = isConceptScreenshot(project, 0);
-  const heroScreenshot = project.screenshots[0];
-  const heroAlt = project.screenshotAlts[0];
 
   return (
     <article
@@ -56,52 +50,22 @@ export default function FeaturedProjectCarouselCard({
         className="group/screenshot relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"
         aria-label={`View ${project.name} project details`}
       >
-        <div
-          className={`relative aspect-[16/10] w-full ${heroIsConcept ? "project-concept-icon-slot" : `bg-gradient-to-br from-background-secondary to-card ${project.deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-4" : ""}`}`}
-        >
-          {heroIsConcept ? (
-            <ProjectConceptIconDisplay
-              icon={project.icon}
-              alt={heroAlt}
-              size="card"
-            />
-          ) : (
-            <Image
-              src={heroScreenshot}
-              alt={heroAlt}
-              width={project.deviceFrame ? 390 : 1280}
-              height={project.deviceFrame ? 844 : 800}
-              className={
-                project.deviceFrame
-                  ? "mx-auto h-full w-[68%] rounded-[1.5rem] border border-white/10 object-cover object-top shadow-xl"
-                  : "h-full w-full object-cover object-top"
-              }
-              priority={priority}
-            />
-          )}
-          {(project.conceptUI || heroIsConcept) && (
-            <span className="absolute top-3 left-3 rounded-full border border-jade/30 bg-jade/15 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
-              Concept UI
-            </span>
-          )}
+        <div className="project-concept-icon-slot relative aspect-[16/10] w-full">
+          <ProjectConceptIconDisplay
+            icon={project.icon}
+            alt={`${project.name} app icon`}
+            size="hero"
+            priority={priority}
+          />
         </div>
       </Link>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h3 className="text-lg font-bold text-cream">{project.name}</h3>
-            <p className="mt-1 line-clamp-2 text-sm text-muted">
-              {project.synopsis}
-            </p>
-          </div>
-          <ProjectAppIcon
-            src={project.icon}
-            alt=""
-            size="sm"
-            hoverGlow={false}
-            className="shrink-0"
-          />
+        <div className="min-w-0">
+          <h3 className="text-lg font-bold text-cream">{project.name}</h3>
+          <p className="mt-1 line-clamp-2 text-sm text-muted">
+            {project.synopsis}
+          </p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-1.5">
