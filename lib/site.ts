@@ -26,6 +26,8 @@ export const FEATURED_TECHNOLOGIES = [
   "Next.js",
   "TypeScript",
   "Flutter",
+  "Gen AI",
+  "Prompts",
   ".NET 8",
   "C#",
   "AWS",

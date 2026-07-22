@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     "SaaS Developer",
     "React Developer",
     "Next.js Developer",
+    "Flutter Developer",
+    "Gen AI",
+    "Prompts",
     ".NET Developer",
     "DekuWorks",
     "marcusbr.dev",
@@ -84,6 +87,9 @@ const jsonLd = {
     ".NET",
     "Azure",
     "React Native",
+    "Flutter",
+    "Gen AI",
+    "Prompts",
   ],
 };
 

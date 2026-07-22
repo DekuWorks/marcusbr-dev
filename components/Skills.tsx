@@ -31,9 +31,10 @@ const skillGroups = [
   {
     title: "AI Engineering",
     skills: [
+      "Gen AI",
+      "Prompts",
       "OpenAI API",
       "AI Agents",
-      "Prompt Engineering",
       "RAG Systems",
       "LLM Integrations",
     ],

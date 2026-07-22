@@ -31,7 +31,15 @@ const techStack = [
   },
   {
     title: "AI & Tools",
-    items: ["OpenAI API", "AI Agents", "RAG Systems", "Supabase", "PostgreSQL"],
+    items: [
+      "Gen AI",
+      "Prompts",
+      "OpenAI API",
+      "AI Agents",
+      "RAG Systems",
+      "Supabase",
+      "PostgreSQL",
+    ],
   },
 ] as const;
 
