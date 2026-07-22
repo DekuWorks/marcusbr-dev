@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { FeaturedProject } from "@/lib/projects";
+import { isConceptScreenshot } from "@/lib/projects";
+import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 
 const STATUS_STYLES: Record<
   FeaturedProject["status"],
@@ -38,6 +40,7 @@ export default function FeaturedProjectCarouselCard({
 }: FeaturedProjectCarouselCardProps) {
   const statusStyle = STATUS_STYLES[project.status];
   const detailUrl = `/projects/${project.id}/`;
+  const heroIsConcept = isConceptScreenshot(project, 0);
   const heroScreenshot = project.screenshots[0];
   const heroAlt = project.screenshotAlts[0];
 
@@ -48,25 +51,34 @@ export default function FeaturedProjectCarouselCard({
     >
       <Link
         href={detailUrl}
-        className="relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"
+        className="group/screenshot relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"
         aria-label={`View ${project.name} project details`}
       >
         <div
-          className={`relative aspect-[16/10] w-full bg-gradient-to-br from-background-secondary to-card ${project.deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-4" : ""}`}
+          className={`relative aspect-[16/10] w-full ${heroIsConcept ? "bg-card" : `bg-gradient-to-br from-background-secondary to-card ${project.deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-4" : ""}`}`}
         >
-          <Image
-            src={heroScreenshot}
-            alt={heroAlt}
-            width={project.deviceFrame ? 390 : 1280}
-            height={project.deviceFrame ? 844 : 800}
-            className={
-              project.deviceFrame
-                ? "mx-auto h-full w-[68%] rounded-[1.5rem] border border-white/10 object-cover object-top shadow-xl"
-                : "h-full w-full object-cover object-top"
-            }
-            priority={priority}
-          />
-          {project.conceptUI && (
+          {heroIsConcept ? (
+            <ProjectConceptIconDisplay
+              icon={project.icon}
+              alt={heroAlt}
+              size="card"
+              className="group-hover:shadow-none"
+            />
+          ) : (
+            <Image
+              src={heroScreenshot}
+              alt={heroAlt}
+              width={project.deviceFrame ? 390 : 1280}
+              height={project.deviceFrame ? 844 : 800}
+              className={
+                project.deviceFrame
+                  ? "mx-auto h-full w-[68%] rounded-[1.5rem] border border-white/10 object-cover object-top shadow-xl"
+                  : "h-full w-full object-cover object-top"
+              }
+              priority={priority}
+            />
+          )}
+          {(project.conceptUI || heroIsConcept) && (
             <span className="absolute top-3 left-3 rounded-full border border-jade/30 bg-jade/15 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
               Concept UI
             </span>

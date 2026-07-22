@@ -31,6 +31,8 @@ export type FeaturedProject = {
   featured: boolean;
   filters: Exclude<ProjectFilter, "all">[];
   conceptUI: boolean;
+  /** Zero-based screenshot indices that show the app icon instead of a mockup. */
+  conceptScreenshotIndices?: number[];
   problem: string;
   solution: string;
   features: string[];
@@ -61,10 +63,11 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     ],
     screenshotAlts: [
       "Shuchu Today home dashboard with focus session card",
-      "Shuchu focus session hub screen",
-      "Shuchu tasks list with add task action",
-      "Shuchu insights and focus score screen",
+      "Shuchu app icon — upcoming feature preview",
+      "Shuchu app icon — upcoming feature preview",
+      "Shuchu app icon — upcoming feature preview",
     ],
+    conceptScreenshotIndices: [1, 2, 3],
     technologies: [
       "React Native",
       "Expo",
@@ -231,10 +234,11 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     ],
     screenshotAlts: [
       "Avryo net-worth dashboard overview",
-      "Avryo Hub accounts and money management screen",
-      "Avryo activity transactions feed",
-      "Avryo AI financial assistant screen",
+      "Avryo app icon — upcoming feature preview",
+      "Avryo app icon — upcoming feature preview",
+      "Avryo app icon — upcoming feature preview",
     ],
+    conceptScreenshotIndices: [1, 2, 3],
     technologies: [
       "React Native",
       "Expo",
@@ -293,9 +297,10 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     screenshotAlts: [
       "Gridlock sign-in screen for secure armory access",
       "Gridlock welcome landing screen with brand identity",
-      "Gridlock loadout and accessory organizer",
-      "Gridlock bill-of-sale document generator preview",
+      "Gridlock app icon — upcoming feature preview",
+      "Gridlock app icon — upcoming feature preview",
     ],
+    conceptScreenshotIndices: [2, 3],
     technologies: [
       "React Native",
       "Expo",
@@ -364,6 +369,13 @@ export function getFeaturedProjects(): FeaturedProject[] {
 
 export function getProjectById(id: string): FeaturedProject | undefined {
   return FEATURED_PROJECTS.find((p) => p.id === id);
+}
+
+export function isConceptScreenshot(
+  project: Pick<FeaturedProject, "conceptScreenshotIndices">,
+  index: number,
+): boolean {
+  return project.conceptScreenshotIndices?.includes(index) ?? false;
 }
 
 export function getProjectMetadata(project: FeaturedProject) {

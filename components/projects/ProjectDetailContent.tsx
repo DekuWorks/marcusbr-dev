@@ -95,8 +95,10 @@ export default function ProjectDetailContent({
           <ProjectScreenshotGallery
             screenshots={project.screenshots}
             alts={project.screenshotAlts}
+            icon={project.icon}
             accent={project.accent}
             conceptUI={project.conceptUI}
+            conceptScreenshotIndices={project.conceptScreenshotIndices}
             deviceFrame={project.deviceFrame}
             priority
           />

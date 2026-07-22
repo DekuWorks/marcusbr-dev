@@ -10,22 +10,34 @@ import {
 } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 
 interface ProjectScreenshotGalleryProps {
   screenshots: string[];
   alts: string[];
+  icon?: string;
   accent?: string;
   conceptUI?: boolean;
+  conceptScreenshotIndices?: number[];
   deviceFrame?: boolean;
   priority?: boolean;
   className?: string;
 }
 
+function isConceptSlot(
+  index: number,
+  conceptScreenshotIndices?: number[],
+): boolean {
+  return conceptScreenshotIndices?.includes(index) ?? false;
+}
+
 export default function ProjectScreenshotGallery({
   screenshots,
   alts,
+  icon,
   accent = "#3EB489",
   conceptUI = false,
+  conceptScreenshotIndices,
   deviceFrame = false,
   priority = false,
   className = "",
@@ -97,47 +109,63 @@ export default function ProjectScreenshotGallery({
     ? "mx-auto w-[72%] rounded-[2rem] border border-white/10 shadow-2xl"
     : "w-full rounded-xl";
 
-  const renderImage = (
-    src: string,
-    alt: string,
+  const showConceptBadge = (index: number) =>
+    conceptUI || isConceptSlot(index, conceptScreenshotIndices);
+
+  const renderSlide = (
     index: number,
+    alt: string,
     isPriority: boolean,
     onClick?: () => void,
-  ) => (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group/screenshot relative block w-full overflow-hidden rounded-xl border border-jade/15 bg-background-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${onClick ? "cursor-zoom-in" : "cursor-default"}`}
-      aria-label={onClick ? `Open ${alt} in lightbox` : undefined}
-      tabIndex={onClick ? 0 : -1}
-    >
-      <div
-        className={`relative aspect-[16/10] w-full bg-gradient-to-br from-background-secondary to-card ${deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-6" : ""}`}
+    size: "gallery" | "lightbox" = "gallery",
+  ) => {
+    const isConcept = isConceptSlot(index, conceptScreenshotIndices);
+    const src = screenshots[index];
+
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={`group/screenshot relative block w-full overflow-hidden rounded-xl border border-jade/15 bg-background-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${onClick ? "cursor-zoom-in" : "cursor-default"}`}
+        aria-label={onClick ? `Open ${alt} in lightbox` : undefined}
+        tabIndex={onClick ? 0 : -1}
       >
-        <Image
-          src={src}
-          alt={alt}
-          width={deviceFrame ? 390 : 1280}
-          height={deviceFrame ? 844 : 800}
-          className={`${imageClasses} transition-transform duration-300 motion-safe:group-hover/screenshot:scale-[1.03]`}
-          priority={isPriority}
-          loading={isPriority ? "eager" : "lazy"}
-        />
-        {conceptUI && index === activeIndex && (
-          <span
-            className="absolute top-3 left-3 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase"
-            style={{
-              borderColor: `${accent}44`,
-              backgroundColor: `${accent}22`,
-              color: accent,
-            }}
-          >
-            Concept UI
-          </span>
-        )}
-      </div>
-    </button>
-  );
+        <div
+          className={`relative aspect-[16/10] w-full ${isConcept ? "bg-card" : `bg-gradient-to-br from-background-secondary to-card ${deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-6" : ""}`}`}
+        >
+          {isConcept && icon ? (
+            <ProjectConceptIconDisplay
+              icon={icon}
+              alt={alt}
+              size={size}
+            />
+          ) : (
+            <Image
+              src={src}
+              alt={alt}
+              width={deviceFrame ? 390 : 1280}
+              height={deviceFrame ? 844 : 800}
+              className={`${imageClasses} transition-transform duration-300 motion-safe:group-hover/screenshot:scale-[1.03]`}
+              priority={isPriority}
+              loading={isPriority ? "eager" : "lazy"}
+            />
+          )}
+          {showConceptBadge(index) && index === activeIndex && (
+            <span
+              className="absolute top-3 left-3 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wide uppercase"
+              style={{
+                borderColor: `${accent}44`,
+                backgroundColor: `${accent}22`,
+                color: accent,
+              }}
+            >
+              Concept UI
+            </span>
+          )}
+        </div>
+      </button>
+    );
+  };
 
   return (
     <>
@@ -150,10 +178,9 @@ export default function ProjectScreenshotGallery({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {renderImage(
-          screenshots[activeIndex],
-          alts[activeIndex],
+        {renderSlide(
           activeIndex,
+          alts[activeIndex],
           priority,
           () => setLightboxOpen(true),
         )}
@@ -238,13 +265,23 @@ export default function ProjectScreenshotGallery({
             className="relative max-h-[85vh] max-w-5xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={screenshots[activeIndex]}
-              alt={alts[activeIndex]}
-              width={1280}
-              height={800}
-              className="max-h-[85vh] w-auto rounded-xl object-contain"
-            />
+            {isConceptSlot(activeIndex, conceptScreenshotIndices) && icon ? (
+              <div className="flex min-h-[40vh] min-w-[min(100%,28rem)] items-center justify-center rounded-xl bg-card p-12">
+                <ProjectConceptIconDisplay
+                  icon={icon}
+                  alt={alts[activeIndex]}
+                  size="lightbox"
+                />
+              </div>
+            ) : (
+              <Image
+                src={screenshots[activeIndex]}
+                alt={alts[activeIndex]}
+                width={1280}
+                height={800}
+                className="max-h-[85vh] w-auto rounded-xl object-contain"
+              />
+            )}
             <p className="mt-3 text-center text-sm text-muted">
               {alts[activeIndex]} ({activeIndex + 1} of {count})
             </p>
