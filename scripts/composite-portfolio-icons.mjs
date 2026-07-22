@@ -14,7 +14,10 @@ const PUBLIC = path.join(__dirname, "..", "public", "projects");
 const CARD_BG = { r: 21, g: 28, b: 24 }; // #151C18
 const LIGHT_THRESHOLD = 242;
 
-const TARGETS = ["shuchu", "avryo", "gridlock"];
+// Shuchu uses its natural blue-sky squircle — compositing destroys the white
+// focus symbol (global light-pixel stripping). Regenerate via removeMatte only.
+const TARGETS = ["avryo", "gridlock"];
+const MATTE_ONLY = ["shuchu"];
 
 function cornersAreLight(data, width, height) {
   const sample = (x, y) => {
@@ -28,6 +31,71 @@ function cornersAreLight(data, width, height) {
     [width - 1, height - 1],
   ];
   return points.some(([x, y]) => sample(x, y) >= LIGHT_THRESHOLD * 3);
+}
+
+function isLightPixel(data, i) {
+  return (
+    data[i] >= LIGHT_THRESHOLD &&
+    data[i + 1] >= LIGHT_THRESHOLD &&
+    data[i + 2] >= LIGHT_THRESHOLD
+  );
+}
+
+/** Flood-fill edge-connected light pixels to transparent (keeps interior whites). */
+async function removeMatteIcon(projectId) {
+  const input = path.join(PUBLIC, projectId, "icon.png");
+  if (!fs.existsSync(input)) {
+    console.warn(`⊘ Skipping ${projectId}: icon.png not found`);
+    return;
+  }
+
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height } = info;
+  const visited = new Uint8Array(width * height);
+  const queue = [];
+
+  const push = (x, y) => {
+    const p = y * width + x;
+    if (x < 0 || y < 0 || x >= width || y >= height || visited[p]) return;
+    const i = (y * width + x) * 4;
+    if (!isLightPixel(data, i)) return;
+    visited[p] = 1;
+    queue.push([x, y]);
+  };
+
+  for (let x = 0; x < width; x++) {
+    push(x, 0);
+    push(x, height - 1);
+  }
+  for (let y = 0; y < height; y++) {
+    push(0, y);
+    push(width - 1, y);
+  }
+
+  while (queue.length) {
+    const [x, y] = queue.pop();
+    push(x - 1, y);
+    push(x + 1, y);
+    push(x, y - 1);
+    push(x, y + 1);
+  }
+
+  for (let p = 0; p < width * height; p++) {
+    if (visited[p]) data[p * 4 + 3] = 0;
+  }
+
+  const webpPath = path.join(PUBLIC, projectId, "icon.webp");
+  await sharp(data, {
+    raw: { width, height, channels: 4 },
+  })
+    .webp({ quality: 85 })
+    .toFile(webpPath);
+
+  console.log(`✓ ${projectId}: matte removed — natural icon preserved`);
 }
 
 async function compositeIcon(projectId) {
@@ -48,10 +116,7 @@ async function compositeIcon(projectId) {
   }
 
   for (let i = 0; i < data.length; i += 4) {
-    const r = data[i];
-    const g = data[i + 1];
-    const b = data[i + 2];
-    if (r >= LIGHT_THRESHOLD && g >= LIGHT_THRESHOLD && b >= LIGHT_THRESHOLD) {
+    if (isLightPixel(data, i)) {
       data[i + 3] = 0;
     }
   }
@@ -80,9 +145,21 @@ async function compositeIcon(projectId) {
 
 async function main() {
   const onlyId = process.argv.find((arg) => arg.startsWith("--only="))?.split("=")[1];
-  const ids = onlyId ? [onlyId] : TARGETS;
+  const compositeIds = onlyId
+    ? TARGETS.includes(onlyId)
+      ? [onlyId]
+      : []
+    : TARGETS;
+  const matteIds = onlyId
+    ? MATTE_ONLY.includes(onlyId)
+      ? [onlyId]
+      : []
+    : MATTE_ONLY;
 
-  for (const id of ids) {
+  for (const id of matteIds) {
+    await removeMatteIcon(id);
+  }
+  for (const id of compositeIds) {
     await compositeIcon(id);
   }
 }
