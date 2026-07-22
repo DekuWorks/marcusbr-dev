@@ -15,7 +15,7 @@ import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { SITE } from "@/lib/site";
 
 const roleTags = [
-  "Software Engineer",
+  "Senior Developer",
   "AI Engineer",
   "Founder",
 ] as const;
@@ -145,15 +145,15 @@ export default function Hero() {
           transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.1 }}
           className="relative mx-auto w-full max-w-sm lg:max-w-none"
         >
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-[300px] sm:max-w-[320px] lg:max-w-[340px]">
+          <div className="relative mx-auto aspect-[9/16] w-full max-w-[min(300px,72vw)] sm:max-w-[320px] lg:max-w-[340px]">
             <div className="hero-portrait-glow" aria-hidden />
-            <div className="relative h-full overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310] shadow-glow">
+            <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310] shadow-glow">
               <Image
                 src="/marcus-brown.webp"
                 alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
                 width={576}
                 height={1024}
-                className="h-full w-full rounded-2xl object-cover object-top"
+                className="h-full w-full rounded-2xl object-contain object-center"
                 priority
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-4 pt-16">
