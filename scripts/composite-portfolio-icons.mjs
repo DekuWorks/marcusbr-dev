@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+/**
+ * Composites project app icons with baked-in light backgrounds onto the
+ * portfolio card color (#151C18) so they sit flush without white halos.
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import sharp from "sharp";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC = path.join(__dirname, "..", "public", "projects");
+
+const CARD_BG = { r: 21, g: 28, b: 24 }; // #151C18
+const LIGHT_THRESHOLD = 242;
+
+const TARGETS = ["shuchu", "avryo", "gridlock"];
+
+function cornersAreLight(data, width, height) {
+  const sample = (x, y) => {
+    const i = (y * width + x) * 4;
+    return data[i] + data[i + 1] + data[i + 2];
+  };
+  const points = [
+    [0, 0],
+    [width - 1, 0],
+    [0, height - 1],
+    [width - 1, height - 1],
+  ];
+  return points.some(([x, y]) => sample(x, y) >= LIGHT_THRESHOLD * 3);
+}
+
+async function compositeIcon(projectId) {
+  const input = path.join(PUBLIC, projectId, "icon.png");
+  if (!fs.existsSync(input)) {
+    console.warn(`⊘ Skipping ${projectId}: icon.png not found`);
+    return;
+  }
+
+  const { data, info } = await sharp(input)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  if (!cornersAreLight(data, info.width, info.height)) {
+    console.log(`✓ ${projectId}: dark edges — no composite needed`);
+    return;
+  }
+
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (r >= LIGHT_THRESHOLD && g >= LIGHT_THRESHOLD && b >= LIGHT_THRESHOLD) {
+      data[i + 3] = 0;
+    }
+  }
+
+  const cutout = await sharp(data, {
+    raw: { width: info.width, height: info.height, channels: 4 },
+  })
+    .png()
+    .toBuffer();
+
+  const webpPath = path.join(PUBLIC, projectId, "icon.webp");
+  await sharp({
+    create: {
+      width: info.width,
+      height: info.height,
+      channels: 3,
+      background: CARD_BG,
+    },
+  })
+    .composite([{ input: cutout }])
+    .webp({ quality: 85 })
+    .toFile(webpPath);
+
+  console.log(`✓ ${projectId}: composited icon onto #151C18`);
+}
+
+async function main() {
+  const onlyId = process.argv.find((arg) => arg.startsWith("--only="))?.split("=")[1];
+  const ids = onlyId ? [onlyId] : TARGETS;
+
+  for (const id of ids) {
+    await compositeIcon(id);
+  }
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

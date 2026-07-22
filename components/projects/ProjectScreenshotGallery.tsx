@@ -131,7 +131,7 @@ export default function ProjectScreenshotGallery({
         tabIndex={onClick ? 0 : -1}
       >
         <div
-          className={`relative aspect-[16/10] w-full ${isConcept ? "bg-card" : `bg-gradient-to-br from-background-secondary to-card ${deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-6" : ""}`}`}
+          className={`relative aspect-[16/10] w-full ${isConcept ? "project-concept-icon-slot" : `bg-gradient-to-br from-background-secondary to-card ${deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-6" : ""}`}`}
         >
           {isConcept && icon ? (
             <ProjectConceptIconDisplay
@@ -266,7 +266,7 @@ export default function ProjectScreenshotGallery({
             onClick={(e) => e.stopPropagation()}
           >
             {isConceptSlot(activeIndex, conceptScreenshotIndices) && icon ? (
-              <div className="flex min-h-[40vh] min-w-[min(100%,28rem)] items-center justify-center rounded-xl bg-card p-12">
+              <div className="project-concept-icon-slot flex min-h-[40vh] min-w-[min(100%,28rem)] items-center justify-center rounded-xl p-12">
                 <ProjectConceptIconDisplay
                   icon={icon}
                   alt={alts[activeIndex]}

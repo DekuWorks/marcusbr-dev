@@ -1,11 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { FeaturedProject } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 import Button from "@/components/Button";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
+import ProjectAppIcon from "@/components/projects/ProjectAppIcon";
 import ProjectScreenshotGallery from "@/components/projects/ProjectScreenshotGallery";
+import ProjectTrackerProgress from "@/components/projects/ProjectTrackerProgress";
 
 interface ProjectDetailContentProps {
   project: FeaturedProject;
@@ -43,16 +44,12 @@ export default function ProjectDetailContent({
         </Link>
 
         <header className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
-          <div className="overflow-hidden rounded-2xl border border-jade-border bg-background-secondary p-1 shadow-glow-sm">
-            <Image
-              src={project.icon}
-              alt={`${project.name} app icon`}
-              width={80}
-              height={80}
-              className="h-16 w-16 rounded-xl object-cover sm:h-20 sm:w-20 sm:rounded-2xl"
-              priority
-            />
-          </div>
+          <ProjectAppIcon
+            src={project.icon}
+            alt={`${project.name} app icon`}
+            size="lg"
+            priority
+          />
           <div className="flex-1">
             <p className="text-sm font-medium text-jade-bright">
               {project.statusLabel}
@@ -146,7 +143,12 @@ export default function ProjectDetailContent({
           </DetailSection>
 
           <DetailSection title="Development Status">
-            <p>{project.developmentFocus}</p>
+            <ProjectTrackerProgress
+              phase={project.trackerPhase}
+              progress={project.trackerProgress}
+              label={project.name}
+            />
+            <p className="mt-4">{project.developmentFocus}</p>
           </DetailSection>
 
           <DetailSection title="Current Focus & Lessons">

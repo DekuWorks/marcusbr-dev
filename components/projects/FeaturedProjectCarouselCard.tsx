@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { FeaturedProject } from "@/lib/projects";
 import { isConceptScreenshot } from "@/lib/projects";
+import ProjectAppIcon from "./ProjectAppIcon";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
+import ProjectTrackerProgress from "./ProjectTrackerProgress";
 
 const STATUS_STYLES: Record<
   FeaturedProject["status"],
@@ -55,14 +57,13 @@ export default function FeaturedProjectCarouselCard({
         aria-label={`View ${project.name} project details`}
       >
         <div
-          className={`relative aspect-[16/10] w-full ${heroIsConcept ? "bg-card" : `bg-gradient-to-br from-background-secondary to-card ${project.deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-4" : ""}`}`}
+          className={`relative aspect-[16/10] w-full ${heroIsConcept ? "project-concept-icon-slot" : `bg-gradient-to-br from-background-secondary to-card ${project.deviceFrame ? "flex items-center justify-center bg-[#0a0f0c] py-4" : ""}`}`}
         >
           {heroIsConcept ? (
             <ProjectConceptIconDisplay
               icon={project.icon}
               alt={heroAlt}
               size="card"
-              className="group-hover:shadow-none"
             />
           ) : (
             <Image
@@ -94,13 +95,12 @@ export default function FeaturedProjectCarouselCard({
               {project.synopsis}
             </p>
           </div>
-          <Image
+          <ProjectAppIcon
             src={project.icon}
             alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10 shrink-0 rounded-xl object-cover"
-            aria-hidden
+            size="sm"
+            hoverGlow={false}
+            className="shrink-0"
           />
         </div>
 
@@ -119,6 +119,15 @@ export default function FeaturedProjectCarouselCard({
             </span>
           )}
         </div>
+
+        <ProjectTrackerProgress
+          className="mt-4"
+          phase={project.trackerPhase}
+          progress={project.trackerProgress}
+          detail={project.trackerDetail}
+          label={project.name}
+          size="sm"
+        />
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">
           <span

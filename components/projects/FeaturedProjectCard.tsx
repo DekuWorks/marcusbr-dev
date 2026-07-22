@@ -1,12 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import type { FeaturedProject } from "@/lib/projects";
 import Button from "@/components/Button";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
+import ProjectAppIcon from "./ProjectAppIcon";
 import ProjectScreenshotGallery from "./ProjectScreenshotGallery";
+import ProjectTrackerProgress from "./ProjectTrackerProgress";
 
 const STATUS_STYLES: Record<
   FeaturedProject["status"],
@@ -66,18 +67,11 @@ export default function FeaturedProjectCard({
       />
 
       <div className="flex items-start gap-4">
-        <div className="relative shrink-0">
-          <div className="overflow-hidden rounded-2xl border border-jade-border bg-background-secondary p-0.5 transition-shadow duration-300 group-hover:shadow-[0_0_24px_rgba(62,180,137,0.25)]">
-            <Image
-              src={project.icon}
-              alt={`${project.name} app icon`}
-              width={64}
-              height={64}
-              className="h-11 w-11 rounded-[14px] object-cover sm:h-14 sm:w-14 sm:rounded-2xl"
-              priority={index === 0}
-            />
-          </div>
-        </div>
+        <ProjectAppIcon
+          src={project.icon}
+          alt={`${project.name} app icon`}
+          priority={index === 0}
+        />
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -104,6 +98,15 @@ export default function FeaturedProjectCard({
       <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted sm:line-clamp-none">
         {project.synopsis}
       </p>
+
+      <ProjectTrackerProgress
+        className="mt-4"
+        phase={project.trackerPhase}
+        progress={project.trackerProgress}
+        detail={project.trackerDetail}
+        label={project.name}
+        size="sm"
+      />
 
       <div className="mt-5">
         <ProjectScreenshotGallery
