@@ -14,10 +14,10 @@ const PUBLIC = path.join(__dirname, "..", "public", "projects");
 const CARD_BG = { r: 21, g: 28, b: 24 }; // #151C18
 const LIGHT_THRESHOLD = 242;
 
-// Shuchu uses its natural blue-sky squircle — compositing destroys the white
-// focus symbol (global light-pixel stripping). Regenerate via removeMatte only.
+// Shuchu and Bookmarked use their natural squircle backgrounds — compositing
+// destroys interior light pixels. Regenerate via removeMatte only.
 const TARGETS = ["avryo", "gridlock"];
-const MATTE_ONLY = ["shuchu"];
+const MATTE_ONLY = ["shuchu", "bookmarked"];
 
 function cornersAreLight(data, width, height) {
   const sample = (x, y) => {
