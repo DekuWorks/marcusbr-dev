@@ -4,14 +4,14 @@ type ProjectConceptIconSize = "card" | "hero" | "gallery" | "lightbox";
 
 const SIZE_CLASSES: Record<ProjectConceptIconSize, string> = {
   card: "h-[52px] w-[52px] sm:h-16 sm:w-16",
-  hero: "h-20 w-20 sm:h-[120px] sm:w-[120px]",
+  hero: "h-[100px] w-[100px] sm:h-[150px] sm:w-[150px]",
   gallery: "h-24 w-24 sm:h-28 sm:w-28",
   lightbox: "h-32 w-32 sm:h-40 sm:w-40",
 };
 
 const DIMENSIONS: Record<ProjectConceptIconSize, number> = {
   card: 64,
-  hero: 120,
+  hero: 150,
   gallery: 112,
   lightbox: 160,
 };
