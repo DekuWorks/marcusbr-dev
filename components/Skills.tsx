@@ -18,7 +18,7 @@ const skillGroups = [
   },
   {
     title: "Database",
-    skills: ["SQL Server", "PostgreSQL", "Firebase", "EF Core"],
+    skills: ["SQL", "SQL Server", "PostgreSQL", "Firebase", "EF Core"],
   },
   {
     title: "Cloud & DevOps",

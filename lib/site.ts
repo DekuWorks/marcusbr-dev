@@ -22,6 +22,9 @@ Phone: ${SITE.phone}
 Website: marcusbr.dev`;
 
 export const FEATURED_TECHNOLOGIES = [
+  "HTML",
+  "CSS",
+  "JavaScript",
   "React",
   "Next.js",
   "TypeScript",
@@ -33,6 +36,7 @@ export const FEATURED_TECHNOLOGIES = [
   "AWS",
   "Azure",
   "Django",
+  "SQL",
   "PostgreSQL",
   "Docker",
   "CI/CD",

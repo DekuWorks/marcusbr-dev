@@ -15,7 +15,7 @@ const stats = [
 const techStack = [
   {
     title: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Vite"],
+    items: ["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Vite"],
   },
   {
     title: "Mobile",
@@ -23,7 +23,7 @@ const techStack = [
   },
   {
     title: "Backend",
-    items: ["C#", "ASP.NET Core 8", "Python", "Django", "Node.js", "Express", "REST APIs", "Supabase"],
+    items: ["C#", "ASP.NET Core 8", "Python", "Django", "Node.js", "Express", "REST APIs", "Supabase", "SQL"],
   },
   {
     title: "Cloud & DevOps",
