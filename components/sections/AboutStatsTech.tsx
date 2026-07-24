@@ -15,29 +15,30 @@ const stats = [
 const techStack = [
   {
     title: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux"],
+    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Vite"],
   },
   {
     title: "Mobile",
-    items: ["React Native", "Expo", "Flutter"],
+    items: ["React Native", "Expo", "Flutter", "Dart"],
   },
   {
     title: "Backend",
-    items: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Supabase"],
+    items: ["C#", "ASP.NET Core 8", "Python", "Django", "Node.js", "Express", "REST APIs", "Supabase"],
   },
   {
     title: "Cloud & DevOps",
-    items: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions"],
+    items: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions", "Nginx"],
   },
   {
     title: "AI & Tools",
     items: [
-      "Gen AI",
-      "Prompts",
       "OpenAI API",
+      "LLM Apps",
+      "Prompt Engineering",
       "AI Agents",
-      "RAG Systems",
+      "RAG",
       "PostgreSQL",
+      "Firebase",
     ],
   },
 ] as const;
@@ -68,10 +69,10 @@ export default function AboutStatsTech() {
             </h2>
             <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
               <p>
-                I&apos;m Marcus Brown, a Senior Full-Stack Developer and AI
+                I&apos;m Marcus Brown, a Senior Full Stack Developer and AI
                 Engineer based in {SITE.location}, with 8+ years of experience
-                building modern SaaS platforms, cloud-native systems, mobile
-                apps, and AI-powered products.
+                building SaaS platforms, cross-platform mobile applications,
+                cloud-native systems, and AI-assisted product experiences.
               </p>
               <p>
                 As the founder of{" "}

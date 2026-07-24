@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Marcus Brown is a Senior Full-Stack Developer and AI Engineer with 8+ years building React, TypeScript, .NET, cloud-native SaaS platforms, and AI-powered products. Founder of DekuWorks.";
+  "Marcus Brown is a Senior Full Stack Developer and AI Engineer with 8+ years building SaaS platforms, cross-platform mobile applications, secure APIs, and AI-assisted product experiences with React, TypeScript, Flutter, React Native, .NET, Python, Supabase, Azure, and AWS.";
 
 export const metadata: Metadata = {
-  title: "Marcus Brown | Senior Full-Stack Developer & AI Engineer",
+  title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
   description,
   keywords: [
     "Marcus Brown",
@@ -27,8 +27,11 @@ export const metadata: Metadata = {
     "React Developer",
     "Next.js Developer",
     "Flutter Developer",
+    "Mobile Application Developer",
+    "React Native Developer",
+    "Supabase",
     "Gen AI",
-    "Prompts",
+    "Prompt Engineering",
     ".NET Developer",
     "DekuWorks",
     "marcusbr.dev",
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
     canonical: SITE.url,
   },
   openGraph: {
-    title: "Marcus Brown | Senior Full-Stack Developer & AI Engineer",
+    title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
     description,
     url: SITE.url,
     siteName: "Marcus Brown Portfolio",
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcus Brown | Senior Full-Stack Developer & AI Engineer",
+    title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
     description,
     images: ["/marcus-brown.jpg"],
   },

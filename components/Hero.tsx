@@ -17,7 +17,7 @@ import { SITE } from "@/lib/site";
 const roleTags = [
   "Senior Developer",
   "AI Engineer",
-  "Founder",
+  "Mobile Developer",
 ] as const;
 
 const statusBadges = [
@@ -74,9 +74,9 @@ export default function Hero() {
           </h1>
 
           <p className="mt-4 text-lg font-medium text-cream/90 sm:text-xl">
-            Senior Full-Stack Developer,{" "}
-            <span className="text-jade-bright">AI Engineer</span> &amp; SaaS
-            Founder
+            Senior Full Stack Developer,{" "}
+            <span className="text-jade-bright">AI Engineer</span> &amp; Mobile
+            Application Developer
           </p>
 
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted lg:mx-0">
