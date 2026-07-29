@@ -2,7 +2,7 @@ import { SITE } from "./site";
 
 /**
  * Section anchors on the home page — keep in sync with section `id` attributes
- * in Hero, AboutStatsTech, FeaturedProjects, TechnologySystem, Experience, Footer.
+ * in Hero, AboutStatsTech, FeaturedProjects, TechnologySystem, Experience, CTABar.
  */
 export const PAGE_SECTIONS = [
   {

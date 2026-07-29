@@ -9,7 +9,7 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 
 **Upgrade:** Marcus OS — 3D Portfolio (motion-first pivot)  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026 (Phases 29–32, 34 complete)
+**Last updated:** July 29, 2026 (Phases 35–36, 40 partial complete)
 
 ---
 
@@ -26,8 +26,8 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 - [ ] ForgeOne 3D Lab complete
 - [x] Accessibility complete
 - [x] Performance optimization complete
-- [ ] Testing complete
-- [ ] Documentation complete
+- [x] Testing complete (minimal unit tests — vitest)
+- [x] Documentation complete (progress tracker + `.env.example`)
 - [ ] Production deployment complete
 
 ---
@@ -91,16 +91,16 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 
 - [x] **Phase 33** — Improve navigation
 - [x] **Phase 34** — Add a command palette (⌘K / Ctrl+K, jade-themed)
-- [ ] **Phase 35** — Improve the contact section
+- [x] **Phase 35** — Improve the contact section (CTABar polish, availability, recruiter actions)
 
 ### Analytics, Testing & Docs
 
-- [ ] **Phase 36** — Add analytics events
-- [ ] **Phase 37** — Add testing
-- [ ] **Phase 38** — Test responsive layouts
-- [ ] **Phase 39** — Test browsers and devices
-- [ ] **Phase 40** — Performance targets
-- [ ] **Phase 41** — Create documentation
+- [x] **Phase 36** — Add analytics events (optional Plausible via `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`)
+- [x] **Phase 37** — Add testing (minimal vitest unit tests for `lib/seo`, `lib/techProjectMatch`)
+- [ ] **Phase 38** — Test responsive layouts (manual QA — deferred)
+- [ ] **Phase 39** — Test browsers and devices (manual QA — deferred)
+- [x] **Phase 40** — Performance targets (theme-color, color-scheme meta; fonts self-hosted via `next/font`)
+- [x] **Phase 41** — Create documentation (`.env.example`, progress tracker)
 - [x] **Phase 42** — Add a progress tracker (this file)
 - [ ] **Phase 43** — Add development rules
 - [ ] **Phase 44** — Suggested implementation order (tracked via sprint below)
@@ -111,7 +111,7 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 
 ### In Progress
 
-- Phase 17+ — Optional 3D lab (no 3D hero)
+- (none — optional 3D lab deferred)
 
 ### Completed
 
@@ -134,13 +134,21 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 - [x] Phase 31 — Loading skeletons for FeaturedProjects, TechnologySystem, Experience (jade pulse, reduced-motion aware)
 - [x] Phase 32 — Section error boundaries (isolated chunk failures)
 - [x] Phase 34 — Command palette (`⌘K` / `Ctrl+K`, jade-themed, accessible dialog + navbar hint)
+- [x] Phase 35 — Contact section (availability indicator, recruiter quick actions, jade accents, styled mailto)
+- [x] Phase 36 — Optional Plausible analytics (`components/Analytics.tsx`, env-gated)
+- [x] Phase 37 — Vitest unit tests for SEO URL helpers and tech-project matching
+- [x] Phase 40 (partial) — Lighthouse-friendly `theme-color` / `color-scheme` meta; Geist fonts self-hosted (no external preconnect needed)
+- [x] Footer polish — Skills link, command palette hint, resume link, `id="contact"` on CTABar
 
 ### Blocked
 
 - (none)
 
 ### Next
-- [ ] Phase 35 — Improve the contact section
+
+- [ ] Phase 17+ — ForgeOne 3D Lab (deferred until real assets exist)
+- [ ] Phase 38–39 — Manual responsive / cross-browser QA
+- [ ] Phase 43–44 — Development rules doc, implementation order refresh
 
 ---
 
@@ -149,6 +157,9 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 - Audit found **no blockers** for R3F on static export. All canvas must use `dynamic(..., { ssr: false })`.
 - **Skip separate `motion` package** — project already uses `framer-motion` v12 throughout.
 - **ForgeOne not in `lib/projects.ts`** — do not invent; add when real data/assets exist.
+- **ForgeOne phases 17–21, scroll-driven 3D (22–24), full E2E/Playwright suite** — intentionally deferred.
+- **Analytics** — set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` in production env to enable; no secrets in repo.
+- **Fonts** — `next/font` self-hosts Geist; no Google Fonts CDN preconnect required.
 - **5 featured projects:** Shuchu, DayPilot, Bookmarked, Avryo, Gridlock.
 - **11 orphaned components** exist (e.g. `ApexBanner`, `Contact`) — reuse patterns, don't delete yet.
 - Shuchu marketing pages (`/shuchu/*`) use a separate light theme — out of scope for Marcus OS hero.

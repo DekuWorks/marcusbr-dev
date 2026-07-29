@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Analytics from "@/components/Analytics";
 import { SITE } from "@/lib/site";
 import { buildRootJsonLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { EffectsPreferenceProvider } from "@/hooks/useEffectsPreference";
@@ -86,11 +87,16 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
+      <head>
+        <meta name="theme-color" content="#0d1310" />
+        <meta name="color-scheme" content="dark" />
+      </head>
       <body className="min-h-full bg-background text-cream">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Analytics />
         <EffectsPreferenceProvider>
           <CommandPaletteProvider>{children}</CommandPaletteProvider>
         </EffectsPreferenceProvider>

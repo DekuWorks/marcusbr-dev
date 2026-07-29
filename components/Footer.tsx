@@ -1,11 +1,13 @@
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import SiteLogo from "./SiteLogo";
+import CommandPaletteHint from "./CommandPaletteHint";
 import { SITE } from "@/lib/site";
 
 const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -21,7 +23,7 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer id="contact" className="w-full border-t border-jade/10 px-4 py-12 sm:px-6">
+    <footer className="w-full border-t border-jade/10 px-4 py-12 sm:px-6">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div>
           <a href="#home" className="inline-flex items-center gap-2 text-cream">
@@ -32,7 +34,7 @@ export default function Footer() {
             Senior Full-Stack Developer and AI Engineer building scalable SaaS
             platforms, mobile apps, and AI-powered products through DekuWorks.
           </p>
-          <div className="mt-5 flex gap-3">
+          <div className="mt-5 flex flex-wrap items-center gap-3">
             <a
               href={SITE.social.github}
               className="flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted transition-colors hover:border-jade/40 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
@@ -54,6 +56,7 @@ export default function Footer() {
             >
               <span className="text-sm font-semibold">@</span>
             </a>
+            <CommandPaletteHint alwaysVisible />
           </div>
         </div>
 
@@ -97,7 +100,7 @@ export default function Footer() {
             <li>
               <a
                 href={`mailto:${SITE.email}`}
-                className="text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade rounded-sm"
+                className="font-mono text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade rounded-sm"
               >
                 {SITE.email}
               </a>
@@ -116,6 +119,15 @@ export default function Footer() {
                 className="text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade rounded-sm"
               >
                 marcusbr.dev
+              </a>
+            </li>
+            <li>
+              <a
+                href={SITE.resumePath}
+                download={SITE.resumeFilename}
+                className="text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade rounded-sm"
+              >
+                Download resume
               </a>
             </li>
           </ul>
