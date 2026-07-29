@@ -1,5 +1,10 @@
 # MarcusBR.dev 3D Portfolio Progress
 
+## Direction (July 2026)
+
+Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfolio: tilt cards, magnetic CTAs, scroll reveals, and a navbar effects toggle. ForgeOne and orbit 3D phases remain **out of scope** until real assets exist.
+
+
 **Upgrade:** Marcus OS — 3D Portfolio  
 **Started:** July 29, 2026  
 **Last updated:** July 29, 2026 (Phases 3–7 complete)
@@ -44,10 +49,10 @@
 
 - [x] Phase 8 (lite) — CursorGlow on desktop
 - [x] Phase 9 (lite) — TiltCard wrapper on featured carousel cards
-- [ ] **Phase 10** — Upgrade the project cards
-- [ ] **Phase 11** — Build the Active Builds section
-- [ ] **Phase 12** — Create magnetic buttons
-- [ ] **Phase 13** — Add scroll reveal animations
+- [x] **Phase 10** — Upgrade the project cards (motion polish, accent hover)
+- [x] **Phase 11** — Build the Active Builds section (links, tilt, tracker)
+- [x] **Phase 12** — Create magnetic buttons (hero + CTA bar)
+- [x] **Phase 13** — Add scroll reveal animations (site-wide)
 
 ### Tech & Experience
 
@@ -68,8 +73,8 @@
 - [ ] **Phase 22** — Add a scroll-driven scene transition
 - [ ] **Phase 23** — Add a visibility-based animation controller
 - [ ] **Phase 24** — Add device performance detection
-- [ ] **Phase 25** — Add an effects toggle
-- [ ] **Phase 26** — Respect reduced motion
+- [x] **Phase 25** — Add an effects toggle (`EffectsToggle` + `useEffectsPreference`)
+- [x] **Phase 26** — Respect reduced motion (effects preference + CSS)
 
 ### Quality & Polish
 
@@ -104,7 +109,7 @@
 
 ### In Progress
 
-- Phase 8–13 — Motion polish (MagneticButton, ScrollReveal integration)
+- Phase 14+ — Technology system, timeline, and quality passes (no 3D hero)
 
 ### Completed
 
@@ -112,7 +117,7 @@
 - [x] Phase 2 — Installed `three`, `@react-three/fiber`, `@react-three/drei`; build verified
 - [x] Phase 3 — `components/three/` + `components/motion/` scaffold
 - [x] Phase 4 — `lib/technologies.ts`, `lib/experience.ts` extracted
-- [x] Phase 5–7 — MarcusOSHero, lazy PortfolioHeroScene, SceneFallback
+- [x] Phase 5–7 — ~~MarcusOSHero~~ (reverted — motion-first hero)
 - [x] Phase 24 (lite) — `useDevicePerformance` tier detection
 - [x] Phase 25–26 (lite) — `useReducedMotionPreference` (full/reduced/off)
 - [x] Phase 42 — Progress tracker created
@@ -123,9 +128,10 @@
 - (none)
 
 ### Next
-- [ ] Phase 10 — Upgrade project cards (full Marcus OS treatment)
-- [ ] Phase 11 — Active Builds section 3D accents
-- [ ] Phase 14 — Technology System section with orbit
+- [x] Phase 10 — Featured carousel accent hover + shine
+- [x] Phase 11 — Active Builds cards with tilt, links, tech chips
+- [x] Phase 12–13, 25–26 — Magnetic CTAs, scroll reveal, effects toggle
+- [ ] Phase 14 — Technology System section (2D, filter chips)
 
 ---
 

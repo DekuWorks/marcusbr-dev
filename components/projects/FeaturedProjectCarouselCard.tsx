@@ -48,6 +48,7 @@ export default function FeaturedProjectCarouselCard({
         className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80"
         style={{ "--project-accent": project.accent } as React.CSSProperties}
       >
+        <div className="featured-card-shine" aria-hidden />
       <Link
         href={detailUrl}
         className="group/screenshot relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"

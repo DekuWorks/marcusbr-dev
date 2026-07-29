@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Calendar, Mail, MessageSquare, Rocket } from "lucide-react";
 import Button from "./Button";
+import MagneticButton from "@/components/motion/MagneticButton";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 
@@ -32,30 +33,36 @@ export default function CTABar() {
           talk about what we can build together.
         </p>
         <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <Button
-            href={`mailto:${SITE.email}`}
-            variant="secondary"
-            className="min-h-11 w-full sm:w-auto"
-          >
-            <Mail className="h-4 w-4" aria-hidden />
-            Email Me
-          </Button>
-          <Button
-            href={`sms:${SITE.phone}`}
-            variant="secondary"
-            className="min-h-11 w-full sm:w-auto"
-          >
-            <MessageSquare className="h-4 w-4" aria-hidden />
-            Text Me
-          </Button>
-          <Button
-            href={`mailto:${SITE.email}?subject=Schedule%20a%20Call`}
-            variant="primary"
-            className="min-h-11 w-full sm:w-auto"
-          >
-            <Calendar className="h-4 w-4" aria-hidden />
-            Schedule a Call
-          </Button>
+          <MagneticButton className="w-full sm:w-auto">
+            <Button
+              href={`mailto:${SITE.email}`}
+              variant="secondary"
+              className="min-h-11 w-full sm:w-auto"
+            >
+              <Mail className="h-4 w-4" aria-hidden />
+              Email Me
+            </Button>
+          </MagneticButton>
+          <MagneticButton className="w-full sm:w-auto">
+            <Button
+              href={`sms:${SITE.phone}`}
+              variant="secondary"
+              className="min-h-11 w-full sm:w-auto"
+            >
+              <MessageSquare className="h-4 w-4" aria-hidden />
+              Text Me
+            </Button>
+          </MagneticButton>
+          <MagneticButton className="w-full sm:w-auto">
+            <Button
+              href={`mailto:${SITE.email}?subject=Schedule%20a%20Call`}
+              variant="primary"
+              className="min-h-11 w-full sm:w-auto"
+            >
+              <Calendar className="h-4 w-4" aria-hidden />
+              Schedule a Call
+            </Button>
+          </MagneticButton>
         </div>
       </motion.div>
     </section>
