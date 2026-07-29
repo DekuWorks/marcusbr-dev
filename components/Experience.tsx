@@ -19,6 +19,10 @@ import {
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { experiences } from "@/lib/experience";
 
+function isCurrentRole(period: string): boolean {
+  return period.toLowerCase().includes("present");
+}
+
 function ExperienceSummaryCard({
   exp,
   index,
@@ -28,6 +32,8 @@ function ExperienceSummaryCard({
   index: number;
   motionEnabled: boolean;
 }) {
+  const current = isCurrentRole(exp.period);
+
   return (
     <motion.li
       initial={motionEnabled ? { opacity: 0, y: 20 } : false}
@@ -41,19 +47,48 @@ function ExperienceSummaryCard({
     >
       <div className="mb-4 hidden lg:flex lg:justify-center">
         <span
-          className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-jade bg-background"
+          className={`relative z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
+            current ? "border-jade-bright shadow-glow-sm" : "border-jade"
+          }`}
           aria-hidden
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-jade-bright" />
+          <span
+            className={`rounded-full ${current ? "h-2 w-2 bg-jade-bright" : "h-1.5 w-1.5 bg-jade-bright"}`}
+          />
         </span>
       </div>
-      <article className="glass-card h-full rounded-xl p-5 transition-all hover:border-jade/25 hover:shadow-glow-sm sm:p-6">
-        <h3 className="text-base font-bold text-cream sm:text-lg">{exp.company}</h3>
+      <article
+        className={`experience-summary-card glass-card group h-full rounded-xl p-5 transition-all sm:p-6 ${
+          current
+            ? "border-jade/35 shadow-glow-sm"
+            : "hover:border-jade/25 hover:shadow-glow-sm"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-base font-bold text-cream sm:text-lg">
+            {exp.company}
+          </h3>
+          {current && (
+            <span className="shrink-0 rounded-full border border-jade/40 bg-jade/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
+              Current
+            </span>
+          )}
+        </div>
         <p className="mt-1 text-sm font-medium text-jade">{exp.role}</p>
         <p className="mt-1 text-xs font-medium tracking-wide text-muted uppercase">
           {exp.period}
         </p>
-        <p className="mt-3 text-sm leading-relaxed text-muted">{exp.description}</p>
+        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted">
+          {exp.description}
+        </p>
+        <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-cream/75">
+          <span className="font-medium text-jade/90">Highlight:</span>{" "}
+          {exp.highlights[0]}
+        </p>
+        <div
+          className="mt-4 h-px bg-gradient-to-r from-jade/30 via-jade/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+          aria-hidden
+        />
       </article>
     </motion.li>
   );
@@ -70,6 +105,8 @@ function ExperienceDetailEntry({
   isLast: boolean;
   motionEnabled: boolean;
 }) {
+  const current = isCurrentRole(exp.period);
+
   return (
     <motion.li
       initial={motionEnabled ? { opacity: 0, y: 16 } : false}
@@ -81,35 +118,65 @@ function ExperienceDetailEntry({
       className="relative pl-8 sm:pl-10"
     >
       <span
-        className="absolute top-1.5 left-0 z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-jade bg-background"
+        className={`absolute top-1.5 left-0 z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
+          current ? "border-jade-bright shadow-glow-sm" : "border-jade"
+        }`}
         aria-hidden
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-jade-bright" />
+        <span
+          className={`rounded-full ${current ? "h-2 w-2 bg-jade-bright" : "h-1.5 w-1.5 bg-jade-bright"}`}
+        />
       </span>
       {!isLast && (
         <span
-          className="absolute top-5 left-[7px] h-[calc(100%+1.5rem)] w-px bg-gradient-to-b from-jade/40 to-jade/10"
+          className="absolute top-6 left-[9px] h-[calc(100%+1.5rem)] w-px bg-gradient-to-b from-jade/50 via-jade/25 to-jade/5"
           aria-hidden
         />
       )}
-      <article className="glass-card rounded-xl p-5 sm:p-6">
-        <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-3">
-          <h3 className="text-lg font-bold text-cream">{exp.company}</h3>
-          <p className="text-xs font-medium tracking-wide text-muted uppercase">
+      <article
+        className={`experience-detail-card glass-card rounded-xl border-l-2 p-5 transition-all sm:p-6 ${
+          current
+            ? "border-l-jade-bright shadow-glow-sm"
+            : "border-l-jade/30 hover:border-l-jade/60"
+        }`}
+      >
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:gap-3">
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="text-lg font-bold text-cream">{exp.company}</h3>
+              {current && (
+                <span className="rounded-full border border-jade/40 bg-jade/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
+                  Current
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-sm font-medium text-jade">{exp.role}</p>
+          </div>
+          <p className="shrink-0 rounded-md border border-jade-border bg-background-secondary/80 px-2.5 py-1 text-xs font-medium tracking-wide text-muted uppercase">
             {exp.period}
           </p>
         </div>
-        <p className="mt-1 text-sm font-medium text-jade">{exp.role}</p>
-        <p className="mt-3 text-sm leading-relaxed text-muted">{exp.description}</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted">
+          {exp.description}
+        </p>
         <ul className="mt-4 space-y-2.5" aria-label={`${exp.company} highlights`}>
-          {exp.highlights.map((item) => (
-            <li key={item} className="flex gap-2.5 text-sm text-cream/90">
+          {exp.highlights.map((item, highlightIndex) => (
+            <motion.li
+              key={item}
+              initial={motionEnabled ? { opacity: 0, x: -8 } : false}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: motionEnabled ? 0.25 : 0,
+                delay: motionEnabled ? index * 0.06 + highlightIndex * 0.04 : 0,
+              }}
+              className="flex gap-2.5 text-sm text-cream/90"
+            >
               <span
                 className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-jade"
                 aria-hidden
               />
               <span>{item}</span>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </article>
@@ -192,7 +259,13 @@ export default function Experience() {
       className="w-full px-4 py-20 sm:px-6 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <motion.div
+          initial={motionEnabled ? { opacity: 0, y: 20 } : false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: motionEnabled ? 0.45 : 0 }}
+          className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
           <div>
             <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-jade uppercase">
               <Briefcase className="h-4 w-4" aria-hidden />
@@ -204,6 +277,10 @@ export default function Experience() {
             >
               Professional Journey
             </h2>
+            <p className="mt-3 max-w-2xl text-muted">
+              A snapshot of roles across product engineering, AI workflows, and
+              platform leadership — expand for the full timeline.
+            </p>
           </div>
           <button
             type="button"
@@ -219,11 +296,15 @@ export default function Experience() {
               <ArrowRight className="h-4 w-4" aria-hidden />
             )}
           </button>
-        </div>
+        </motion.div>
 
         <div className="relative">
           <div
-            className="absolute top-8 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-jade/30 to-transparent lg:block"
+            className="absolute top-8 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent lg:block"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute top-[1.6rem] right-0 left-0 hidden h-8 bg-gradient-to-r from-transparent via-jade/5 to-transparent blur-md lg:block"
             aria-hidden
           />
 
@@ -307,9 +388,13 @@ export default function Experience() {
               className="overflow-hidden"
             >
               <div className="mt-10 border-t border-jade/10 pt-10">
-                <h3 className="mb-8 text-lg font-semibold text-cream">
+                <h3 className="mb-2 text-lg font-semibold text-cream">
                   Complete Experience Timeline
                 </h3>
+                <p className="mb-8 text-sm text-muted">
+                  Full role details, highlights, and milestones across each
+                  position.
+                </p>
                 <ol className="space-y-8">
                   {experiences.map((exp, index) => (
                     <ExperienceDetailEntry

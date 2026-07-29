@@ -5,7 +5,7 @@ import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
-import { stats as statsData, techStack } from "@/lib/technologies";
+import { stats as statsData } from "@/lib/technologies";
 
 const statIcons = {
   Code2,
@@ -29,13 +29,13 @@ export default function AboutStatsTech() {
       className="w-full px-4 py-20 sm:px-6 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-6">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-6">
           <motion.article
             initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: motionEnabled ? 0.45 : 0 }}
-            className="glass-card rounded-2xl p-6 sm:p-8"
+            className="glass-card rounded-2xl p-6 sm:p-8 lg:col-span-3"
           >
             <h2
               id="about-heading"
@@ -59,11 +59,11 @@ export default function AboutStatsTech() {
               </p>
             </div>
             <Button
-              href="#experience"
+              href="#skills"
               variant="secondary"
               className="mt-6 min-h-11 w-full sm:w-auto"
             >
-              More About Me
+              Explore Tech Stack
               <ArrowUpRight className="h-4 w-4" aria-hidden />
             </Button>
           </motion.article>
@@ -76,7 +76,7 @@ export default function AboutStatsTech() {
               duration: motionEnabled ? 0.45 : 0,
               delay: motionEnabled ? 0.08 : 0,
             }}
-            className="grid grid-cols-2 gap-3 sm:gap-4"
+            className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-2"
             aria-label="Career statistics"
           >
             {stats.map((stat) => (
@@ -93,41 +93,6 @@ export default function AboutStatsTech() {
                 </p>
               </div>
             ))}
-          </motion.div>
-
-          <motion.div
-            initial={motionEnabled ? { opacity: 0, y: 20 } : false}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{
-              duration: motionEnabled ? 0.45 : 0,
-              delay: motionEnabled ? 0.16 : 0,
-            }}
-            className="glass-card rounded-2xl p-6 sm:p-8"
-            id="skills"
-          >
-            <h2 className="text-2xl font-bold text-cream sm:text-3xl">
-              Tech Stack
-            </h2>
-            <div className="mt-5 space-y-5">
-              {techStack.map((group) => (
-                <div key={group.title}>
-                  <h3 className="mb-2 text-sm font-semibold text-jade">
-                    {group.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-md border border-jade-border bg-background-secondary/80 px-2.5 py-1 text-xs text-cream/90"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
       </div>

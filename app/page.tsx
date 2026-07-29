@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import AboutStatsTech from "@/components/sections/AboutStatsTech";
+import TechnologySystem from "@/components/sections/TechnologySystem";
 import Experience from "@/components/Experience";
 import CTABar from "@/components/CTABar";
 import Footer from "@/components/Footer";
@@ -22,6 +23,9 @@ export default function Home() {
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
           <AboutStatsTech />
+        </ScrollReveal>
+        <ScrollReveal delay={0.12}>
+          <TechnologySystem />
         </ScrollReveal>
         <ScrollReveal delay={0.15}>
           <Experience />

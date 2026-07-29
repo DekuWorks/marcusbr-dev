@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } f
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import ScrollReveal from "@/components/motion/ScrollReveal";
 import { getFeaturedProjects } from "@/lib/projects";
 import FeaturedProjectCarouselCard from "@/components/projects/FeaturedProjectCarouselCard";
 
@@ -116,11 +117,16 @@ export default function FeaturedProjects() {
             className="carousel-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-xl"
           >
             {projects.map((project, index) => (
-              <FeaturedProjectCarouselCard
+              <ScrollReveal
                 key={project.id}
-                project={project}
-                priority={index === 0}
-              />
+                delay={index * 0.05}
+                className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px]"
+              >
+                <FeaturedProjectCarouselCard
+                  project={project}
+                  priority={index === 0}
+                />
+              </ScrollReveal>
             ))}
           </div>
 

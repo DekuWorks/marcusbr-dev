@@ -42,7 +42,7 @@ export default function FeaturedProjectCarouselCard({
   const detailUrl = `/projects/${project.id}/`;
 
   return (
-    <article className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px]">
+    <article className="h-full w-full">
       <TiltCard
         maxTilt={6}
         className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80"

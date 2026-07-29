@@ -7,7 +7,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 **Upgrade:** Marcus OS — 3D Portfolio  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026 (Phases 3–7 complete)
+**Last updated:** July 29, 2026 (Phases 14–16 complete)
 
 ---
 
@@ -19,8 +19,8 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Hero scene complete
 - [ ] Project cards complete
 - [ ] Active Builds complete
-- [ ] Tech System complete
-- [ ] Experience timeline complete
+- [x] Tech System complete
+- [x] Experience timeline complete
 - [ ] ForgeOne 3D Lab complete
 - [ ] Accessibility complete
 - [ ] Performance optimization complete
@@ -56,9 +56,9 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 ### Tech & Experience
 
-- [ ] **Phase 14** — Build the Technology System section
-- [ ] **Phase 15** — Add technology-to-project filtering
-- [ ] **Phase 16** — Build the Professional Journey timeline
+- [x] **Phase 14** — Build the Technology System section
+- [x] **Phase 15** — Add technology-to-project filtering
+- [x] **Phase 16** — Build the Professional Journey timeline
 
 ### ForgeOne 3D Lab
 
@@ -109,7 +109,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 ### In Progress
 
-- Phase 14+ — Technology system, timeline, and quality passes (no 3D hero)
+- Phase 17+ — Quality passes, optional 3D lab (no 3D hero)
 
 ### Completed
 
@@ -122,16 +122,18 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Phase 25–26 (lite) — `useReducedMotionPreference` (full/reduced/off)
 - [x] Phase 42 — Progress tracker created
 - [x] Phase 41 (partial) — Architecture, asset guidelines, maintenance doc outlines
+- [x] Phase 14 — Technology System section (filter chips, project linking)
+- [x] Phase 15 — Technology-to-project filtering (`lib/techProjectMatch.ts`)
+- [x] Phase 16 — Professional Journey timeline polish
 
 ### Blocked
 
 - (none)
 
 ### Next
-- [x] Phase 10 — Featured carousel accent hover + shine
-- [x] Phase 11 — Active Builds cards with tilt, links, tech chips
-- [x] Phase 12–13, 25–26 — Magnetic CTAs, scroll reveal, effects toggle
-- [ ] Phase 14 — Technology System section (2D, filter chips)
+- [ ] Phase 27 — Accessibility pass (focus states, aria)
+- [ ] Phase 28 — SEO improvements
+- [ ] Phase 33 — Navigation improvements (skills link)
 
 ---
 
