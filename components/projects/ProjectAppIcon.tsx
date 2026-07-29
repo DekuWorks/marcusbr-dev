@@ -53,6 +53,7 @@ export default function ProjectAppIcon({
         height={dimension}
         className={`project-app-icon ${image}`}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         aria-hidden={alt === "" ? true : undefined}
       />
     </div>

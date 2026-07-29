@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
@@ -6,12 +7,17 @@ import { SITE } from "@/lib/site";
 import { SITE_DESCRIPTION } from "@/lib/seo";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
-import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import AboutStatsTech from "@/components/sections/AboutStatsTech";
-import TechnologySystem from "@/components/sections/TechnologySystem";
-import Experience from "@/components/Experience";
 import CTABar from "@/components/CTABar";
 import Footer from "@/components/Footer";
+
+const FeaturedProjects = dynamic(
+  () => import("@/components/sections/FeaturedProjects"),
+);
+const TechnologySystem = dynamic(
+  () => import("@/components/sections/TechnologySystem"),
+);
+const Experience = dynamic(() => import("@/components/Experience"));
 
 export const metadata: Metadata = {
   title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",

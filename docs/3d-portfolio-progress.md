@@ -2,12 +2,14 @@
 
 ## Direction (July 2026)
 
-Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfolio: tilt cards, magnetic CTAs, scroll reveals, and a navbar effects toggle. ForgeOne and orbit 3D phases remain **out of scope** until real assets exist.
+Marcus OS / Three.js hero **removed** in favor of a lighter **motion-first** portfolio: tilt cards, magnetic CTAs, scroll reveals, command palette navigation, and a navbar effects toggle. ForgeOne and orbit 3D phases remain **out of scope** until real assets exist.
+
+The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/glows) across all UI — command palette, navbar, buttons, and section accents.
 
 
-**Upgrade:** Marcus OS — 3D Portfolio  
+**Upgrade:** Marcus OS — 3D Portfolio (motion-first pivot)  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026 (Phases 27–28, 33 complete)
+**Last updated:** July 29, 2026 (Phases 29–30, 34 complete)
 
 ---
 
@@ -23,7 +25,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Experience timeline complete
 - [ ] ForgeOne 3D Lab complete
 - [x] Accessibility complete
-- [ ] Performance optimization complete
+- [x] Performance optimization complete
 - [ ] Testing complete
 - [ ] Documentation complete
 - [ ] Production deployment complete
@@ -80,15 +82,15 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 - [x] **Phase 27** — Improve accessibility
 - [x] **Phase 28** — Improve SEO
-- [ ] **Phase 29** — Optimize 3D assets
-- [ ] **Phase 30** — Optimize runtime performance
+- [x] **Phase 29** — Optimize 3D assets (N/A — motion-first; image lazy-load + bundle splits)
+- [x] **Phase 30** — Optimize runtime performance (dynamic imports, lazy images)
 - [ ] **Phase 31** — Add loading states
 - [ ] **Phase 32** — Add error boundaries
 
 ### Navigation & Contact
 
 - [x] **Phase 33** — Improve navigation
-- [ ] **Phase 34** — Add a command palette
+- [x] **Phase 34** — Add a command palette (⌘K / Ctrl+K, jade-themed)
 - [ ] **Phase 35** — Improve the contact section
 
 ### Analytics, Testing & Docs
@@ -128,15 +130,15 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Phase 27 — Accessibility pass (skip link, aria, keyboard nav, focus styles)
 - [x] Phase 28 — SEO improvements (JSON-LD, sitemap, robots, metadata)
 - [x] Phase 33 — Navbar Skills link to `#skills`
+- [x] Phase 29–30 — Runtime performance (dynamic section imports, lazy images, hero `sizes`)
+- [x] Phase 34 — Command palette (`⌘K` / `Ctrl+K`, jade-themed, accessible dialog)
 
 ### Blocked
 
 - (none)
 
 ### Next
-- [ ] Phase 29 — Optimize 3D assets
-- [ ] Phase 30 — Runtime performance
-- [ ] Phase 34 — Command palette
+- [ ] Phase 35 — Improve the contact section
 
 ---
 

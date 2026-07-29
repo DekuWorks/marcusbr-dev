@@ -45,6 +45,7 @@ export default function ProjectConceptIconDisplay({
           height={dimension}
           className={`project-concept-icon ${SIZE_CLASSES[size]}`}
           priority={priority}
+          loading={priority ? "eager" : "lazy"}
         />
       </div>
     </div>

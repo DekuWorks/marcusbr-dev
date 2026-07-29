@@ -1,12 +1,12 @@
-# MarcusBR.dev 3D Portfolio — Architecture
+# MarcusBR.dev Portfolio — Architecture
 
-> **Status:** Outline only (Phase 41 partial). Flesh out during Phase 3 implementation.
+> **Status:** Motion-first pivot (July 2026). Marcus OS / WebGL hero was removed; optional 3D lab phases remain documented for future reference only.
 
 ---
 
 ## Overview
 
-Marcus OS layers **semantic HTML content** over optional **client-only WebGL enhancements**. The static export build (`output: "export"`) requires all 3D to load after hydration via dynamic imports.
+The portfolio is a **static export** (`output: "export"`) with semantic HTML content and **client-side motion enhancements** (Framer Motion, tilt cards, magnetic CTAs). All UI uses the **jade green design tokens** (`#3EB489`, `#4ADE9A`, jade borders/glows from `globals.css` / `tailwind.config.ts`).
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -17,13 +17,14 @@ Marcus OS layers **semantic HTML content** over optional **client-only WebGL enh
                     ▼
 ┌─────────────────────────────────────────────┐
 │  Client Hydration                           │
-│  Navbar, sections, Framer Motion            │
+│  Navbar, sections, Framer Motion,           │
+│  Command palette (lazy, ⌘K)                 │
 └─────────────────────────────────────────────┘
                     │
-        dynamic import (ssr: false)
+        dynamic import (ssr: false) — optional future 3D
                     ▼
 ┌─────────────────────────────────────────────┐
-│  WebGL Layer (optional)                     │
+│  WebGL Layer (optional / not active)        │
 │  PortfolioCanvas → HeroScene, TechOrbit,    │
 │  ModelViewer                                │
 └─────────────────────────────────────────────┘

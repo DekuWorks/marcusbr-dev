@@ -250,6 +250,7 @@ export default function TechnologySystem() {
                             width={40}
                             height={40}
                             className="h-full w-full object-cover"
+                            loading="lazy"
                             aria-hidden
                           />
                         </div>

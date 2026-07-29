@@ -161,6 +161,7 @@ export default function Hero() {
                 alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
                 width={576}
                 height={1024}
+                sizes="(max-width: 1024px) 72vw, 340px"
                 className="h-full w-full rounded-2xl object-contain object-center"
                 priority
               />
