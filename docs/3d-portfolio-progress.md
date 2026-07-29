@@ -9,7 +9,7 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 
 **Upgrade:** Marcus OS — 3D Portfolio (motion-first pivot)  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026 (Phases 29–30, 34 complete)
+**Last updated:** July 29, 2026 (Phases 29–32, 34 complete)
 
 ---
 
@@ -84,8 +84,8 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 - [x] **Phase 28** — Improve SEO
 - [x] **Phase 29** — Optimize 3D assets (N/A — motion-first; image lazy-load + bundle splits)
 - [x] **Phase 30** — Optimize runtime performance (dynamic imports, lazy images)
-- [ ] **Phase 31** — Add loading states
-- [ ] **Phase 32** — Add error boundaries
+- [x] **Phase 31** — Add loading states (section skeletons for dynamic imports)
+- [x] **Phase 32** — Add error boundaries (per-section `SectionErrorBoundary`)
 
 ### Navigation & Contact
 
@@ -131,7 +131,9 @@ The site keeps the **jade green palette** (`#3EB489`, `#4ADE9A`, jade borders/gl
 - [x] Phase 28 — SEO improvements (JSON-LD, sitemap, robots, metadata)
 - [x] Phase 33 — Navbar Skills link to `#skills`
 - [x] Phase 29–30 — Runtime performance (dynamic section imports, lazy images, hero `sizes`)
-- [x] Phase 34 — Command palette (`⌘K` / `Ctrl+K`, jade-themed, accessible dialog)
+- [x] Phase 31 — Loading skeletons for FeaturedProjects, TechnologySystem, Experience (jade pulse, reduced-motion aware)
+- [x] Phase 32 — Section error boundaries (isolated chunk failures)
+- [x] Phase 34 — Command palette (`⌘K` / `Ctrl+K`, jade-themed, accessible dialog + navbar hint)
 
 ### Blocked
 

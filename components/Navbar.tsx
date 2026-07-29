@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import SiteLogo from "./SiteLogo";
 import EffectsToggle from "./EffectsToggle";
+import CommandPaletteHint from "./CommandPaletteHint";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -63,6 +64,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <CommandPaletteHint />
           <EffectsToggle />
           <Button href="#contact" variant="secondary" className="min-h-11">
             Let&apos;s Work Together

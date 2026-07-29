@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { buildRootJsonLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { EffectsPreferenceProvider } from "@/hooks/useEffectsPreference";
-import CommandPaletteRoot from "@/components/CommandPaletteRoot";
+import { CommandPaletteProvider } from "@/hooks/useCommandPalette";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -92,8 +92,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <EffectsPreferenceProvider>
-          {children}
-          <CommandPaletteRoot />
+          <CommandPaletteProvider>{children}</CommandPaletteProvider>
         </EffectsPreferenceProvider>
       </body>
     </html>
