@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+import TiltCard from "@/components/motion/TiltCard";
 import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
@@ -41,10 +42,12 @@ export default function FeaturedProjectCarouselCard({
   const detailUrl = `/projects/${project.id}/`;
 
   return (
-    <article
-      className="featured-product-card group flex h-full w-[min(100%,320px)] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80 sm:w-[340px]"
-      style={{ "--project-accent": project.accent } as React.CSSProperties}
-    >
+    <article className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px]">
+      <TiltCard
+        maxTilt={6}
+        className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80"
+        style={{ "--project-accent": project.accent } as React.CSSProperties}
+      >
       <Link
         href={detailUrl}
         className="group/screenshot relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"
@@ -126,6 +129,7 @@ export default function FeaturedProjectCarouselCard({
           </div>
         </div>
       </div>
+      </TiltCard>
     </article>
   );
 }

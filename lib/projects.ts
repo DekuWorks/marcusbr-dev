@@ -44,6 +44,8 @@ export type FeaturedProject = {
   lessonsLearned: string;
   disclaimer?: string;
   deviceFrame?: boolean;
+  /** Optional 3D orbit position [x, y, z] for hero scene nodes. */
+  orbitPosition?: [number, number, number];
 };
 
 const asset = (id: string, file: string) => `/projects/${id}/${file}`;

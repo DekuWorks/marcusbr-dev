@@ -14,6 +14,9 @@
   --gold-light: #e8d5a3;
   --gold-dark: #8b6914;
   --gold-pale: #f4e4bc;
+  --graphite: #0d1310;
+  --ai-accent: #818cf8;
+  --violet-accent: #a78bfa;
 }
 
 @theme inline {
@@ -30,6 +33,9 @@
   --color-gold-light: var(--gold-light);
   --color-gold-dark: var(--gold-dark);
   --color-gold-pale: var(--gold-pale);
+  --color-graphite: var(--graphite);
+  --color-ai-accent: var(--ai-accent);
+  --color-violet-accent: var(--violet-accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -55,6 +61,128 @@ body {
   background: rgba(21, 28, 24, 0.7);
   backdrop-filter: blur(12px);
   border: 1px solid var(--jade-border);
+}
+
+.marcus-os-glass {
+  background: rgba(21, 28, 24, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(62, 180, 137, 0.15);
+}
+
+.marcus-os-hero {
+  min-height: min(100vh, 900px);
+}
+
+/* ── Scene Fallback ── */
+
+.scene-fallback {
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(62, 180, 137, 0.08) 0%,
+    var(--graphite) 55%,
+    #080c0a 100%
+  );
+}
+
+.scene-fallback-grid {
+  background-image:
+    linear-gradient(rgba(62, 180, 137, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 180, 137, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 20%,
+    transparent 75%
+  );
+}
+
+.scene-fallback-glow {
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(62, 180, 137, 0.12) 0%,
+    transparent 50%
+  );
+}
+
+.scene-fallback-core {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.scene-fallback-core-inner {
+  position: absolute;
+  inset: 12px;
+  background: linear-gradient(135deg, var(--jade) 0%, #1a5c42 100%);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  opacity: 0.85;
+  animation: scene-core-pulse 3s ease-in-out infinite;
+}
+
+.scene-fallback-core-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(62, 180, 137, 0.35);
+  border-radius: 50%;
+  animation: scene-ring-spin 12s linear infinite;
+}
+
+.scene-fallback-dot {
+  animation: scene-dot-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes scene-core-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes scene-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scene-dot-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* ── Cursor Glow ── */
+
+.cursor-glow {
+  background: radial-gradient(
+    circle,
+    rgba(62, 180, 137, 0.08) 0%,
+    rgba(129, 140, 248, 0.04) 35%,
+    transparent 70%
+  );
+  filter: blur(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-fallback-core-inner,
+  .scene-fallback-core-ring,
+  .scene-fallback-dot {
+    animation: none;
+  }
 }
 
 .featured-product-card {

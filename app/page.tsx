@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
+import MarcusOSHero from "@/components/portfolio/MarcusOSHero";
+import CursorGlow from "@/components/motion/CursorGlow";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import AboutStatsTech from "@/components/sections/AboutStatsTech";
@@ -10,9 +11,10 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="grid-background relative min-h-screen overflow-x-hidden">
+      <CursorGlow />
       <Navbar />
       <main className="flex w-full flex-col items-center">
-        <Hero />
+        <MarcusOSHero />
         <CurrentlyBuilding />
         <FeaturedProjects />
         <AboutStatsTech />

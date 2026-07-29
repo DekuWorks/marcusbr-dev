@@ -2,7 +2,7 @@
 
 **Upgrade:** Marcus OS — 3D Portfolio  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026
+**Last updated:** July 29, 2026 (Phases 3–7 complete)
 
 ---
 
@@ -10,8 +10,8 @@
 
 - [x] Audit complete
 - [x] Dependencies installed
-- [ ] Shared data created
-- [ ] Hero scene complete
+- [x] Shared data created
+- [x] Hero scene complete
 - [ ] Project cards complete
 - [ ] Active Builds complete
 - [ ] Tech System complete
@@ -31,19 +31,19 @@
 
 - [x] **Phase 1** — Audit the existing project
 - [x] **Phase 2** — Install and configure required packages
-- [ ] **Phase 3** — Create the 3D component architecture
-- [ ] **Phase 4** — Create shared portfolio data
+- [x] **Phase 3** — Create the 3D component architecture
+- [x] **Phase 4** — Create shared portfolio data
 
 ### Hero & Core 3D
 
-- [ ] **Phase 5** — Build the Marcus OS hero section
-- [ ] **Phase 6** — Add hero scene lazy loading
-- [ ] **Phase 7** — Create the scene fallback
+- [x] **Phase 5** — Build the Marcus OS hero section
+- [x] **Phase 6** — Add hero scene lazy loading
+- [x] **Phase 7** — Create the scene fallback
 
 ### Motion & Cards
 
-- [ ] **Phase 8** — Add cursor glow
-- [ ] **Phase 9** — Create reusable 3D tilt cards
+- [x] Phase 8 (lite) — CursorGlow on desktop
+- [x] Phase 9 (lite) — TiltCard wrapper on featured carousel cards
 - [ ] **Phase 10** — Upgrade the project cards
 - [ ] **Phase 11** — Build the Active Builds section
 - [ ] **Phase 12** — Create magnetic buttons
@@ -104,12 +104,17 @@
 
 ### In Progress
 
-- (none)
+- Phase 8–13 — Motion polish (MagneticButton, ScrollReveal integration)
 
 ### Completed
 
 - [x] Phase 1 — Full codebase audit (`docs/3d-portfolio-audit.md`)
 - [x] Phase 2 — Installed `three`, `@react-three/fiber`, `@react-three/drei`; build verified
+- [x] Phase 3 — `components/three/` + `components/motion/` scaffold
+- [x] Phase 4 — `lib/technologies.ts`, `lib/experience.ts` extracted
+- [x] Phase 5–7 — MarcusOSHero, lazy PortfolioHeroScene, SceneFallback
+- [x] Phase 24 (lite) — `useDevicePerformance` tier detection
+- [x] Phase 25–26 (lite) — `useReducedMotionPreference` (full/reduced/off)
 - [x] Phase 42 — Progress tracker created
 - [x] Phase 41 (partial) — Architecture, asset guidelines, maintenance doc outlines
 
@@ -118,9 +123,9 @@
 - (none)
 
 ### Next
-- [ ] Phase 3 — Scaffold `components/three/` and `components/motion/` architecture
-- [ ] Phase 4 — Extract `lib/technologies.ts` and `lib/experience.ts`
-- [ ] Phase 5–7 — SceneFallback + hero HTML layout + lazy-loaded canvas
+- [ ] Phase 10 — Upgrade project cards (full Marcus OS treatment)
+- [ ] Phase 11 — Active Builds section 3D accents
+- [ ] Phase 14 — Technology System section with orbit
 
 ---
 

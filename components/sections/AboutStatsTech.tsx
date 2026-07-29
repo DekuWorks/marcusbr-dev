@@ -4,44 +4,19 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
 import { SITE } from "@/lib/site";
+import { stats as statsData, techStack } from "@/lib/technologies";
 
-const stats = [
-  { icon: Code2, value: "8+", label: "Years Coding" },
-  { icon: FolderKanban, value: "15+", label: "Projects Built" },
-  { icon: Rocket, value: "5", label: "Platforms Launched" },
-  { icon: Brain, value: "100%", label: "Passion & Drive" },
-] as const;
+const statIcons = {
+  Code2,
+  FolderKanban,
+  Rocket,
+  Brain,
+} as const;
 
-const techStack = [
-  {
-    title: "Frontend",
-    items: ["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Vite"],
-  },
-  {
-    title: "Mobile",
-    items: ["React Native", "Expo", "Flutter", "Dart"],
-  },
-  {
-    title: "Backend",
-    items: ["C#", "ASP.NET Core 8", "Python", "Django", "Node.js", "Express", "REST APIs", "Supabase", "SQL"],
-  },
-  {
-    title: "Cloud & DevOps",
-    items: ["AWS", "Azure", "Docker", "CI/CD", "GitHub Actions", "Nginx"],
-  },
-  {
-    title: "AI & Tools",
-    items: [
-      "OpenAI API",
-      "LLM Apps",
-      "Prompt Engineering",
-      "AI Agents",
-      "RAG",
-      "PostgreSQL",
-      "Firebase",
-    ],
-  },
-] as const;
+const stats = statsData.map((stat) => ({
+  ...stat,
+  icon: statIcons[stat.icon],
+}));
 
 export default function AboutStatsTech() {
   const prefersReducedMotion = useReducedMotion();

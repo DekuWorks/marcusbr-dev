@@ -16,6 +16,9 @@ const config: Config = {
         cream: "#EEE7DC",
         card: "#151C18",
         muted: "#B7B2A8",
+        graphite: "#0D1310",
+        "ai-accent": "#818CF8",
+        "violet-accent": "#A78BFA",
         gold: {
           DEFAULT: "#C9A227",
           light: "#E8D5A3",

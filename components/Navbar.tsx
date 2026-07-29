@@ -42,8 +42,13 @@ export default function Navbar() {
           className="flex items-center gap-2 rounded-sm text-cream transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <SiteLogo priority />
-          <span className="text-sm font-bold tracking-wide sm:text-base">
-            Marcus Brown
+          <span className="flex flex-col">
+            <span className="text-sm font-bold tracking-wide sm:text-base">
+              Marcus Brown
+            </span>
+            <span className="hidden font-mono text-[9px] font-medium tracking-[0.15em] text-jade/60 uppercase sm:block">
+              MARCUS OS // SYSTEM ONLINE
+            </span>
           </span>
         </a>
 
