@@ -7,7 +7,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 **Upgrade:** Marcus OS — 3D Portfolio  
 **Started:** July 29, 2026  
-**Last updated:** July 29, 2026 (Phases 14–16 complete)
+**Last updated:** July 29, 2026 (Phases 27–28, 33 complete)
 
 ---
 
@@ -22,7 +22,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Tech System complete
 - [x] Experience timeline complete
 - [ ] ForgeOne 3D Lab complete
-- [ ] Accessibility complete
+- [x] Accessibility complete
 - [ ] Performance optimization complete
 - [ ] Testing complete
 - [ ] Documentation complete
@@ -78,8 +78,8 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 ### Quality & Polish
 
-- [ ] **Phase 27** — Improve accessibility
-- [ ] **Phase 28** — Improve SEO
+- [x] **Phase 27** — Improve accessibility
+- [x] **Phase 28** — Improve SEO
 - [ ] **Phase 29** — Optimize 3D assets
 - [ ] **Phase 30** — Optimize runtime performance
 - [ ] **Phase 31** — Add loading states
@@ -87,7 +87,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 ### Navigation & Contact
 
-- [ ] **Phase 33** — Improve navigation
+- [x] **Phase 33** — Improve navigation
 - [ ] **Phase 34** — Add a command palette
 - [ ] **Phase 35** — Improve the contact section
 
@@ -109,7 +109,7 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 
 ### In Progress
 
-- Phase 17+ — Quality passes, optional 3D lab (no 3D hero)
+- Phase 17+ — Optional 3D lab (no 3D hero)
 
 ### Completed
 
@@ -125,15 +125,18 @@ Marcus OS / Three.js hero **removed** in favor of a lighter motion-first portfol
 - [x] Phase 14 — Technology System section (filter chips, project linking)
 - [x] Phase 15 — Technology-to-project filtering (`lib/techProjectMatch.ts`)
 - [x] Phase 16 — Professional Journey timeline polish
+- [x] Phase 27 — Accessibility pass (skip link, aria, keyboard nav, focus styles)
+- [x] Phase 28 — SEO improvements (JSON-LD, sitemap, robots, metadata)
+- [x] Phase 33 — Navbar Skills link to `#skills`
 
 ### Blocked
 
 - (none)
 
 ### Next
-- [ ] Phase 27 — Accessibility pass (focus states, aria)
-- [ ] Phase 28 — SEO improvements
-- [ ] Phase 33 — Navigation improvements (skills link)
+- [ ] Phase 29 — Optimize 3D assets
+- [ ] Phase 30 — Runtime performance
+- [ ] Phase 34 — Command palette
 
 ---
 

@@ -140,6 +140,12 @@ export default function FeaturedProjects() {
           >
             <ChevronRight className="h-5 w-5" />
           </button>
+
+          {canScrollRight && (
+            <p className="mt-3 text-center text-xs text-muted sm:hidden">
+              Swipe to browse featured projects
+            </p>
+          )}
         </div>
       </div>
     </section>

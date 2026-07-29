@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
+import { buildRootJsonLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { EffectsPreferenceProvider } from "@/hooks/useEffectsPreference";
 import "./globals.css";
 
@@ -14,12 +15,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const description =
-  "Marcus Brown is a Senior Full Stack Developer and AI Engineer with 8+ years building SaaS platforms, cross-platform mobile applications, secure APIs, and AI-assisted product experiences with React, TypeScript, Flutter, React Native, .NET, Python, Supabase, Azure, and AWS.";
-
 export const metadata: Metadata = {
-  title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
-  description,
+  title: {
+    default: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
+    template: "%s | Marcus Brown",
+  },
+  description: SITE_DESCRIPTION,
   keywords: [
     "Marcus Brown",
     "Senior Full-Stack Developer",
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
-    description,
+    description: SITE_DESCRIPTION,
     url: SITE.url,
     siteName: "Marcus Brown Portfolio",
     locale: "en_US",
@@ -56,14 +57,14 @@ export const metadata: Metadata = {
         url: "/marcus-brown.jpg",
         width: 576,
         height: 1024,
-        alt: "Marcus Brown — Senior Full-Stack Developer & AI Engineer",
+        alt: "Marcus Brown — Senior Full Stack Developer & AI Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
-    description,
+    description: SITE_DESCRIPTION,
     images: ["/marcus-brown.jpg"],
   },
   robots: {
@@ -72,30 +73,7 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE.name,
-  url: SITE.url,
-  email: SITE.email,
-  jobTitle: SITE.title,
-  description,
-  sameAs: [SITE.social.github, SITE.social.linkedin, SITE.social.linktree],
-  knowsAbout: [
-    "Full-Stack Development",
-    "AI Engineering",
-    "SaaS",
-    "React",
-    "Next.js",
-    "TypeScript",
-    ".NET",
-    "Azure",
-    "React Native",
-    "Flutter",
-    "Gen AI",
-    "Prompts",
-  ],
-};
+const jsonLd = buildRootJsonLd();
 
 export default function RootLayout({
   children,

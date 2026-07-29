@@ -5,6 +5,7 @@ import {
   getProjectById,
   getProjectMetadata,
 } from "@/lib/projects";
+import { buildCreativeWorkJsonLd } from "@/lib/seo";
 import ProjectDetailContent from "@/components/projects/ProjectDetailContent";
 
 interface ProjectPageProps {
@@ -27,6 +28,7 @@ export async function generateMetadata({
   return {
     title: meta.title,
     description: meta.description,
+    keywords: project.technologies,
     alternates: { canonical: meta.url },
     openGraph: {
       ...meta.openGraph,
@@ -34,6 +36,10 @@ export async function generateMetadata({
       siteName: "Marcus Brown Portfolio",
     },
     twitter: meta.twitter,
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -45,27 +51,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const meta = getProjectMetadata(project);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: project.name,
-    description: project.synopsis,
-    applicationCategory: project.category,
-    operatingSystem: project.filters.includes("mobile")
-      ? "iOS, Android"
-      : "Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    author: {
-      "@type": "Person",
-      name: "Marcus Brown",
-      url: "https://marcusbr.dev",
-    },
+  const jsonLd = buildCreativeWorkJsonLd(project, {
+    url: meta.url,
     image: meta.image,
-  };
+  });
 
   return (
     <>

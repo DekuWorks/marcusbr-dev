@@ -1,5 +1,9 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
+import { SITE } from "@/lib/site";
+import { SITE_DESCRIPTION } from "@/lib/seo";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
@@ -9,11 +13,30 @@ import Experience from "@/components/Experience";
 import CTABar from "@/components/CTABar";
 import Footer from "@/components/Footer";
 
+export const metadata: Metadata = {
+  title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: SITE.url,
+  },
+  openGraph: {
+    title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
+    description: SITE_DESCRIPTION,
+    url: SITE.url,
+    type: "website",
+  },
+};
+
 export default function Home() {
   return (
     <div className="grid-background relative min-h-screen overflow-x-hidden">
+      <SkipLink />
       <Navbar />
-      <main className="flex w-full flex-col items-center">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex w-full flex-col items-center outline-none"
+      >
         <Hero />
         <ScrollReveal>
           <CurrentlyBuilding />

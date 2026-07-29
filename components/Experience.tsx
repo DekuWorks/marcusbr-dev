@@ -287,6 +287,11 @@ export default function Experience() {
             onClick={toggleFullTimeline}
             aria-expanded={showFullTimeline}
             aria-controls={fullTimelineId}
+            aria-label={
+              showFullTimeline
+                ? "Collapse full experience timeline"
+                : "Expand full experience timeline"
+            }
             className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
           >
             {showFullTimeline ? "Show Less" : "View Full Timeline"}
@@ -378,6 +383,8 @@ export default function Experience() {
             <motion.div
               ref={fullTimelineRef}
               id={fullTimelineId}
+              role="region"
+              aria-label="Complete experience timeline"
               initial={motionEnabled ? { opacity: 0, height: 0 } : false}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}

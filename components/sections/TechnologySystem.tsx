@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useId, useMemo, useState } from "react";
+import { useCallback, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -25,6 +25,7 @@ export default function TechnologySystem() {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const categoryListId = useId();
   const techGridId = useId();
+  const categoryTabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const visibleTechnologies = useMemo(() => {
     if (activeCategory === "all") {
@@ -52,6 +53,43 @@ export default function TechnologySystem() {
   const handleTechSelect = useCallback((techName: string) => {
     setSelectedTech((current) => (current === techName ? null : techName));
   }, []);
+
+  const focusCategoryTab = useCallback((index: number) => {
+    categoryTabRefs.current[index]?.focus();
+  }, []);
+
+  const handleCategoryKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+      const lastIndex = categoryFilters.length - 1;
+      let nextIndex: number | null = null;
+
+      switch (event.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          nextIndex = index === lastIndex ? 0 : index + 1;
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          nextIndex = index === 0 ? lastIndex : index - 1;
+          break;
+        case "Home":
+          nextIndex = 0;
+          break;
+        case "End":
+          nextIndex = lastIndex;
+          break;
+        default:
+          return;
+      }
+
+      event.preventDefault();
+      if (nextIndex !== null) {
+        handleCategoryChange(categoryFilters[nextIndex].id);
+        focusCategoryTab(nextIndex);
+      }
+    },
+    [focusCategoryTab, handleCategoryChange],
+  );
 
   return (
     <section
@@ -89,16 +127,22 @@ export default function TechnologySystem() {
           aria-label="Technology categories"
           className="mb-6 flex flex-wrap gap-2"
         >
-          {categoryFilters.map((filter) => {
+          {categoryFilters.map((filter, index) => {
             const isActive = activeCategory === filter.id;
             return (
               <button
                 key={filter.id}
+                ref={(element) => {
+                  categoryTabRefs.current[index] = element;
+                }}
                 type="button"
                 role="tab"
+                id={`${categoryListId}-${filter.id}`}
                 aria-selected={isActive}
                 aria-controls={techGridId}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => handleCategoryChange(filter.id)}
+                onKeyDown={(event) => handleCategoryKeyDown(event, index)}
                 className={`min-h-10 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   isActive
                     ? "border-jade/50 bg-jade/15 text-jade-bright"
@@ -114,7 +158,7 @@ export default function TechnologySystem() {
         <div
           id={techGridId}
           role="tabpanel"
-          aria-label={`${activeCategory === "all" ? "All" : activeCategory} technologies`}
+          aria-labelledby={`${categoryListId}-${activeCategory}`}
           className="glass-card rounded-2xl p-5 sm:p-6"
         >
           <motion.div
@@ -138,6 +182,7 @@ export default function TechnologySystem() {
                   }}
                   onClick={() => handleTechSelect(tech.name)}
                   aria-pressed={isSelected}
+                  aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
                   className={`rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     isSelected
                       ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
@@ -170,6 +215,7 @@ export default function TechnologySystem() {
                 <button
                   type="button"
                   onClick={() => setSelectedTech(null)}
+                  aria-label={`Clear ${selectedTech} filter`}
                   className="text-sm text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
                 >
                   Clear
