@@ -8,7 +8,7 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
   Briefcase,
@@ -16,25 +16,26 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { experiences } from "@/lib/experience";
 
 function ExperienceSummaryCard({
   exp,
   index,
-  prefersReducedMotion,
+  motionEnabled,
 }: {
   exp: (typeof experiences)[number];
   index: number;
-  prefersReducedMotion: boolean | null;
+  motionEnabled: boolean;
 }) {
   return (
     <motion.li
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      initial={motionEnabled ? { opacity: 0, y: 20 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{
-        duration: prefersReducedMotion ? 0 : 0.4,
-        delay: prefersReducedMotion ? 0 : index * 0.08,
+        duration: motionEnabled ? 0.4 : 0,
+        delay: motionEnabled ? index * 0.08 : 0,
       }}
       className="relative w-[min(100%,320px)] shrink-0 snap-start sm:w-[min(100%,300px)] lg:w-[min(100%,280px)]"
     >
@@ -62,20 +63,20 @@ function ExperienceDetailEntry({
   exp,
   index,
   isLast,
-  prefersReducedMotion,
+  motionEnabled,
 }: {
   exp: (typeof experiences)[number];
   index: number;
   isLast: boolean;
-  prefersReducedMotion: boolean | null;
+  motionEnabled: boolean;
 }) {
   return (
     <motion.li
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+      initial={motionEnabled ? { opacity: 0, y: 16 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: prefersReducedMotion ? 0 : 0.35,
-        delay: prefersReducedMotion ? 0 : index * 0.06,
+        duration: motionEnabled ? 0.35 : 0,
+        delay: motionEnabled ? index * 0.06 : 0,
       }}
       className="relative pl-8 sm:pl-10"
     >
@@ -117,7 +118,7 @@ function ExperienceDetailEntry({
 }
 
 export default function Experience() {
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
   const [showFullTimeline, setShowFullTimeline] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const fullTimelineRef = useRef<HTMLDivElement>(null);
@@ -143,10 +144,10 @@ export default function Experience() {
       const gap = 24;
       track.scrollBy({
         left: direction * (cardWidth + gap),
-        behavior: prefersReducedMotion ? "auto" : "smooth",
+        behavior: motionEnabled ? "smooth" : "auto",
       });
     },
-    [prefersReducedMotion],
+    [motionEnabled],
   );
 
   const handleTrackKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -166,14 +167,14 @@ export default function Experience() {
       if (next) {
         requestAnimationFrame(() => {
           fullTimelineRef.current?.scrollIntoView({
-            behavior: prefersReducedMotion ? "auto" : "smooth",
+            behavior: motionEnabled ? "smooth" : "auto",
             block: "nearest",
           });
         });
       }
       return next;
     });
-  }, [prefersReducedMotion]);
+  }, [motionEnabled]);
 
   useEffect(() => {
     updateScrollState();
@@ -267,7 +268,7 @@ export default function Experience() {
                   key={exp.company}
                   exp={exp}
                   index={index}
-                  prefersReducedMotion={prefersReducedMotion}
+                  motionEnabled={motionEnabled}
                 />
               ))}
             </ol>
@@ -296,19 +297,11 @@ export default function Experience() {
             <motion.div
               ref={fullTimelineRef}
               id={fullTimelineId}
-              initial={prefersReducedMotion ? false : { opacity: 0, height: 0 }}
-              animate={
-                prefersReducedMotion
-                  ? { opacity: 1, height: "auto" }
-                  : { opacity: 1, height: "auto" }
-              }
-              exit={
-                prefersReducedMotion
-                  ? { opacity: 0, height: 0 }
-                  : { opacity: 0, height: 0 }
-              }
+              initial={motionEnabled ? { opacity: 0, height: 0 } : false}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
               transition={{
-                duration: prefersReducedMotion ? 0 : 0.35,
+                duration: motionEnabled ? 0.35 : 0,
                 ease: [0.4, 0, 0.2, 1],
               }}
               className="overflow-hidden"
@@ -324,7 +317,7 @@ export default function Experience() {
                       exp={exp}
                       index={index}
                       isLast={index === experiences.length - 1}
-                      prefersReducedMotion={prefersReducedMotion}
+                      motionEnabled={motionEnabled}
                     />
                   ))}
                 </ol>

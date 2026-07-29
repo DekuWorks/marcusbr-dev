@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { getFeaturedProjects } from "@/lib/projects";
 import FeaturedProjectCarouselCard from "@/components/projects/FeaturedProjectCarouselCard";
 
@@ -12,7 +13,7 @@ export default function FeaturedProjects() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const trackId = useId();
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
 
   const updateScrollState = useCallback(() => {
     const track = trackRef.current;
@@ -29,9 +30,9 @@ export default function FeaturedProjects() {
     const gap = 24;
     track.scrollBy({
       left: direction * (cardWidth + gap),
-      behavior: prefersReducedMotion ? "auto" : "smooth",
+      behavior: motionEnabled ? "smooth" : "auto",
     });
-  }, [prefersReducedMotion]);
+  }, [motionEnabled]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowLeft") {
@@ -62,10 +63,10 @@ export default function FeaturedProjects() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.45 }}
+            transition={{ duration: motionEnabled ? 0.45 : 0 }}
           >
             <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-jade uppercase">
               <LayoutGrid className="h-4 w-4" aria-hidden />

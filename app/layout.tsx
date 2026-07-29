@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
+import { EffectsPreferenceProvider } from "@/hooks/useEffectsPreference";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -111,7 +112,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <EffectsPreferenceProvider>{children}</EffectsPreferenceProvider>
       </body>
     </html>
   );

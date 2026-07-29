@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 import { stats as statsData, techStack } from "@/lib/technologies";
 
@@ -19,7 +20,7 @@ const stats = statsData.map((stat) => ({
 }));
 
 export default function AboutStatsTech() {
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
 
   return (
     <section
@@ -30,10 +31,10 @@ export default function AboutStatsTech() {
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-6">
           <motion.article
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.45 }}
+            transition={{ duration: motionEnabled ? 0.45 : 0 }}
             className="glass-card rounded-2xl p-6 sm:p-8"
           >
             <h2
@@ -68,12 +69,12 @@ export default function AboutStatsTech() {
           </motion.article>
 
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{
-              duration: prefersReducedMotion ? 0 : 0.45,
-              delay: prefersReducedMotion ? 0 : 0.08,
+              duration: motionEnabled ? 0.45 : 0,
+              delay: motionEnabled ? 0.08 : 0,
             }}
             className="grid grid-cols-2 gap-3 sm:gap-4"
             aria-label="Career statistics"
@@ -95,12 +96,12 @@ export default function AboutStatsTech() {
           </motion.div>
 
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{
-              duration: prefersReducedMotion ? 0 : 0.45,
-              delay: prefersReducedMotion ? 0 : 0.16,
+              duration: motionEnabled ? 0.45 : 0,
+              delay: motionEnabled ? 0.16 : 0,
             }}
             className="glass-card rounded-2xl p-6 sm:p-8"
             id="skills"

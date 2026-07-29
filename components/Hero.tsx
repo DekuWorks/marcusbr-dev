@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Download,
@@ -11,6 +11,8 @@ import {
   Users,
 } from "lucide-react";
 import Button from "./Button";
+import MagneticButton from "@/components/motion/MagneticButton";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { SITE } from "@/lib/site";
 
@@ -27,7 +29,7 @@ const statusBadges = [
 ] as const;
 
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
 
   return (
     <section
@@ -47,9 +49,9 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+          initial={motionEnabled ? { opacity: 0, y: 24 } : false}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.55 }}
+          transition={{ duration: motionEnabled ? 0.55 : 0 }}
           className="text-center lg:text-left"
         >
           <p className="mb-4 inline-flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold tracking-[0.2em] text-jade uppercase lg:justify-start">
@@ -84,27 +86,33 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
-            <Button href="#projects" variant="primary" className="min-h-11 w-full sm:w-auto">
-              View My Work
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Button>
-            <Button
-              href={SITE.resumePath}
-              download={SITE.resumeFilename}
-              variant="secondary"
-              className="min-h-11 w-full sm:w-auto"
-            >
-              <Download className="h-4 w-4" aria-hidden />
-              Download Resume
-            </Button>
-            <Button
-              href={`mailto:${SITE.email}`}
-              variant="secondary"
-              className="min-h-11 min-w-11 px-3"
-              aria-label="Email Marcus Brown"
-            >
-              <Mail className="h-4 w-4" />
-            </Button>
+            <MagneticButton className="w-full sm:w-auto">
+              <Button href="#projects" variant="primary" className="min-h-11 w-full sm:w-auto">
+                View My Work
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Button>
+            </MagneticButton>
+            <MagneticButton className="w-full sm:w-auto">
+              <Button
+                href={SITE.resumePath}
+                download={SITE.resumeFilename}
+                variant="secondary"
+                className="min-h-11 w-full sm:w-auto"
+              >
+                <Download className="h-4 w-4" aria-hidden />
+                Download Resume
+              </Button>
+            </MagneticButton>
+            <MagneticButton>
+              <Button
+                href={`mailto:${SITE.email}`}
+                variant="secondary"
+                className="min-h-11 min-w-11 px-3"
+                aria-label="Email Marcus Brown"
+              >
+                <Mail className="h-4 w-4" />
+              </Button>
+            </MagneticButton>
           </div>
 
           <div
@@ -140,9 +148,9 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96 }}
+          initial={motionEnabled ? { opacity: 0, scale: 0.96 } : false}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.1 }}
+          transition={{ duration: motionEnabled ? 0.6 : 0, delay: motionEnabled ? 0.1 : 0 }}
           className="relative mx-auto w-full max-w-sm lg:max-w-none"
         >
           <div className="relative mx-auto aspect-[9/16] w-full max-w-[min(300px,72vw)] sm:max-w-[320px] lg:max-w-[340px]">

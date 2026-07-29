@@ -1,13 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { getCurrentlyBuildingProjects } from "@/lib/projects";
 import ProjectTrackerProgress from "@/components/projects/ProjectTrackerProgress";
 
 export default function CurrentlyBuilding() {
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
   const projects = getCurrentlyBuildingProjects();
 
   return (
@@ -47,12 +48,12 @@ export default function CurrentlyBuilding() {
           {projects.map((project, index) => (
             <motion.article
               key={project.id}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              initial={motionEnabled ? { opacity: 0, y: 16 } : false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{
-                duration: prefersReducedMotion ? 0 : 0.35,
-                delay: prefersReducedMotion ? 0 : index * 0.06,
+                duration: motionEnabled ? 0.35 : 0,
+                delay: motionEnabled ? index * 0.06 : 0,
               }}
               role="listitem"
               className="glass-card w-[min(100%,280px)] shrink-0 snap-start rounded-xl p-5 transition-all hover:border-jade/25 hover:shadow-glow-sm sm:w-[300px]"

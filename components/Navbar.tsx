@@ -5,6 +5,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import SiteLogo from "./SiteLogo";
+import EffectsToggle from "./EffectsToggle";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -42,13 +43,8 @@ export default function Navbar() {
           className="flex items-center gap-2 rounded-sm text-cream transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <SiteLogo priority />
-          <span className="flex flex-col">
-            <span className="text-sm font-bold tracking-wide sm:text-base">
-              Marcus Brown
-            </span>
-            <span className="hidden font-mono text-[9px] font-medium tracking-[0.15em] text-jade/60 uppercase sm:block">
-              MARCUS OS // SYSTEM ONLINE
-            </span>
+          <span className="text-sm font-bold tracking-wide sm:text-base">
+            Marcus Brown
           </span>
         </a>
 
@@ -65,7 +61,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <EffectsToggle />
           <Button href="#contact" variant="secondary" className="min-h-11">
             Let&apos;s Work Together
             <ArrowUpRight className="h-4 w-4" aria-hidden />
@@ -105,6 +102,9 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
+              <li className="pt-2">
+                <EffectsToggle className="w-full justify-center" />
+              </li>
               <li className="pt-2">
                 <a
                   href="#contact"

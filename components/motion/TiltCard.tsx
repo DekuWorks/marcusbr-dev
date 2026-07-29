@@ -7,7 +7,7 @@ import {
   type ReactNode,
   type CSSProperties,
 } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 
 type TiltCardProps = {
   children: ReactNode;
@@ -23,13 +23,13 @@ export default function TiltCard({
   style,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
   const [transform, setTransform] = useState(
     "perspective(800px) rotateX(0deg) rotateY(0deg)",
   );
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion || !ref.current) return;
+    if (!motionEnabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;

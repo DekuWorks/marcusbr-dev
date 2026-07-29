@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, Mail, MessageSquare, Rocket } from "lucide-react";
 import Button from "./Button";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 
 export default function CTABar() {
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
 
   return (
     <section
@@ -14,10 +15,10 @@ export default function CTABar() {
       className="w-full px-4 py-16 sm:px-6 sm:py-20"
     >
       <motion.div
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+        initial={motionEnabled ? { opacity: 0, y: 20 } : false}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.45 }}
+        transition={{ duration: motionEnabled ? 0.45 : 0 }}
         className="mx-auto max-w-6xl rounded-2xl border border-jade-border bg-card/80 p-8 text-center shadow-glow backdrop-blur-sm sm:p-10"
       >
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-jade/15">

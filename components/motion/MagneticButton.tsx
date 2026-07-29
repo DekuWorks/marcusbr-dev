@@ -3,11 +3,11 @@
 import {
   useRef,
   useState,
+  type CSSProperties,
   type MouseEvent,
   type ReactNode,
-  type CSSProperties,
 } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 
 type MagneticButtonProps = {
   children: ReactNode;
@@ -23,11 +23,11 @@ export default function MagneticButton({
   style,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const { motionEnabled } = useMotionEnabled();
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion || !ref.current) return;
+    if (!motionEnabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) * strength;
     const y = (e.clientY - rect.top - rect.height / 2) * strength;
