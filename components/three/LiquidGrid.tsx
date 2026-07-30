@@ -1,21 +1,25 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import type { LiquidInteractionRefs } from "@/lib/liquid/interactionState";
 
 type LiquidGridProps = {
   density?: number;
   speed?: number;
   paused?: boolean;
+  interactionRef?: MutableRefObject<LiquidInteractionRefs>;
 };
 
 export default function LiquidGrid({
   density = 1,
   speed = 1,
   paused = false,
+  interactionRef,
 }: LiquidGridProps) {
   const groupRef = useRef<THREE.Group>(null);
+  const bumpRef = useRef(0);
   const lines = useMemo(() => {
     const size = 6 * density;
     const divisions = Math.floor(20 * density);
@@ -26,7 +30,12 @@ export default function LiquidGrid({
 
   useFrame((_, delta) => {
     if (paused || !groupRef.current) return;
-    groupRef.current.rotation.y += delta * 0.04 * speed;
+    const interaction = interactionRef?.current;
+    if (interaction) {
+      bumpRef.current += (interaction.gridBump - bumpRef.current) * Math.min(1, delta * 5);
+    }
+    const bump = bumpRef.current;
+    groupRef.current.rotation.y += delta * (0.04 + bump * 0.06) * speed;
   });
 
   return (

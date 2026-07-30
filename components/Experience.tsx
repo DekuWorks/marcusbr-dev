@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import { experiences } from "@/lib/experience";
 
@@ -187,6 +188,7 @@ function ExperienceDetailEntry({
 
 export default function Experience() {
   const { motionEnabled } = useMotionEnabled();
+  const { emit } = useLiquidInteractionEmitter();
   const [showFullTimeline, setShowFullTimeline] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
   const fullTimelineRef = useRef<HTMLDivElement>(null);
@@ -214,8 +216,9 @@ export default function Experience() {
         left: direction * (cardWidth + gap),
         behavior: motionEnabled ? "smooth" : "auto",
       });
+      emit({ type: "carouselNav", direction, source: "experience" });
     },
-    [motionEnabled],
+    [motionEnabled, emit],
   );
 
   const handleTrackKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -232,6 +235,7 @@ export default function Experience() {
   const toggleFullTimeline = useCallback(() => {
     setShowFullTimeline((prev) => {
       const next = !prev;
+      emit({ type: "experienceToggle", expanded: next });
       if (next) {
         requestAnimationFrame(() => {
           fullTimelineRef.current?.scrollIntoView({
@@ -242,7 +246,7 @@ export default function Experience() {
       }
       return next;
     });
-  }, [motionEnabled]);
+  }, [motionEnabled, emit]);
 
   useEffect(() => {
     updateScrollState();

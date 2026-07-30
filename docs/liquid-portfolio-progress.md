@@ -2,7 +2,7 @@
 
 **Started:** July 29, 2026  
 **Completed:** July 29, 2026  
-**Status:** ✅ Shipped
+**Status:** ✅ Shipped (interaction + responsive pass)
 
 ## Audit Summary
 
@@ -33,6 +33,23 @@
 - [x] Phase 14 — a11y + SEO preserved
 - [x] Phase 15 — Tests + build
 - [x] Phase 16 — Completion report (this file)
+- [x] Phase 17 — **Interaction bus** (`LiquidInteractionProvider`, section/tab/carousel reactions)
+- [x] Phase 18 — **Responsive pass** (iPad/mobile tiers, safe areas, touch guards)
+
+## Interaction Reactions (Phase 17)
+
+| Event | Trigger | Liquid response |
+|-------|---------|-----------------|
+| `sectionChange` | Navbar links, command palette section jumps, scroll-spy active section | Blob shift, ripple, color pulse, grid bump |
+| `tabChange` | Technology category tabs | Pulse + subtle horizontal shift |
+| `pillSelect` | Tech chip selection | Micro pulse + ripple |
+| `experienceToggle` | Expand/collapse full timeline | Ripple + vertical shift |
+| `carouselNav` | Projects / Experience prev-next | Ripple + directional shift + grid bump |
+| `scrollProgress` | Hero scroll position (passive) | Blob tilt/fade, CSS vignette darken |
+
+- **WebGL:** ref-driven state in `useFrame` (no React setState in rAF)
+- **CSS fallback:** `--liquid-*` custom properties on `#home`, updated by provider rAF loop
+- **Respects:** Full / Reduced (55% intensity) / Off (no reactions)
 
 ## Packages Added
 
@@ -60,43 +77,41 @@
 | `hooks/useDeviceQuality.ts` | low/medium/high tier |
 | `hooks/useElementVisibility.ts` | Intersection + page visibility |
 | `hooks/useReducedMotion.ts` | Effects + system reduced motion |
+| `hooks/useLiquidInteraction.tsx` | Interaction event bus + CSS var sync |
+| `lib/liquid/interactionState.ts` | Pure interaction state + decay |
 | `lib/three/qualitySettings.ts` | DPR, droplets, bloom, tilt, magnetic |
 
-## Files Modified
+## Responsive Fixes (Phase 18)
 
-- `components/Hero.tsx` — lazy liquid background, text renders immediately
-- `components/motion/MagneticButton.tsx` — preference-aware, 8px clamp
-- `components/motion/TiltCard.tsx` — preference-aware tilt (0/4/8°)
-- `components/Button.tsx` — liquid-fill hover class
-- `components/projects/FeaturedProjectCard.tsx` — spotlight + liquid border
-- `components/projects/FeaturedProjectCarouselCard.tsx` — spotlight + 8° tilt
-- `components/sections/TechnologySystem.tsx` — glass panel, floating chips, grid
-- `components/Experience.tsx` — wave + animated grid
-- `components/Navbar.tsx` — active section indicator, sticky glass
-- `components/CTABar.tsx` — liquid-glass contact container
-- `hooks/useEffectsPreference.tsx` — `useLiquidEffects` export
-- `app/globals.css` — liquid fallback, glass, spotlight, button, wave styles
+| Breakpoint | Fixes |
+|------------|-------|
+| Mobile `<640px` | Smaller fallback blob/droplets, canvas max-height, hero safe-area padding |
+| iPad `768–1024px` | `medium` quality tier, tech chips wrap, status badges stack |
+| Landscape phone | Reduced blob size/position |
+| Touch devices | Magnetic + tilt disabled via `(pointer: coarse)` |
+| Notched devices | `safe-area-inset` on navbar, hero, contact, page bottom |
 
 ## Effects by Preference
 
-| Mode | Liquid 3D | Droplets | Bloom | Magnetic | Tilt | CSS Fallback |
-|------|-----------|----------|-------|----------|------|--------------|
-| Full | ✅ | Full | ✅ | ✅ | 8° | When no WebGL |
-| Reduced | ✅ slower | Fewer | ❌ | ❌ | 4° | When no WebGL |
-| Off | ❌ | ❌ | ❌ | ❌ | 0° | ✅ |
+| Mode | Liquid 3D | Droplets | Bloom | Magnetic | Tilt | CSS Fallback | Interactions |
+|------|-----------|----------|-------|----------|------|--------------|--------------|
+| Full | ✅ | Full | ✅ | ✅ | 8° | When no WebGL | ✅ full |
+| Reduced | ✅ slower | Fewer | ❌ | ❌ | 4° | When no WebGL | ✅ 55% |
+| Off | ❌ | ❌ | ❌ | ❌ | 0° | ✅ | ❌ |
 
 System `prefers-reduced-motion` maps to reduced behavior.
 
 ## Tests
 
 - `lib/three/qualitySettings.test.ts` (2 tests)
+- `lib/liquid/interactionState.test.ts` (3 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
-- **Total:** 8 tests passing
+- **Total:** 11 tests passing
 
 ## Build Status
 
 ```
-npm test   ✅ 8/8
+npm test   ✅ 11/11
 npm run build ✅ static export (15 pages)
 ```
 
@@ -104,7 +119,8 @@ npm run build ✅ static export (15 pages)
 
 - Single hero canvas only (no second WebGL context in tech section — CSS/Motion used there per spec)
 - Bloom disabled on medium/low device tiers and reduced effects
-- Manual responsive/cross-browser QA still recommended
+- Interaction reactions are hero-scoped (ambient sections use CSS/Motion only)
+- Manual cross-browser QA still recommended on physical iPad
 - ForgeOne 3D lab remains out of scope
 
 ## Constraints Verified

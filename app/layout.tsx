@@ -4,6 +4,7 @@ import Analytics from "@/components/Analytics";
 import { SITE } from "@/lib/site";
 import { buildRootJsonLd, SITE_DESCRIPTION } from "@/lib/seo";
 import { EffectsPreferenceProvider } from "@/hooks/useEffectsPreference";
+import { LiquidInteractionProvider } from "@/hooks/useLiquidInteraction";
 import { CommandPaletteProvider } from "@/hooks/useCommandPalette";
 import "./globals.css";
 
@@ -98,7 +99,9 @@ export default function RootLayout({
         />
         <Analytics />
         <EffectsPreferenceProvider>
-          <CommandPaletteProvider>{children}</CommandPaletteProvider>
+          <LiquidInteractionProvider>
+            <CommandPaletteProvider>{children}</CommandPaletteProvider>
+          </LiquidInteractionProvider>
         </EffectsPreferenceProvider>
       </body>
     </html>

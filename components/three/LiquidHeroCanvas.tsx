@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense, useMemo } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useLiquidEffects } from "@/hooks/useEffectsPreference";
 import { useDeviceQuality } from "@/hooks/useDeviceQuality";
+import { useLiquidInteraction } from "@/hooks/useLiquidInteraction";
 import {
   useElementVisibility,
   usePageVisible,
@@ -27,6 +28,8 @@ function LiquidScene({
   blobSegments,
   gridDensity,
   deformationSpeed,
+  interactionRef,
+  onTick,
 }: {
   paused: boolean;
   bloom: boolean;
@@ -34,7 +37,13 @@ function LiquidScene({
   blobSegments: number;
   gridDensity: number;
   deformationSpeed: number;
+  interactionRef: ReturnType<typeof useLiquidInteraction>["stateRef"];
+  onTick: (delta: number) => void;
 }) {
+  useFrame((_, delta) => {
+    if (!paused) onTick(delta);
+  });
+
   return (
     <>
       <color attach="background" args={["#0d1310"]} />
@@ -45,16 +54,19 @@ function LiquidScene({
         density={gridDensity}
         speed={deformationSpeed}
         paused={paused}
+        interactionRef={interactionRef}
       />
       <LiquidBlob
         segments={blobSegments}
         speed={deformationSpeed}
         paused={paused}
+        interactionRef={interactionRef}
       />
       <LiquidDroplets
         count={dropletCount}
         speed={deformationSpeed}
         paused={paused}
+        interactionRef={interactionRef}
       />
       {bloom && (
         <EffectComposer multisampling={0}>
@@ -73,12 +85,15 @@ function LiquidScene({
 export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasProps) {
   const [containerRef, inView] = useElementVisibility<HTMLDivElement>();
   const pageVisible = usePageVisible();
+  const { stateRef, tick } = useLiquidInteraction();
   const { effectsReduced, bloomEnabled, liquidSpeed, dropletMultiplier } =
     useLiquidEffects();
   const { settings } = useDeviceQuality(effectsReduced);
 
   const paused = !inView || !pageVisible;
   const dropletCount = Math.floor(settings.dropletCount * dropletMultiplier);
+  const tickRef = useRef(tick);
+  tickRef.current = tick;
 
   const dpr = useMemo(
     () => settings.dpr as [number, number],
@@ -88,7 +103,7 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
   return (
     <div
       ref={containerRef}
-      className={`liquid-hero-canvas absolute inset-0 -z-10 ${className}`}
+      className={`liquid-hero-canvas absolute inset-0 -z-10 overflow-hidden ${className}`}
       aria-hidden
     >
       <Canvas
@@ -100,6 +115,7 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
           powerPreference: "high-performance",
         }}
         frameloop={paused ? "never" : "always"}
+        style={{ width: "100%", height: "100%" }}
       >
         <Suspense fallback={null}>
           <LiquidScene
@@ -109,6 +125,8 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
             blobSegments={settings.blobSegments}
             gridDensity={settings.gridDensity}
             deformationSpeed={settings.deformationSpeed * liquidSpeed}
+            interactionRef={stateRef}
+            onTick={(delta) => tickRef.current(delta)}
           />
         </Suspense>
       </Canvas>

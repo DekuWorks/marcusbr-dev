@@ -4,6 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } f
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import { getFeaturedProjects } from "@/lib/projects";
 import FeaturedProjectCarouselCard from "@/components/projects/FeaturedProjectCarouselCard";
@@ -15,6 +16,7 @@ export default function FeaturedProjects() {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const trackId = useId();
   const { motionEnabled } = useMotionEnabled();
+  const { emit } = useLiquidInteractionEmitter();
 
   const updateScrollState = useCallback(() => {
     const track = trackRef.current;
@@ -33,7 +35,8 @@ export default function FeaturedProjects() {
       left: direction * (cardWidth + gap),
       behavior: motionEnabled ? "smooth" : "auto",
     });
-  }, [motionEnabled]);
+    emit({ type: "carouselNav", direction, source: "projects" });
+  }, [motionEnabled, emit]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowLeft") {

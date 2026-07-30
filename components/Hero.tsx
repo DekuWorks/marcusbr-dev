@@ -48,11 +48,11 @@ export default function Hero() {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="relative w-full overflow-hidden px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20"
+      className="liquid-interactive relative w-full min-h-[min(100dvh,920px)] overflow-hidden px-4 pt-[max(7rem,env(safe-area-inset-top,0px)+5rem)] pb-16 sm:px-6 sm:pb-20 lg:pt-32"
     >
       <LiquidHeroBackground />
 
-      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 24 } : false}
           animate={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ export default function Hero() {
           </div>
 
           <ul
-            className="mt-5 space-y-2 lg:absolute lg:top-6 lg:-right-2 lg:mt-0 lg:w-52 xl:-right-8"
+            className="mt-5 space-y-2 md:max-w-xs lg:absolute lg:top-6 lg:-right-2 lg:mt-0 lg:max-w-none lg:w-52 xl:-right-8"
             aria-label="Availability and location"
           >
             {statusBadges.map((badge) => (

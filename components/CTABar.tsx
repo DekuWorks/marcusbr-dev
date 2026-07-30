@@ -41,7 +41,7 @@ export default function CTABar() {
     <section
       id="contact"
       aria-labelledby="cta-heading"
-      className="w-full px-4 py-16 sm:px-6 sm:py-20"
+      className="w-full px-4 py-16 pb-[max(4rem,env(safe-area-inset-bottom,0px)+1rem)] sm:px-6 sm:py-20"
     >
       <motion.div
         initial={motionEnabled ? { opacity: 0, y: 20 } : false}

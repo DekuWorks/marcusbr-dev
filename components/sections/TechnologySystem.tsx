@@ -8,6 +8,7 @@ import { ArrowUpRight, Layers } from "lucide-react";
 import GlassPanel from "@/components/liquid/GlassPanel";
 import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { getProjectsForTechnology } from "@/lib/techProjectMatch";
 import { techStack } from "@/lib/technologies";
 
@@ -23,6 +24,7 @@ const categoryFilters: { id: CategoryFilter; label: string }[] = [
 
 export default function TechnologySystem() {
   const { motionEnabled } = useMotionEnabled();
+  const { emit } = useLiquidInteractionEmitter();
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const categoryListId = useId();
@@ -50,11 +52,16 @@ export default function TechnologySystem() {
   const handleCategoryChange = useCallback((category: CategoryFilter) => {
     setActiveCategory(category);
     setSelectedTech(null);
-  }, []);
+    emit({ type: "tabChange", category });
+  }, [emit]);
 
   const handleTechSelect = useCallback((techName: string) => {
-    setSelectedTech((current) => (current === techName ? null : techName));
-  }, []);
+    setSelectedTech((current) => {
+      const next = current === techName ? null : techName;
+      if (next) emit({ type: "pillSelect", tech: techName });
+      return next;
+    });
+  }, [emit]);
 
   const focusCategoryTab = useCallback((index: number) => {
     categoryTabRefs.current[index]?.focus();
@@ -128,7 +135,7 @@ export default function TechnologySystem() {
           id={categoryListId}
           role="tablist"
           aria-label="Technology categories"
-          className="mb-6 flex flex-wrap gap-2"
+          className="mb-6 flex flex-wrap gap-2 sm:gap-2.5"
         >
           {categoryFilters.map((filter, index) => {
             const isActive = activeCategory === filter.id;

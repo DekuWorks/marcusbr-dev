@@ -16,8 +16,10 @@ function detectQualityTier(): SceneQuality {
     connection?: { saveData?: boolean; effectiveType?: string };
   };
 
+  const width = window.innerWidth;
   const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  const smallScreen = window.innerWidth < 768;
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1025;
   const saveData = nav.connection?.saveData;
   const slowNetwork =
     nav.connection?.effectiveType === "2g" ||
@@ -29,7 +31,11 @@ function detectQualityTier(): SceneQuality {
     return "low";
   }
 
-  if (coarsePointer || smallScreen || lowMemory) {
+  if (coarsePointer || isMobile || isTablet) {
+    return "medium";
+  }
+
+  if (lowMemory) {
     return "medium";
   }
 

@@ -3,12 +3,29 @@
 import {
   useRef,
   useState,
+  useEffect,
   type CSSProperties,
   type MouseEvent,
   type ReactNode,
 } from "react";
 import { useLiquidEffects } from "@/hooks/useEffectsPreference";
 import { useDeviceQuality } from "@/hooks/useDeviceQuality";
+
+function useCoarsePointer() {
+  const coarseRef = useRef(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const update = () => {
+      coarseRef.current = mq.matches;
+    };
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return coarseRef;
+}
 
 type MagneticButtonProps = {
   children: ReactNode;
@@ -26,11 +43,12 @@ export default function MagneticButton({
   const ref = useRef<HTMLDivElement>(null);
   const { magneticEnabled, effectsReduced } = useLiquidEffects();
   const { settings } = useDeviceQuality(effectsReduced);
+  const coarsePointerRef = useCoarsePointer();
   const effectiveStrength = strength ?? settings.magneticStrength;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!magneticEnabled || !ref.current) return;
+    if (!magneticEnabled || coarsePointerRef.current || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const x = (e.clientX - rect.left - rect.width / 2) * effectiveStrength;
     const y = (e.clientY - rect.top - rect.height / 2) * effectiveStrength;

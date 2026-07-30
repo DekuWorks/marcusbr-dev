@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import SiteLogo from "./SiteLogo";
 import EffectsToggle from "./EffectsToggle";
 import CommandPaletteHint from "./CommandPaletteHint";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
+import { hrefToSectionId } from "@/lib/liquid/interactionState";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -21,6 +23,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(navLinks[0].href);
+  const { emit, emitSectionFromHref } = useLiquidInteractionEmitter();
+  const prevSectionRef = useRef(activeSection);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,6 +32,13 @@ export default function Navbar() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleNavClick = useCallback(
+    (href: string) => {
+      emitSectionFromHref(href);
+    },
+    [emitSectionFromHref],
+  );
 
   const updateActiveSection = useCallback(() => {
     const sections = navLinks
@@ -48,6 +59,13 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (activeSection === prevSectionRef.current) return;
+    prevSectionRef.current = activeSection;
+    const section = hrefToSectionId(activeSection);
+    if (section) emit({ type: "sectionChange", section });
+  }, [activeSection, emit]);
+
+  useEffect(() => {
     updateActiveSection();
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     window.addEventListener("resize", updateActiveSection, { passive: true });
@@ -66,7 +84,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top,0px)] ${
         scrolled
           ? "glass-card border-b border-jade/15 shadow-glow-sm backdrop-blur-xl"
           : "bg-transparent"
@@ -78,6 +96,7 @@ export default function Navbar() {
       >
         <a
           href="#home"
+          onClick={() => handleNavClick("#home")}
           className="flex items-center gap-2 rounded-sm text-cream transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <SiteLogo priority />
@@ -91,6 +110,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                onClick={() => handleNavClick(link.href)}
                 className={linkClass(link.href)}
                 aria-current={activeSection === link.href ? "page" : undefined}
               >
@@ -135,7 +155,10 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={() => {
+                      handleNavClick(link.href);
+                      setMobileOpen(false);
+                    }}
                     className={`flex min-h-11 items-center rounded-lg px-3 text-sm transition-colors hover:bg-jade/10 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade ${
                       activeSection === link.href
                         ? "bg-jade/10 font-medium text-jade-bright"
@@ -153,7 +176,10 @@ export default function Navbar() {
               <li className="pt-2">
                 <a
                   href="#contact"
-                  onClick={() => setMobileOpen(false)}
+                  onClick={() => {
+                    handleNavClick("#contact");
+                    setMobileOpen(false);
+                  }}
                   className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-jade/30 bg-jade px-5 py-2.5 text-sm font-medium text-background transition-all hover:bg-jade/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   Let&apos;s Work Together

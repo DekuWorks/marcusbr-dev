@@ -27,6 +27,7 @@ import {
 import { getFeaturedProjects } from "@/lib/projects";
 import { ACTION_COMMANDS, PAGE_SECTIONS } from "@/lib/navigation";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 
 type CommandGroup = "Navigate" | "Actions" | "Projects";
 
@@ -68,6 +69,7 @@ export default function CommandPalette({
   const titleId = useId();
   const descId = useId();
   const { motionEnabled } = useMotionEnabled();
+  const { emitSectionFromHref } = useLiquidInteractionEmitter();
   const router = useRouter();
 
   const allCommands = useMemo<CommandItem[]>(() => {
@@ -129,6 +131,7 @@ export default function CommandPalette({
       close();
 
       if (command.href.startsWith("#")) {
+        emitSectionFromHref(command.href);
         const target = document.querySelector(command.href);
         target?.scrollIntoView({
           behavior: motionEnabled ? "smooth" : "auto",
@@ -154,7 +157,7 @@ export default function CommandPalette({
 
       router.push(command.href);
     },
-    [close, motionEnabled, router],
+    [close, motionEnabled, router, emitSectionFromHref],
   );
 
   useEffect(() => {

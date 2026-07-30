@@ -1,13 +1,15 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import type { LiquidInteractionRefs } from "@/lib/liquid/interactionState";
 
 type LiquidDropletsProps = {
   count?: number;
   speed?: number;
   paused?: boolean;
+  interactionRef?: MutableRefObject<LiquidInteractionRefs>;
 };
 
 function createDropletPositions(count: number) {
@@ -32,30 +34,40 @@ export default function LiquidDroplets({
   count = 24,
   speed = 1,
   paused = false,
+  interactionRef,
 }: LiquidDropletsProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
+  const rippleRef = useRef(0);
   const { positions, scales, speeds } = useMemo(
     () => createDropletPositions(count),
     [count],
   );
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!meshRef.current || paused || count === 0) return;
     const time = state.clock.elapsedTime;
+    const interaction = interactionRef?.current;
+    if (interaction) {
+      rippleRef.current +=
+        (interaction.ripple + interaction.pulse * 0.5 - rippleRef.current) *
+        Math.min(1, delta * 4);
+    }
+    const ripple = rippleRef.current;
 
     for (let i = 0; i < count; i++) {
       const baseX = positions[i * 3];
       const baseY = positions[i * 3 + 1];
       const baseZ = positions[i * 3 + 2];
       const dropletSpeed = speeds[i] * speed;
+      const rippleOffset = Math.sin(time * 4 + i) * ripple * 0.12;
 
       dummy.position.set(
-        baseX + Math.sin(time * dropletSpeed + i) * 0.08,
-        baseY + Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * 0.15,
-        baseZ + Math.cos(time * dropletSpeed + i) * 0.08,
+        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04),
+        baseY + Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.15 + ripple * 0.06) + rippleOffset,
+        baseZ + Math.cos(time * dropletSpeed + i) * (0.08 + ripple * 0.04),
       );
-      const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15);
+      const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15 + ripple * 0.08);
       dummy.scale.setScalar(scale);
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);

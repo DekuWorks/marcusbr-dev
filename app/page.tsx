@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="grid-background relative min-h-screen overflow-x-hidden">
+    <div className="grid-background relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
       <SkipLink />
       <Navbar />
       <main
