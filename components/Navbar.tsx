@@ -16,7 +16,10 @@ import { hrefToSectionId } from "@/lib/liquid/interactionState";
 import {
   getActiveSectionHref,
   getSectionElements,
+  isScrollSpyPaused,
   scrollToSection,
+  SECTION_NAVIGATE_EVENT,
+  type SectionNavigateDetail,
 } from "@/lib/scrollToSection";
 
 const navLinks = [
@@ -45,6 +48,7 @@ export default function Navbar() {
 
   const handleNavClick = useCallback(
     (href: string) => {
+      setActiveSection(href);
       emitSectionFromHref(href);
       scrollToSection(href, motionEnabled);
       window.history.pushState(null, "", href);
@@ -53,10 +57,21 @@ export default function Navbar() {
   );
 
   const updateActiveSection = useCallback(() => {
+    if (isScrollSpyPaused()) return;
     const sectionIds = navLinks.map((link) => link.href.slice(1));
     const sections = getSectionElements(sectionIds);
     const current = getActiveSectionHref(sections);
     setActiveSection(current);
+  }, []);
+
+  useEffect(() => {
+    const onSectionNavigate = (event: Event) => {
+      const { href } = (event as CustomEvent<SectionNavigateDetail>).detail;
+      setActiveSection(href);
+    };
+    window.addEventListener(SECTION_NAVIGATE_EVENT, onSectionNavigate);
+    return () =>
+      window.removeEventListener(SECTION_NAVIGATE_EVENT, onSectionNavigate);
   }, []);
 
   useEffect(() => {
@@ -155,7 +170,11 @@ export default function Navbar() {
 
             <div className="hidden items-center gap-3 lg:flex">
               <CommandPaletteHint />
-              <Button href="#contact" variant="secondary" className="min-h-11">
+              <Button
+                variant="secondary"
+                className="min-h-11"
+                onClick={() => handleNavClick("#contact")}
+              >
                 Let&apos;s Work Together
                 <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
               </Button>

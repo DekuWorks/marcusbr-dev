@@ -1,6 +1,7 @@
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import SiteLogo from "./SiteLogo";
 import CommandPaletteHint from "./CommandPaletteHint";
+import SectionHashLink from "@/components/nav/SectionHashLink";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import { SITE } from "@/lib/site";
 
@@ -28,10 +29,13 @@ export default function Footer() {
       <PortfolioContainer>
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div>
-            <a href="#home" className="inline-flex items-center gap-2 text-cream">
+            <SectionHashLink
+              href="#home"
+              className="inline-flex items-center gap-2 text-cream"
+            >
               <SiteLogo />
               <span className="font-bold">Marcus Brown</span>
-            </a>
+            </SectionHashLink>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
               Senior Full-Stack Developer and AI Engineer building scalable SaaS
               platforms, mobile apps, and AI-powered products through DekuWorks.
@@ -70,12 +74,12 @@ export default function Footer() {
               <ul className="mt-4 space-y-2">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
-                    <a
+                    <SectionHashLink
                       href={link.href}
                       className="text-sm text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade rounded-sm"
                     >
                       {link.label}
-                    </a>
+                    </SectionHashLink>
                   </li>
                 ))}
               </ul>

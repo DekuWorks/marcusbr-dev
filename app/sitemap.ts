@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { FEATURED_PROJECTS } from "@/lib/projects";
-import { getSiteUrl } from "@/lib/seo";
+import { getSiteUrl, SHUCHU_ROUTES } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
@@ -19,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...SHUCHU_ROUTES.map((route) => ({
+      url: `${base}${route.path}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: route.priority,
     })),
   ];
 }

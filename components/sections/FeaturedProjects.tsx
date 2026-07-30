@@ -67,7 +67,7 @@ export default function FeaturedProjects() {
       className="w-full section-spacing"
     >
       <PortfolioContainer>
-        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-10 flex flex-col gap-4 max-md:items-center max-md:text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
           <motion.div
             initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
@@ -121,13 +121,18 @@ export default function FeaturedProjects() {
             tabIndex={0}
             onKeyDown={handleKeyDown}
             onScroll={updateScrollState}
-            className="carousel-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-xl"
+            style={
+              {
+                "--carousel-card-width": "min(calc(100vw - 2.5rem), 320px)",
+              } as React.CSSProperties
+            }
+            className="carousel-track carousel-track-centered flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-xl sm:gap-6"
           >
             {projects.map((project, index) => (
               <ScrollReveal
                 key={project.id}
                 delay={index * 0.05}
-                className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px] lg:w-[min(100%,380px)] xl:w-[min(100%,400px)]"
+                className="carousel-card-centered h-full shrink-0 sm:w-[340px] sm:snap-start lg:w-[min(100%,380px)] xl:w-[min(100%,400px)]"
               >
                 <FeaturedProjectCarouselCard
                   project={project}

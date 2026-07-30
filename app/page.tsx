@@ -5,7 +5,7 @@ import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
 import LiquidPageBackdrop from "@/components/liquid/LiquidPageBackdrop";
 import { SITE } from "@/lib/site";
-import { SITE_DESCRIPTION } from "@/lib/seo";
+import { SITE_DESCRIPTION, buildDefaultOpenGraph, buildDefaultTwitter } from "@/lib/seo";
 import ScrollReveal from "@/components/motion/ScrollReveal";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import AboutStatsTech from "@/components/sections/AboutStatsTech";
@@ -34,12 +34,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE.url,
   },
-  openGraph: {
-    title: "Marcus Brown | Senior Full Stack Developer & AI Engineer",
-    description: SITE_DESCRIPTION,
-    url: SITE.url,
-    type: "website",
-  },
+  openGraph: buildDefaultOpenGraph(
+    "Marcus Brown | Senior Full Stack Developer & AI Engineer",
+    SITE_DESCRIPTION,
+    SITE.url,
+  ),
+  twitter: buildDefaultTwitter(
+    "Marcus Brown | Senior Full Stack Developer & AI Engineer",
+    SITE_DESCRIPTION,
+  ),
 };
 
 export default function Home() {

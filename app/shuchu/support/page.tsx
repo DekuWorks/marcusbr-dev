@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SHUCHU_OG_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Shuchu Focus — Support",
   description: "Support and contact for Shuchu Focus by DekuWorks.",
   alternates: { canonical: "https://marcusbr.dev/shuchu/support/" },
+  openGraph: {
+    title: "Shuchu Focus — Support",
+    description: "Support and contact for Shuchu Focus by DekuWorks.",
+    url: "https://marcusbr.dev/shuchu/support/",
+    siteName: "Marcus Brown Portfolio",
+    type: "website",
+    images: [SHUCHU_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shuchu Focus — Support",
+    description: "Support and contact for Shuchu Focus by DekuWorks.",
+    images: [SHUCHU_OG_IMAGE.url],
+  },
 };
 
 export default function ShuchuSupportPage() {

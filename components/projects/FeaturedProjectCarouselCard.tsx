@@ -69,7 +69,7 @@ export default function FeaturedProjectCarouselCard({
       <div className="flex flex-1 flex-col p-5 max-md:items-center max-md:text-center">
         <div className="min-w-0 max-md:w-full">
           <h3 className="text-lg font-bold text-cream">{project.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">
+          <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-muted sm:line-clamp-2">
             {project.synopsis}
           </p>
         </div>

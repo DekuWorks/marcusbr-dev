@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SHUCHU_OG_IMAGE } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Shuchu Focus",
   description:
     "Shuchu Focus — enter focus, protect deep work. An iOS productivity app by DekuWorks.",
+  keywords: ["Shuchu Focus", "iOS productivity", "focus app", "DekuWorks"],
   alternates: { canonical: "https://marcusbr.dev/shuchu/" },
+  openGraph: {
+    title: "Shuchu Focus",
+    description:
+      "Shuchu Focus — enter focus, protect deep work. An iOS productivity app by DekuWorks.",
+    url: "https://marcusbr.dev/shuchu/",
+    siteName: "Marcus Brown Portfolio",
+    type: "website",
+    images: [SHUCHU_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shuchu Focus",
+    description:
+      "Shuchu Focus — enter focus, protect deep work. An iOS productivity app by DekuWorks.",
+    images: [SHUCHU_OG_IMAGE.url],
+  },
 };
 
 export default function ShuchuMarketingPage() {

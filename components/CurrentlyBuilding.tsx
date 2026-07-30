@@ -20,7 +20,7 @@ export default function CurrentlyBuilding() {
       className="w-full section-spacing-compact"
     >
       <PortfolioContainer>
-        <ScrollReveal className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <ScrollReveal className="mb-8 flex flex-col gap-4 max-md:items-center max-md:text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
           <div>
             <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-jade uppercase">
               <Zap className="h-4 w-4" aria-hidden />
@@ -49,7 +49,12 @@ export default function CurrentlyBuilding() {
         </ScrollReveal>
 
         <div
-          className="carousel-track flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] lg:snap-none lg:overflow-visible lg:gap-4"
+          style={
+            {
+              "--carousel-card-width": "min(calc(100vw - 2.5rem), 280px)",
+            } as React.CSSProperties
+          }
+          className="carousel-track carousel-track-centered flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] lg:snap-none lg:overflow-visible lg:gap-4"
           role="list"
           aria-label="Projects currently in development"
         >
@@ -57,7 +62,7 @@ export default function CurrentlyBuilding() {
             <ScrollReveal
               key={project.id}
               delay={index * 0.06}
-              className="h-full w-[min(100%,280px)] shrink-0 snap-start sm:w-[300px] lg:w-auto lg:shrink"
+              className="carousel-card-centered h-full shrink-0 sm:w-[300px] sm:snap-start lg:w-auto lg:shrink"
             >
               <article role="listitem" className="h-full">
                 <TiltCard maxTilt={5} className="h-full">
@@ -73,7 +78,7 @@ export default function CurrentlyBuilding() {
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10 transition-colors group-hover:border-[color-mix(in_srgb,var(--project-accent)_35%,transparent)]">
                         <Image
                           src={project.icon}
-                          alt=""
+                          alt={`${project.name} icon`}
                           width={40}
                           height={40}
                           className="h-full w-full object-cover"
@@ -91,7 +96,7 @@ export default function CurrentlyBuilding() {
                       </div>
                     </div>
 
-                    <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-muted">
+                    <p className="mt-2.5 line-clamp-3 text-sm leading-relaxed text-muted sm:line-clamp-2 sm:text-xs">
                       {project.developmentFocus}
                     </p>
 

@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,12 @@ jobs:
           node-version: 20
 
       - run: npm ci
+
+      - run: npm test
+
+      - run: npm run lint
+
+      - run: npm run typecheck
 
       - run: npm run build
 
@@ -38,7 +44,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    needs: build
+    needs: test
 
     runs-on: ubuntu-latest
 

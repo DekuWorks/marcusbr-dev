@@ -914,6 +914,34 @@ body {
   border-radius: 9999px;
 }
 
+/* Mobile: center cards in viewport with symmetric scroll padding */
+@media (max-width: 639px) {
+  .carousel-track-centered {
+    margin-inline: -1rem;
+    width: calc(100% + 2rem);
+    padding-inline: max(
+      1rem,
+      calc((100vw - var(--carousel-card-width, 300px)) / 2)
+    );
+    scroll-padding-inline: max(
+      1rem,
+      calc((100vw - var(--carousel-card-width, 300px)) / 2)
+    );
+    scrollbar-width: none;
+  }
+
+  .carousel-track-centered::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-card-centered {
+    width: var(--carousel-card-width, 300px);
+    max-width: calc(100vw - 2.5rem);
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .carousel-track {
     scroll-behavior: auto;

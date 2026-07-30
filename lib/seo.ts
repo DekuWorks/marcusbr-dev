@@ -95,3 +95,48 @@ export function buildCreativeWorkJsonLd(
     },
   };
 }
+
+const DEFAULT_OG_IMAGE = {
+  url: "/marcus-brown.jpg",
+  width: 576,
+  height: 1024,
+  alt: "Marcus Brown — Senior Full Stack Developer & AI Engineer",
+} as const;
+
+export function buildDefaultOpenGraph(
+  title: string,
+  description: string,
+  url: string,
+) {
+  return {
+    title,
+    description,
+    url,
+    siteName: "Marcus Brown Portfolio",
+    locale: "en_US" as const,
+    type: "website" as const,
+    images: [DEFAULT_OG_IMAGE],
+  };
+}
+
+export function buildDefaultTwitter(title: string, description: string) {
+  return {
+    card: "summary_large_image" as const,
+    title,
+    description,
+    images: [DEFAULT_OG_IMAGE.url],
+  };
+}
+
+export const SHUCHU_OG_IMAGE = {
+  url: "/projects/shuchu/icon.webp",
+  width: 512,
+  height: 512,
+  alt: "Shuchu Focus app icon",
+} as const;
+
+export const SHUCHU_ROUTES = [
+  { path: "/shuchu/", priority: 0.7 },
+  { path: "/shuchu/privacy/", priority: 0.4 },
+  { path: "/shuchu/support/", priority: 0.4 },
+] as const;

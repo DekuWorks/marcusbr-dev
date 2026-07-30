@@ -89,7 +89,7 @@ function RelatedProjectsPanel({
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10">
                           <Image
                             src={project.icon}
-                            alt=""
+                            alt={`${project.name} icon`}
                             width={36}
                             height={36}
                             className="h-full w-full object-cover"

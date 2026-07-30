@@ -1,9 +1,32 @@
-/** Offset for fixed navbar when scrolling to section anchors. */
-export const NAV_SCROLL_OFFSET = 120;
+/** Offset for fixed navbar when scrolling to section anchors (matches scroll-margin-top). */
+export const NAV_SCROLL_OFFSET = 112;
 
-export function getSectionElements(
-  ids: readonly string[],
-): HTMLElement[] {
+export const SCROLL_SPY_PAUSE_MS = 800;
+
+let scrollSpyPausedUntil = 0;
+
+export function isScrollSpyPaused(): boolean {
+  return Date.now() < scrollSpyPausedUntil;
+}
+
+export function pauseScrollSpy(durationMs = SCROLL_SPY_PAUSE_MS): void {
+  scrollSpyPausedUntil = Date.now() + durationMs;
+}
+
+export const SECTION_NAVIGATE_EVENT = "section-navigate";
+
+export type SectionNavigateDetail = { href: string };
+
+function dispatchSectionNavigate(href: string): void {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(
+    new CustomEvent<SectionNavigateDetail>(SECTION_NAVIGATE_EVENT, {
+      detail: { href },
+    }),
+  );
+}
+
+export function getSectionElements(ids: readonly string[]): HTMLElement[] {
   return ids
     .map((id) => document.getElementById(id))
     .filter((el): el is HTMLElement => Boolean(el))
@@ -38,11 +61,21 @@ export function scrollToSection(
   const target = document.querySelector(href);
   if (!(target instanceof HTMLElement)) return;
 
-  const top =
-    target.getBoundingClientRect().top + window.scrollY - offset;
+  dispatchSectionNavigate(href);
+  pauseScrollSpy(smooth ? SCROLL_SPY_PAUSE_MS : 150);
+
+  const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
   window.scrollTo({
     top: Math.max(0, top),
     behavior: smooth ? "smooth" : "auto",
   });
+
+  if (smooth && "onscrollend" in window) {
+    const onScrollEnd = () => {
+      pauseScrollSpy(150);
+      window.removeEventListener("scrollend", onScrollEnd);
+    };
+    window.addEventListener("scrollend", onScrollEnd, { once: true });
+  }
 }
