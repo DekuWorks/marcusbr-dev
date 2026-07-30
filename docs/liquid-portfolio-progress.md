@@ -119,12 +119,12 @@ System `prefers-reduced-motion` maps to reduced behavior.
 - `lib/three/qualitySettings.test.ts` (2 tests)
 - `lib/liquid/interactionState.test.ts` (6 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
-- **Total:** 11 tests passing
+- **Total:** 14 tests passing
 
 ## Build Status
 
 ```
-npm test   ✅ 11/11
+npm test   ✅ 14/14
 npm run build ✅ static export (15 pages)
 ```
 
