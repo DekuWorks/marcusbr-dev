@@ -1,3 +1,4 @@
+/** Button wrapper with magnetic cursor pull; strength from quality settings. */
 "use client";
 
 import {

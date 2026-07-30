@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Root layout — fonts, metadata, provider tree.
+ *
+ * Wraps all pages with analytics and three context providers:
+ * EffectsPreference → LiquidInteraction → CommandPalette.
+ */
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Analytics from "@/components/Analytics";

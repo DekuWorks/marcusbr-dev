@@ -1,3 +1,4 @@
+/** Catches WebGL runtime errors and renders the CSS fallback instead. */
 "use client";
 
 import { Component, type ErrorInfo, type ReactNode } from "react";

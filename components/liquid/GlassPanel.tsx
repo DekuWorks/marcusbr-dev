@@ -1,3 +1,4 @@
+/** Frosted-glass panel wrapper using the `glass-panel` utility class. */
 "use client";
 
 import { type ReactNode } from "react";

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Command palette provider (⌘K / Ctrl+K).
+ *
+ * Lazily mounts `CommandPalette` on the client and registers a global keydown
+ * listener. Exposes `open` and `toggle` via context.
+ */
+
 "use client";
 
 import {

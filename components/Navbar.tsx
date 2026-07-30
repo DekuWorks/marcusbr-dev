@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Fixed navbar with scroll-spy, mobile menu, and liquid reactions.
+ *
+ * Tracks active section via `getActiveSectionHref`, pausing during programmatic
+ * scroll (`isScrollSpyPaused`). Emits liquid section-change events on nav.
+ *
+ * @see lib/scrollToSection.ts — anchor scrolling and spy pause lock
+ * @see components/nav/* — scroll progress, magnetic links
+ */
+
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -39,6 +49,7 @@ export default function Navbar() {
   const { motionEnabled } = useMotionEnabled();
   const prevSectionRef = useRef(activeSection);
 
+  /* --- Navbar glass state on scroll --- */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });

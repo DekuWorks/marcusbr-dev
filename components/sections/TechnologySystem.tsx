@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Interactive technology stack with category tabs and project linking.
+ *
+ * Desktop: sidebar tabs + tech pill grid + sticky related-projects panel.
+ * Mobile: horizontal tab pills with related projects below the grid.
+ * Emits liquid `tabChange` and `pillSelect` events on interaction.
+ */
+
 "use client";
 
 import { useCallback, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";

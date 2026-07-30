@@ -1,3 +1,4 @@
+/** Standard page section wrapper with consistent spacing and container. */
 import type { ReactNode } from "react";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 

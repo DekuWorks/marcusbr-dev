@@ -1,3 +1,15 @@
+/**
+ * @fileoverview Global liquid interaction provider.
+ *
+ * Owns the liquid state ref, document-level pointer listeners, scroll progress,
+ * and a requestAnimationFrame loop that writes CSS variables to
+ * `#liquid-backdrop` and `:root`. Child components emit events via `emit` or
+ * `useLiquidInteractionEmitter` (safe outside the provider tree).
+ *
+ * @see lib/liquid/interactionState.ts — state machine
+ * @see hooks/useEffectsPreference.tsx — intensity gating
+ */
+
 "use client";
 
 import {
@@ -33,6 +45,7 @@ type LiquidInteractionContextValue = {
 const LiquidInteractionContext =
   createContext<LiquidInteractionContextValue | null>(null);
 
+/** Provides liquid state, emitters, and the per-frame tick to the component tree. */
 export function LiquidInteractionProvider({ children }: { children: ReactNode }) {
   const stateRef = useRef(createLiquidInteractionState());
   const cssTargetRef = useRef<HTMLElement | null>(null);
@@ -85,6 +98,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     cssTargetRef.current = document.getElementById("liquid-backdrop");
   }, []);
 
+  /* --- Document pointer tracking (batched via rAF) --- */
   useEffect(() => {
     if (!reactionsEnabled) return;
 
@@ -183,6 +197,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     };
   }, [reactionsEnabled]);
 
+  /* --- rAF tick loop: decay impulses and publish CSS vars --- */
   useEffect(() => {
     if (!reactionsEnabled) return;
 
@@ -200,6 +215,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     return () => cancelAnimationFrame(frameId);
   }, [reactionsEnabled, tick]);
 
+  /* --- Scroll progress for footer zone and parallax --- */
   useEffect(() => {
     if (!reactionsEnabled) return;
 
@@ -225,6 +241,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
   );
 }
 
+/** Full liquid context — throws if used outside the provider. */
 export function useLiquidInteraction() {
   const context = useContext(LiquidInteractionContext);
   if (!context) {
@@ -235,6 +252,10 @@ export function useLiquidInteraction() {
   return context;
 }
 
+/**
+ * Safe emitter for components that may render outside the provider (e.g. Navbar).
+ * Returns no-op functions when context is absent.
+ */
 export function useLiquidInteractionEmitter() {
   const context = useContext(LiquidInteractionContext);
   return {

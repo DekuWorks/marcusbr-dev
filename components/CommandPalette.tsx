@@ -1,3 +1,10 @@
+/**
+ * @fileoverview ⌘K command palette — fuzzy search over sections, actions, and projects.
+ *
+ * Keyboard-navigable dialog with grouped commands. Hash links use `scrollToSection`;
+ * project links use Next.js router.
+ */
+
 "use client";
 
 import {

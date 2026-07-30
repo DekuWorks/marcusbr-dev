@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Device capability detection for WebGL quality tiers.
+ *
+ * Inspects viewport, pointer type, memory, cores, and network to pick
+ * low / medium / high settings from `QUALITY_SETTINGS`.
+ *
+ * @see lib/three/qualitySettings.ts
+ */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,6 +17,7 @@ import {
   type SceneQuality,
 } from "@/lib/three/qualitySettings";
 
+/** Detect quality tier from device signals (viewport, memory, network, pointer). */
 function detectQualityTier(): SceneQuality {
   if (typeof window === "undefined") return "medium";
 

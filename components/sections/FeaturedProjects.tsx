@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Featured projects horizontal carousel.
+ *
+ * Scrolls one card width + gap per navigation action. Card width is derived
+ * from the first `<article>` or falls back to 340px. Emits liquid carousel
+ * events on prev/next.
+ */
+
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
@@ -32,7 +40,7 @@ export default function FeaturedProjects() {
     const track = trackRef.current;
     if (!track) return;
     const cardWidth = track.querySelector("article")?.clientWidth ?? 340;
-    const gap = 24;
+    const gap = 24; // matches `gap-6` (1.5rem) on sm+ breakpoints
     track.scrollBy({
       left: direction * (cardWidth + gap),
       behavior: motionEnabled ? "smooth" : "auto",

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Section background grid with optional animation.
+ *
+ * Animation is gated by `animatedGridEnabled` from liquid effects preference.
+ */
+
 "use client";
 
 import { useLiquidEffects } from "@/hooks/useEffectsPreference";

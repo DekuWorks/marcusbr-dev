@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Shader-driven icosahedron blob reacting to liquid interaction state.
+ *
+ * Vertex displacement combines sine waves, pointer proximity, ripple impulses,
+ * scroll parallax, and section zone shifts. Uniforms are smoothed each frame.
+ */
+
 "use client";
 
 import { useMemo, useRef, type MutableRefObject } from "react";

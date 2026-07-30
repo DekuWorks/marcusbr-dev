@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Home page — section composition and dynamic imports.
+ *
+ * Above-fold: Hero, CurrentlyBuilding. Below-fold sections are dynamically
+ * imported with skeleton loaders to reduce initial JS bundle.
+ */
+
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";

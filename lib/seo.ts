@@ -1,3 +1,12 @@
+/**
+ * @fileoverview SEO helpers — JSON-LD, Open Graph, Twitter cards.
+ *
+ * Builds structured data and social meta objects consumed by `app/layout.tsx`
+ * and project detail pages. Uses `NEXT_PUBLIC_SITE_URL` when set.
+ *
+ * @see lib/site.ts — canonical site constants
+ */
+
 import { SITE } from "@/lib/site";
 import type { FeaturedProject } from "@/lib/projects";
 

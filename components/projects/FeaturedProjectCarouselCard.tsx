@@ -1,3 +1,4 @@
+/** Card for a single featured project in the horizontal carousel. */
 "use client";
 
 import Link from "next/link";

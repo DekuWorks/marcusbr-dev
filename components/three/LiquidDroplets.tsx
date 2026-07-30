@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Instanced floating droplets orbiting the liquid scene.
+ *
+ * Each droplet oscillates independently; ripple and scroll progress from the
+ * shared interaction ref add collective drift.
+ */
+
 "use client";
 
 import { useMemo, useRef, type MutableRefObject } from "react";

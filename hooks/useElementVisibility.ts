@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Visibility hooks for pausing off-screen WebGL.
+ *
+ * `useElementVisibility` — IntersectionObserver for a container ref.
+ * `usePageVisible` — document.visibilityState for tab backgrounding.
+ */
+
 "use client";
 
 import { useEffect, useRef, useState, type RefObject } from "react";

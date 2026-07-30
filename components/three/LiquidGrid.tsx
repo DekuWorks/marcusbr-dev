@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Ground grid plane with scroll-driven rotation and bump reactions.
+ *
+ * Grid density scales with quality tier. Responds to `gridBump` impulses from
+ * section changes and carousel navigation.
+ */
+
 "use client";
 
 import { useMemo, useRef, type MutableRefObject } from "react";
@@ -59,8 +66,4 @@ export default function LiquidGrid({
       </mesh>
     </group>
   );
-}
-
-export function disposeLiquidGrid(geometry: THREE.BufferGeometry) {
-  geometry.dispose();
 }

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Experience timeline with expandable role details and carousel.
+ *
+ * Desktop: vertical timeline. Mobile/tablet: horizontal snap carousel.
+ * Emits liquid events on carousel nav and experience card expand/collapse.
+ */
+
 "use client";
 
 import {

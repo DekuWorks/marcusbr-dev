@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Subtle magnetic pull on nav links (fine pointer only).
+ *
+ * Translates the wrapper toward the cursor on hover, clamped to ±4px.
+ */
+
 "use client";
 
 import {

@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Mount point for the full-page liquid backdrop.
+ *
+ * Renders `#liquid-backdrop` and dynamically imports the WebGL scene.
+ * CSS custom properties from `useLiquidInteraction` target this element.
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";

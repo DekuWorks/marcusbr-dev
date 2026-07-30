@@ -1,3 +1,14 @@
+/**
+ * @fileoverview WebGL liquid hero scene and page background orchestrator.
+ *
+ * `LiquidHeroCanvas` — R3F canvas with blob, droplets, grid, optional bloom.
+ * `LiquidPageBackground` — chooses WebGL vs CSS fallback based on support
+ * and effects preference. Pauses rendering when off-screen or tab hidden.
+ *
+ * @see hooks/useDeviceQuality.ts — quality tier settings
+ * @see hooks/useLiquidInteraction.tsx — shared interaction ref
+ */
+
 "use client";
 
 import { Suspense, useMemo, useRef } from "react";

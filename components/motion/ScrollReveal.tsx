@@ -1,3 +1,4 @@
+/** Fade/slide-in on scroll via Framer Motion `whileInView`. */
 "use client";
 
 import { type ReactNode } from "react";

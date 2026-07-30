@@ -1,3 +1,4 @@
+/** 3D tilt on hover driven by pointer position (fine pointer, motion enabled). */
 "use client";
 
 import {

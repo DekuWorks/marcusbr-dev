@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Runtime WebGL capability probe.
+ *
+ * Creates an off-screen canvas and attempts webgl2 then webgl context.
+ * Used to decide between WebGL scene and CSS fallback.
+ */
+
 "use client";
 
 import { useEffect, useState } from "react";

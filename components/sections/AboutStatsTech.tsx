@@ -1,3 +1,4 @@
+/** About section with career stats and quick bio summary. */
 "use client";
 
 import { motion } from "framer-motion";

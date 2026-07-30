@@ -1,3 +1,14 @@
+/**
+ * @fileoverview Liquid interaction state machine.
+ *
+ * Pure functions for the global liquid backdrop reaction system. State lives in
+ * a mutable ref (`LiquidInteractionRefs`) updated by UI events and ticked each
+ * frame. Outputs map to CSS custom properties via `liquidStateToCssVars`.
+ *
+ * @see hooks/useLiquidInteraction.tsx — provider that owns the ref and rAF loop
+ * @see components/three/* — WebGL meshes read the same ref for shader uniforms
+ */
+
 export type LiquidSectionId =
   | "home"
   | "about"
@@ -60,6 +71,7 @@ export function pointerOffset(state: LiquidInteractionRefs): { x: number; y: num
   };
 }
 
+/** Per-section targets for parallax shift and active index (0 = home … 5 = contact). */
 export const SECTION_TARGETS: Record<
   LiquidSectionId,
   { index: number; shiftX: number; shiftY: number }
@@ -72,11 +84,13 @@ export const SECTION_TARGETS: Record<
   contact: { index: 5, shiftX: 0, shiftY: -0.1 },
 };
 
+/** Map a hash href to a known section id, or null if not a liquid section. */
 export function hrefToSectionId(href: string): LiquidSectionId | null {
   const id = href.replace(/^#/, "") as LiquidSectionId;
   return id in SECTION_TARGETS ? id : null;
 }
 
+/** 0–1 zone ramp as user approaches the footer (starts at ~72% scroll). */
 export function footerZoneFromScroll(scrollProgress: number): number {
   return Math.min(1, Math.max(0, (scrollProgress - 0.72) / 0.28));
 }
@@ -116,6 +130,7 @@ export function createLiquidInteractionState(): LiquidInteractionRefs {
   };
 }
 
+/** Apply a discrete UI event as an impulse to the liquid state. */
 export function applyLiquidInteraction(
   state: LiquidInteractionRefs,
   event: LiquidInteractionEvent,
@@ -155,6 +170,7 @@ export function applyLiquidInteraction(
   }
 }
 
+/** Smooth pointer toward target; drift to center when pointer is inactive. */
 export function tickLiquidPointer(
   state: LiquidInteractionRefs,
   delta: number,
@@ -178,6 +194,10 @@ export function tickLiquidPointer(
   state.pointerY += (state.targetPointerY - state.pointerY) * t;
 }
 
+/**
+ * Advance liquid state by one frame: decay impulses, lerp shifts and pointer.
+ * @param delta — elapsed seconds since last tick (capped upstream)
+ */
 export function tickLiquidInteraction(
   state: LiquidInteractionRefs,
   delta: number,
@@ -207,6 +227,7 @@ export function tickLiquidInteraction(
   if (Math.abs(state.targetShiftY) < 0.002) state.targetShiftY = 0;
 }
 
+/** Convert current liquid state to CSS custom properties for the backdrop. */
 export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<string, string> {
   const { x: pointerX, y: pointerY } = pointerOffset(state);
   const sectionZone = sectionZoneFromIndex(state.activeSectionIndex);

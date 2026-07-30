@@ -1,3 +1,9 @@
+/**
+ * @fileoverview In-page hash link with smooth scroll and liquid section emit.
+ *
+ * Prevents default anchor jump; uses `scrollToSection` with motion preference.
+ */
+
 "use client";
 
 import { type MouseEvent, type ReactNode } from "react";

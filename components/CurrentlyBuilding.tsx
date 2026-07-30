@@ -1,3 +1,4 @@
+/** Currently-in-development projects strip below the hero. */
 "use client";
 
 import Link from "next/link";

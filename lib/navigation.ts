@@ -1,12 +1,14 @@
-import { SITE } from "./site";
-
 /**
+ * @fileoverview Site navigation and command palette data.
+ *
  * Section anchors on the home page — keep in sync with section `id` attributes
  * in Hero, FeaturedProjects, AboutStatsTech, TechnologySystem, Experience, CTABar.
  *
  * Note: DOM order differs from this list — Projects appears before About on the page.
  * Scroll-spy must sort sections by document position (see lib/scrollToSection.ts).
  */
+
+import { SITE } from "./site";
 export const PAGE_SECTIONS = [
   {
     id: "home",

@@ -1,3 +1,4 @@
+/** Thin progress bar at the top of the navbar tracking page scroll depth. */
 "use client";
 
 import { useEffect, useState } from "react";

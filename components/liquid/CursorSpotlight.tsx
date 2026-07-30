@@ -1,3 +1,10 @@
+/**
+ * @fileoverview Local cursor spotlight effect on hoverable containers.
+ *
+ * Sets `--spotlight-x/y` CSS variables from mouse position within the element.
+ * Disabled on coarse pointers and when reduced motion is active.
+ */
+
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";

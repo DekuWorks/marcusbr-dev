@@ -1,3 +1,4 @@
+/** Accent-bordered container with animated glow edge. */
 "use client";
 
 import { type ReactNode } from "react";

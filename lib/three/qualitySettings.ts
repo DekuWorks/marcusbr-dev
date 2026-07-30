@@ -1,3 +1,14 @@
+/**
+ * @fileoverview WebGL scene quality tiers.
+ *
+ * Maps device capability (low / medium / high) to concrete rendering settings
+ * used by `useDeviceQuality`. Reduced-effects mode further scales counts via
+ * `getReducedQualitySettings` when `prefers-reduced-motion` is active.
+ *
+ * @see hooks/useDeviceQuality.ts
+ * @see components/three/LiquidHeroCanvas.tsx
+ */
+
 export type SceneQuality = "low" | "medium" | "high";
 
 export type QualitySettings = {
@@ -44,6 +55,7 @@ export const QUALITY_SETTINGS: Record<SceneQuality, QualitySettings> = {
   },
 };
 
+/** Further reduce counts and disable bloom for reduced-motion / low-power mode. */
 export function getReducedQualitySettings(
   base: QualitySettings,
 ): QualitySettings {

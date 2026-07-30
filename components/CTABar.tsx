@@ -1,3 +1,4 @@
+/** Contact CTA section with recruiter quick-actions and availability info. */
 "use client";
 
 import { motion } from "framer-motion";

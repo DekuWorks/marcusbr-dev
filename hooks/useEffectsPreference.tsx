@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Motion and effects preference provider.
+ *
+ * Reads system `prefers-reduced-motion` and exposes derived flags for Framer
+ * Motion and liquid/WebGL intensity. Legacy localStorage keys are cleared on
+ * mount — effects are now system-driven only (no manual toggle).
+ *
+ * @see hooks/useLiquidEffects — WebGL/CSS intensity derived from this context
+ */
+
 "use client";
 
 import {
@@ -91,6 +101,7 @@ export function useMotionEnabled() {
   };
 }
 
+/** Derived flags for liquid backdrop and WebGL scene intensity. */
 export function useLiquidEffects() {
   const prefersReducedMotion = useReducedMotion();
   const { shouldReduceMotion, motionEnabled, hydrated } = useEffectsPreference();

@@ -1,3 +1,4 @@
+/** CSS-only fallback when WebGL is unavailable, loading, or errored. */
 type SceneFallbackProps = {
   variant?: "default" | "error" | "loading";
   className?: string;
