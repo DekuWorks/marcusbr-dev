@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 type ProjectConceptIconSize = "card" | "hero" | "gallery" | "lightbox";
-type ProjectConceptIconFit = "contain" | "cover";
 
 const SIZE_CLASSES: Record<ProjectConceptIconSize, string> = {
   card: "h-[52px] w-[52px] sm:h-16 sm:w-16",
@@ -21,7 +20,6 @@ interface ProjectConceptIconDisplayProps {
   icon: string;
   alt: string;
   size?: ProjectConceptIconSize;
-  fit?: ProjectConceptIconFit;
   className?: string;
   priority?: boolean;
 }
@@ -30,26 +28,10 @@ export default function ProjectConceptIconDisplay({
   icon,
   alt,
   size = "gallery",
-  fit = "contain",
   className = "",
   priority = false,
 }: ProjectConceptIconDisplayProps) {
   const dimension = DIMENSIONS[size];
-  const isFlushHero = fit === "cover" && size === "hero";
-
-  if (isFlushHero) {
-    return (
-      <Image
-        src={icon}
-        alt={alt}
-        fill
-        className={`project-concept-icon project-concept-icon--cover ${className}`.trim()}
-        priority={priority}
-        loading={priority ? "eager" : "lazy"}
-        sizes="(max-width: 640px) 320px, (max-width: 1024px) 340px, 400px"
-      />
-    );
-  }
 
   return (
     <div

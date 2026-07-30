@@ -980,12 +980,6 @@ body {
   border-radius: 22%;
 }
 
-.project-concept-icon--cover {
-  object-fit: cover;
-  object-position: center;
-  border-radius: 0;
-}
-
 .project-app-icon-frame {
   display: flex;
   align-items: center;

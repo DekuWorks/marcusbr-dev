@@ -61,7 +61,6 @@ export default function FeaturedProjectCarouselCard({
             icon={project.icon}
             alt={`${project.name} app icon`}
             size="hero"
-            fit={project.iconFit ?? "contain"}
             priority={priority}
           />
         </div>

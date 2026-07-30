@@ -44,8 +44,6 @@ export type FeaturedProject = {
   lessonsLearned: string;
   disclaimer?: string;
   deviceFrame?: boolean;
-  /** How the app icon fills its display slot on featured cards. */
-  iconFit?: "contain" | "cover";
   /** Optional 3D orbit position [x, y, z] for hero scene nodes. */
   orbitPosition?: [number, number, number];
 };
@@ -239,7 +237,6 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     filters: ["mobile", "saas", "ai", "planning"],
     conceptUI: false,
     deviceFrame: true,
-    iconFit: "cover",
     disclaimer:
       "Avryo provides informational insights only and is not financial, legal, or investment advice.",
     problem:
@@ -300,7 +297,6 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     filters: ["mobile", "planning"],
     conceptUI: false,
     deviceFrame: true,
-    iconFit: "cover",
     disclaimer:
       "Gridlock is an inventory and documentation tool — not a marketplace. Firearm laws vary by jurisdiction; users are responsible for compliance.",
     problem:
