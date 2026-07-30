@@ -8,6 +8,9 @@ import { GitHubIcon } from "@/components/icons/SocialIcons";
 import ProjectAppIcon from "./ProjectAppIcon";
 import ProjectScreenshotGallery from "./ProjectScreenshotGallery";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
+import CursorSpotlight from "@/components/liquid/CursorSpotlight";
+import LiquidBorder from "@/components/liquid/LiquidBorder";
+import { useLiquidEffects } from "@/hooks/useEffectsPreference";
 
 const STATUS_STYLES: Record<
   FeaturedProject["status"],
@@ -41,6 +44,7 @@ export default function FeaturedProjectCard({
   index,
 }: FeaturedProjectCardProps) {
   const prefersReducedMotion = useReducedMotion();
+  const { tiltEnabled } = useLiquidEffects();
   const statusStyle = STATUS_STYLES[project.status];
   const detailUrl = `/projects/${project.id}/`;
 
@@ -53,14 +57,20 @@ export default function FeaturedProjectCard({
         duration: prefersReducedMotion ? 0 : 0.45,
         delay: prefersReducedMotion ? 0 : index * 0.08,
       }}
-      whileHover={prefersReducedMotion ? undefined : { y: -6 }}
-      className="featured-product-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80 p-5 backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-jade/40 hover:shadow-glow-sm sm:p-6"
-      style={
-        {
-          "--project-accent": project.accent,
-        } as React.CSSProperties
-      }
+      whileHover={prefersReducedMotion || tiltEnabled <= 0 ? undefined : { y: -6 }}
+      className="h-full"
     >
+      <CursorSpotlight className="h-full rounded-2xl">
+        <LiquidBorder
+          accent={project.accent}
+          className="featured-product-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80 p-5 backdrop-blur-sm transition-[border-color,box-shadow] duration-300 hover:border-jade/40 hover:shadow-glow-sm sm:p-6"
+          style={
+            {
+              "--project-accent": project.accent,
+            } as React.CSSProperties
+          }
+        >
+          <div className="liquid-border__content flex h-full flex-col border-0 bg-transparent p-0 backdrop-blur-none">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--project-accent)] to-transparent opacity-40"
         aria-hidden
@@ -163,6 +173,9 @@ export default function FeaturedProjectCard({
           </Button>
         )}
       </div>
+          </div>
+        </LiquidBorder>
+      </CursorSpotlight>
     </motion.article>
   );
 }

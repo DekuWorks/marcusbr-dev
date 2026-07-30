@@ -17,6 +17,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import { experiences } from "@/lib/experience";
 
 function isCurrentRole(period: string): boolean {
@@ -256,9 +257,18 @@ export default function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="relative w-full px-4 py-20 sm:px-6 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
+      <AnimatedGrid className="opacity-25" density="fine" />
+      <div className="experience-wave-bg" aria-hidden>
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path
+            d="M0,60 C150,100 350,20 600,60 C850,100 1050,20 1200,60 L1200,120 L0,120 Z"
+            fill="rgba(62, 180, 137, 0.04)"
+          />
+        </svg>
+      </div>
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}

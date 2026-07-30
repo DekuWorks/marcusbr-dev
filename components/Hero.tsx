@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -15,6 +16,18 @@ import MagneticButton from "@/components/motion/MagneticButton";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { SITE } from "@/lib/site";
+import SceneFallback from "@/components/three/SceneFallback";
+
+const LiquidHeroBackground = dynamic(
+  () =>
+    import("@/components/three/LiquidHeroCanvas").then(
+      (mod) => mod.LiquidHeroBackground,
+    ),
+  {
+    ssr: false,
+    loading: () => <SceneFallback variant="loading" />,
+  },
+);
 
 const roleTags = [
   "Senior Developer",
@@ -37,15 +50,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="relative w-full overflow-hidden px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20"
     >
-      <div
-        className="pointer-events-none absolute top-1/3 left-1/2 h-[min(90vw,640px)] w-[min(90vw,640px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-jade/10 opacity-60"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute top-1/3 left-1/2 h-[min(70vw,500px)] w-[min(70vw,500px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-jade/5"
-        aria-hidden
-      />
-      <div className="glow-orb pointer-events-none absolute top-1/4 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2" />
+      <LiquidHeroBackground />
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <motion.div
@@ -155,7 +160,7 @@ export default function Hero() {
         >
           <div className="relative mx-auto aspect-[9/16] w-full max-w-[min(300px,72vw)] sm:max-w-[320px] lg:max-w-[340px]">
             <div className="hero-portrait-glow" aria-hidden />
-            <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310] shadow-glow">
+            <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310]/80 shadow-glow backdrop-blur-sm">
               <Image
                 src="/marcus-brown.webp"
                 alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"

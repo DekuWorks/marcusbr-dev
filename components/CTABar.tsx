@@ -13,6 +13,8 @@ import {
 import Button from "./Button";
 import { LinkedInIcon } from "./icons/SocialIcons";
 import MagneticButton from "@/components/motion/MagneticButton";
+import LiquidBorder from "@/components/liquid/LiquidBorder";
+import GlassPanel from "@/components/liquid/GlassPanel";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 
@@ -46,8 +48,10 @@ export default function CTABar() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: motionEnabled ? 0.45 : 0 }}
-        className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl border border-jade-border bg-card/80 p-8 text-center shadow-glow backdrop-blur-sm sm:p-10"
+        className="relative mx-auto max-w-6xl"
       >
+        <LiquidBorder className="overflow-hidden rounded-2xl shadow-glow">
+          <GlassPanel className="relative overflow-hidden rounded-2xl border-0 p-8 text-center sm:p-10">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-jade/50 to-transparent"
           aria-hidden
@@ -144,7 +148,7 @@ export default function CTABar() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 max-w-md rounded-xl border border-jade-border bg-background/40 px-4 py-3">
+        <div className="mx-auto mt-8 max-w-md rounded-xl border border-jade-border bg-background/40 px-4 py-3 transition-colors hover:border-jade/30">
           <p className="text-xs font-medium tracking-wide text-muted uppercase">
             Direct email
           </p>
@@ -155,6 +159,8 @@ export default function CTABar() {
             {SITE.email}
           </a>
         </div>
+          </GlassPanel>
+        </LiquidBorder>
       </motion.div>
     </section>
   );

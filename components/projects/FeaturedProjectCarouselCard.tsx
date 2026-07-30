@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import TiltCard from "@/components/motion/TiltCard";
+import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
@@ -43,8 +44,9 @@ export default function FeaturedProjectCarouselCard({
 
   return (
     <article className="h-full w-full">
+      <CursorSpotlight className="h-full rounded-2xl">
       <TiltCard
-        maxTilt={6}
+        maxTilt={8}
         className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80"
         style={{ "--project-accent": project.accent } as React.CSSProperties}
       >
@@ -131,6 +133,7 @@ export default function FeaturedProjectCarouselCard({
         </div>
       </div>
       </TiltCard>
+      </CursorSpotlight>
     </article>
   );
 }

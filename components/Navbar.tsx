@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
@@ -20,6 +20,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>(navLinks[0].href);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,11 +29,46 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const updateActiveSection = useCallback(() => {
+    const sections = navLinks
+      .map((link) => document.querySelector(link.href))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    const offset = 120;
+    let current: string = navLinks[0].href;
+
+    for (const section of sections) {
+      const top = section.getBoundingClientRect().top;
+      if (top <= offset) {
+        current = `#${section.id}`;
+      }
+    }
+
+    setActiveSection(current);
+  }, []);
+
+  useEffect(() => {
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [updateActiveSection]);
+
+  const linkClass = (href: string) =>
+    `text-sm transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm ${
+      activeSection === href
+        ? "nav-link-active font-medium text-jade-bright"
+        : "text-muted"
+    }`;
+
   return (
     <header
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "glass-card border-b border-jade/10 shadow-glow-sm"
+          ? "glass-card border-b border-jade/15 shadow-glow-sm backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
@@ -55,7 +91,8 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                className={linkClass(link.href)}
+                aria-current={activeSection === link.href ? "page" : undefined}
               >
                 {link.label}
               </a>
@@ -99,7 +136,12 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex min-h-11 items-center rounded-lg px-3 text-sm text-muted transition-colors hover:bg-jade/10 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
+                    className={`flex min-h-11 items-center rounded-lg px-3 text-sm transition-colors hover:bg-jade/10 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade ${
+                      activeSection === link.href
+                        ? "bg-jade/10 font-medium text-jade-bright"
+                        : "text-muted"
+                    }`}
+                    aria-current={activeSection === link.href ? "page" : undefined}
                   >
                     {link.label}
                   </a>

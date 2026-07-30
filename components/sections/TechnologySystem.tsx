@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Layers } from "lucide-react";
+import GlassPanel from "@/components/liquid/GlassPanel";
+import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { getProjectsForTechnology } from "@/lib/techProjectMatch";
 import { techStack } from "@/lib/technologies";
@@ -95,9 +97,10 @@ export default function TechnologySystem() {
     <section
       id="skills"
       aria-labelledby="technology-heading"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="relative w-full px-4 py-20 sm:px-6 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
+      <AnimatedGrid className="opacity-20" />
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
@@ -159,8 +162,8 @@ export default function TechnologySystem() {
           id={techGridId}
           role="tabpanel"
           aria-labelledby={`${categoryListId}-${activeCategory}`}
-          className="glass-card rounded-2xl p-5 sm:p-6"
         >
+        <GlassPanel className="rounded-2xl p-5 sm:p-6">
           <motion.div
             key={activeCategory}
             initial={motionEnabled ? { opacity: 0, y: 8 } : false}
@@ -183,7 +186,7 @@ export default function TechnologySystem() {
                   onClick={() => handleTechSelect(tech.name)}
                   aria-pressed={isSelected}
                   aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
-                  className={`rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  className={`tech-float-chip rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     isSelected
                       ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
                       : "border-jade-border bg-background-secondary/80 text-cream/90 hover:border-jade/35 hover:bg-jade/10"
@@ -194,6 +197,7 @@ export default function TechnologySystem() {
               );
             })}
           </motion.div>
+        </GlassPanel>
         </div>
 
         <AnimatePresence initial={false} mode="wait">

@@ -7,7 +7,8 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
-import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { useLiquidEffects } from "@/hooks/useEffectsPreference";
+import { useDeviceQuality } from "@/hooks/useDeviceQuality";
 
 type MagneticButtonProps = {
   children: ReactNode;
@@ -19,19 +20,22 @@ type MagneticButtonProps = {
 export default function MagneticButton({
   children,
   className = "",
-  strength = 0.25,
+  strength,
   style,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { motionEnabled } = useMotionEnabled();
+  const { magneticEnabled, effectsReduced } = useLiquidEffects();
+  const { settings } = useDeviceQuality(effectsReduced);
+  const effectiveStrength = strength ?? settings.magneticStrength;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!motionEnabled || !ref.current) return;
+    if (!magneticEnabled || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) * strength;
-    const y = (e.clientY - rect.top - rect.height / 2) * strength;
-    setOffset({ x, y });
+    const x = (e.clientX - rect.left - rect.width / 2) * effectiveStrength;
+    const y = (e.clientY - rect.top - rect.height / 2) * effectiveStrength;
+    const clamp = (value: number) => Math.max(-8, Math.min(8, value));
+    setOffset({ x: clamp(x), y: clamp(y) });
   };
 
   const handleMouseLeave = () => setOffset({ x: 0, y: 0 });
@@ -43,7 +47,7 @@ export default function MagneticButton({
       style={{
         ...style,
         transform: `translate(${offset.x}px, ${offset.y}px)`,
-        transition: "transform 0.2s ease-out",
+        transition: "transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
