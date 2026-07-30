@@ -66,15 +66,15 @@ export default function FeaturedProjectCarouselCard({
         </div>
       </Link>
 
-      <div className="flex flex-1 flex-col p-5">
-        <div className="min-w-0">
+      <div className="flex flex-1 flex-col p-5 max-md:items-center max-md:text-center">
+        <div className="min-w-0 max-md:w-full">
           <h3 className="text-lg font-bold text-cream">{project.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted">
             {project.synopsis}
           </p>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
+        <div className="mt-4 flex flex-wrap gap-1.5 max-md:justify-center">
           {project.technologies.slice(0, 4).map((tech) => (
             <span
               key={tech}
@@ -91,16 +91,17 @@ export default function FeaturedProjectCarouselCard({
         </div>
 
         <ProjectTrackerProgress
-          className="mt-4"
+          className="mt-4 max-md:w-full max-md:max-w-xs"
           phase={project.trackerPhase}
           progress={project.trackerProgress}
           detail={project.trackerDetail}
           label={project.name}
           size="sm"
           showPercentage={project.status !== "Client Project"}
+          centered
         />
 
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4">
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-3">
           <span
             className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide uppercase ${statusStyle.badge}`}
           >
@@ -110,7 +111,7 @@ export default function FeaturedProjectCarouselCard({
             />
             {project.status}
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 max-md:justify-center">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}

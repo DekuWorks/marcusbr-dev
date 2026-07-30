@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { getFeaturedProjects } from "@/lib/projects";
 import { ACTION_COMMANDS, PAGE_SECTIONS } from "@/lib/navigation";
+import { scrollToSection } from "@/lib/scrollToSection";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 
@@ -132,10 +133,9 @@ export default function CommandPalette({
 
       if (command.href.startsWith("#")) {
         emitSectionFromHref(command.href);
+        scrollToSection(command.href, motionEnabled);
+        window.history.pushState(null, "", command.href);
         const target = document.querySelector(command.href);
-        target?.scrollIntoView({
-          behavior: motionEnabled ? "smooth" : "auto",
-        });
         if (target instanceof HTMLElement) {
           target.focus({ preventScroll: true });
         }

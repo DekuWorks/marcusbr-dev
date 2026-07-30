@@ -11,7 +11,13 @@ import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import ScrollProgressBar from "@/components/nav/ScrollProgressBar";
 import NavMagneticLink from "@/components/nav/NavMagneticLink";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
+import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { hrefToSectionId } from "@/lib/liquid/interactionState";
+import {
+  getActiveSectionHref,
+  getSectionElements,
+  scrollToSection,
+} from "@/lib/scrollToSection";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -27,6 +33,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(navLinks[0].href);
   const { emit, emitSectionFromHref } = useLiquidInteractionEmitter();
+  const { motionEnabled } = useMotionEnabled();
   const prevSectionRef = useRef(activeSection);
 
   useEffect(() => {
@@ -39,25 +46,16 @@ export default function Navbar() {
   const handleNavClick = useCallback(
     (href: string) => {
       emitSectionFromHref(href);
+      scrollToSection(href, motionEnabled);
+      window.history.pushState(null, "", href);
     },
-    [emitSectionFromHref],
+    [emitSectionFromHref, motionEnabled],
   );
 
   const updateActiveSection = useCallback(() => {
-    const sections = navLinks
-      .map((link) => document.querySelector(link.href))
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    const offset = 120;
-    let current: string = navLinks[0].href;
-
-    for (const section of sections) {
-      const top = section.getBoundingClientRect().top;
-      if (top <= offset) {
-        current = `#${section.id}`;
-      }
-    }
-
+    const sectionIds = navLinks.map((link) => link.href.slice(1));
+    const sections = getSectionElements(sectionIds);
+    const current = getActiveSectionHref(sections);
     setActiveSection(current);
   }, []);
 
@@ -104,7 +102,10 @@ export default function Navbar() {
           >
             <a
               href="#home"
-              onClick={() => handleNavClick("#home")}
+              onClick={(event) => {
+                event.preventDefault();
+                handleNavClick("#home");
+              }}
               className={`flex items-center gap-2 rounded-sm text-cream transition-all duration-300 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                 scrolled ? "scale-[0.97]" : "scale-100"
               }`}
@@ -125,7 +126,10 @@ export default function Navbar() {
                   <NavMagneticLink>
                     <a
                       href={link.href}
-                      onClick={() => handleNavClick(link.href)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleNavClick(link.href);
+                      }}
                       className={linkClass(link.href)}
                       aria-current={
                         activeSection === link.href ? "page" : undefined
@@ -190,27 +194,40 @@ export default function Navbar() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      onClick={() => {
+                      onClick={(event) => {
+                        event.preventDefault();
                         handleNavClick(link.href);
                         setMobileOpen(false);
                       }}
-                      className={`flex min-h-11 items-center rounded-lg px-3 text-sm transition-colors hover:bg-jade/10 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade ${
+                      className={`nav-link relative flex min-h-11 items-center rounded-lg px-3 text-sm transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade ${
                         activeSection === link.href
-                          ? "bg-jade/10 font-medium text-jade-bright"
+                          ? "font-medium text-jade-bright"
                           : "text-muted"
                       }`}
                       aria-current={
                         activeSection === link.href ? "page" : undefined
                       }
                     >
-                      {link.label}
+                      {activeSection === link.href && (
+                        <motion.span
+                          layoutId="nav-active-pill-mobile"
+                          className="nav-active-pill nav-active-pill-drawer"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      <span className="relative z-10">{link.label}</span>
                     </a>
                   </li>
                 ))}
                 <li className="pt-2">
                   <a
                     href="#contact"
-                    onClick={() => {
+                    onClick={(event) => {
+                      event.preventDefault();
                       handleNavClick("#contact");
                       setMobileOpen(false);
                     }}

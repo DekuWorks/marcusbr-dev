@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
-import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import Section from "@/components/layout/Section";
 import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
@@ -25,12 +25,7 @@ export default function AboutStatsTech() {
   const { motionEnabled } = useMotionEnabled();
 
   return (
-    <section
-      id="about"
-      aria-labelledby="about-heading"
-      className="w-full section-spacing"
-    >
-      <PortfolioContainer>
+    <Section id="about" aria-labelledby="about-heading">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-6 xl:gap-8">
           <motion.article
             initial={motionEnabled ? { opacity: 0, y: 20 } : false}
@@ -96,7 +91,6 @@ export default function AboutStatsTech() {
             ))}
           </motion.div>
         </div>
-      </PortfolioContainer>
-    </section>
+    </Section>
   );
 }

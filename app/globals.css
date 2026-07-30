@@ -50,6 +50,11 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+section[id] {
+  scroll-margin-top: 7rem;
 }
 
 body {
@@ -980,6 +985,10 @@ body {
   border-radius: 22%;
 }
 
+.project-concept-icon--tight-crop {
+  transform: scale(1.28);
+}
+
 .project-app-icon-frame {
   display: flex;
   align-items: center;
@@ -1472,6 +1481,10 @@ body {
     0 0 16px rgba(62, 180, 137, 0.12),
     inset 0 1px 0 rgba(74, 222, 154, 0.08);
   z-index: 0;
+}
+
+.nav-active-pill-drawer {
+  border-radius: 0.5rem;
 }
 
 /* ── Button ripple & icon shift ── */

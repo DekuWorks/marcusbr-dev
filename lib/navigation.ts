@@ -2,7 +2,10 @@ import { SITE } from "./site";
 
 /**
  * Section anchors on the home page — keep in sync with section `id` attributes
- * in Hero, AboutStatsTech, FeaturedProjects, TechnologySystem, Experience, CTABar.
+ * in Hero, FeaturedProjects, AboutStatsTech, TechnologySystem, Experience, CTABar.
+ *
+ * Note: DOM order differs from this list — Projects appears before About on the page.
+ * Scroll-spy must sort sections by document position (see lib/scrollToSection.ts).
  */
 export const PAGE_SECTIONS = [
   {

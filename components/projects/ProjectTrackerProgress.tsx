@@ -9,6 +9,7 @@ interface ProjectTrackerProgressProps {
   label?: string;
   size?: "sm" | "md";
   showPercentage?: boolean;
+  centered?: boolean;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ export default function ProjectTrackerProgress({
   label,
   size = "md",
   showPercentage = true,
+  centered = false,
   className = "",
 }: ProjectTrackerProgressProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -28,7 +30,13 @@ export default function ProjectTrackerProgress({
 
   return (
     <div className={className}>
-      <div className="flex items-center justify-between gap-3">
+      <div
+        className={`flex items-center gap-3 ${
+          centered
+            ? "justify-between max-md:justify-center max-md:text-center"
+            : "justify-between"
+        }`}
+      >
         <p className="text-xs font-semibold tracking-wide text-jade-bright uppercase">
           {phase}
         </p>
@@ -65,7 +73,13 @@ export default function ProjectTrackerProgress({
       </div>
 
       {detail && (
-        <p className="mt-2 text-xs leading-relaxed text-muted">{detail}</p>
+        <p
+          className={`mt-2 text-xs leading-relaxed text-muted ${
+            centered ? "max-md:text-center" : ""
+          }`}
+        >
+          {detail}
+        </p>
       )}
     </div>
   );
