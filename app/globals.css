@@ -1389,34 +1389,6 @@ body {
   transform: translateX(120%);
 }
 
-/* ── Experience wave background ── */
-
-.experience-wave-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.experience-wave-bg svg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 200%;
-  height: 120px;
-  animation: experience-wave 18s linear infinite;
-}
-
-@keyframes experience-wave {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 /* ── Tech floating icons ── */
 
 .tech-float-chip {
@@ -1570,8 +1542,7 @@ a:focus-visible .btn-icon-shift {
   .liquid-hero-fallback__blob,
   .liquid-hero-fallback__droplet,
   .liquid-hero-fallback__orb--quaternary,
-  .animated-grid--active,
-  .experience-wave-bg svg {
+  .animated-grid--active {
     animation: none;
   }
 

@@ -319,8 +319,7 @@ export default function Experience() {
           </button>
         </motion.div>
 
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)] lg:gap-10 xl:gap-14">
-          <div className="relative min-w-0">
+        <div className="relative min-w-0">
             <div className="relative lg:hidden">
               <div
                 className="absolute top-8 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent lg:block"
@@ -408,26 +407,6 @@ export default function Experience() {
                 ))}
               </ol>
             </div>
-          </div>
-
-          <div
-            className="relative hidden min-h-[420px] overflow-hidden rounded-2xl border border-jade-border bg-card/20 lg:block"
-            aria-hidden
-          >
-            <AnimatedGrid className="opacity-30" density="fine" />
-            <div className="experience-wave-bg opacity-70">
-              <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path
-                  d="M0,60 C150,100 350,20 600,60 C850,100 1050,20 1200,60 L1200,120 L0,120 Z"
-                  fill="rgba(62, 180, 137, 0.06)"
-                />
-              </svg>
-            </div>
-            <div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-jade/5 via-transparent to-transparent"
-              aria-hidden
-            />
-          </div>
         </div>
 
         <AnimatePresence initial={false}>
