@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, type MutableRefObject } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import type { LiquidInteractionRefs } from "@/lib/liquid/interactionState";
 
@@ -18,14 +18,14 @@ const vertexShader = /* glsl */ `
   varying float vFresnel;
 
   vec3 displace(vec3 pos, vec3 normal) {
-    float wave = sin(pos.x * 2.2 + uTime * 1.4 * uSpeed) * 0.08;
-    wave += cos(pos.y * 2.8 - uTime * 1.1 * uSpeed) * 0.07;
-    wave += sin(pos.z * 2.0 + uTime * 0.9 * uSpeed) * 0.06;
-    float pointer = exp(-length(pos.xy - uPointer * 1.2) * 2.2) * 0.12;
-    float ripple = sin(length(pos.xy) * 4.0 - uTime * 3.0) * uRipple * 0.1;
-    float pulse = uPulse * 0.06;
+    float wave = sin(pos.x * 2.2 + uTime * 1.4 * uSpeed) * 0.095;
+    wave += cos(pos.y * 2.8 - uTime * 1.1 * uSpeed) * 0.082;
+    wave += sin(pos.z * 2.0 + uTime * 0.9 * uSpeed) * 0.072;
+    float pointer = exp(-length(pos.xy - uPointer * 1.2) * 2.2) * 0.14;
+    float ripple = sin(length(pos.xy) * 4.0 - uTime * 3.0) * uRipple * 0.11;
+    float pulse = uPulse * 0.07;
     vec2 shifted = pos.xy + uShift * 0.35;
-    float scrollWave = sin(shifted.x * 1.8 + uScroll * 3.14) * uScroll * 0.04;
+    float scrollWave = sin(shifted.x * 1.8 + uScroll * 3.14) * uScroll * 0.045;
     return pos + normal * (wave + pointer + ripple + pulse + scrollWave);
   }
 
@@ -57,11 +57,11 @@ const fragmentShader = /* glsl */ `
     float fresnel = vFresnel;
     float pulse = sin(uTime * 0.8) * 0.5 + 0.5;
 
-    vec3 color = mix(base, jade * 0.35, fresnel * 0.85);
-    color += jadeBright * fresnel * (0.35 + pulse * 0.15 + uColorPulse * 0.12);
-    color += cyan * pow(fresnel, 3.0) * (0.2 + uColorPulse * 0.08);
+    vec3 color = mix(base, jade * 0.42, fresnel * 0.9);
+    color += jadeBright * fresnel * (0.42 + pulse * 0.18 + uColorPulse * 0.14);
+    color += cyan * pow(fresnel, 2.8) * (0.26 + uColorPulse * 0.1);
 
-    float alpha = 0.72 + fresnel * 0.22;
+    float alpha = 0.74 + fresnel * 0.24;
     gl_FragColor = vec4(color, alpha);
   }
 `;
@@ -81,7 +81,6 @@ export default function LiquidBlob({
 }: LiquidBlobProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const { pointer } = useThree();
   const smoothInteraction = useRef({
     ripple: 0,
     pulse: 0,
@@ -89,7 +88,10 @@ export default function LiquidBlob({
     shiftX: 0,
     shiftY: 0,
     scroll: 0,
+    pointerX: 0.5,
+    pointerY: 0.5,
   });
+  const pointerVec = useMemo(() => new THREE.Vector2(0, 0), []);
 
   const uniforms = useMemo(
     () => ({
@@ -118,11 +120,17 @@ export default function LiquidBlob({
       smooth.shiftX += (interaction.shiftX - smooth.shiftX) * t;
       smooth.shiftY += (interaction.shiftY - smooth.shiftY) * t;
       smooth.scroll += (interaction.scrollProgress - smooth.scroll) * t;
+      smooth.pointerX += (interaction.pointerX - smooth.pointerX) * t;
+      smooth.pointerY += (interaction.pointerY - smooth.pointerY) * t;
     }
+
+    const pointerX = (smooth.pointerX - 0.5) * 2;
+    const pointerY = (smooth.pointerY - 0.5) * 2;
 
     if (!paused) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-      materialRef.current.uniforms.uPointer.value.lerp(pointer, 0.08);
+      pointerVec.set(pointerX, pointerY);
+      materialRef.current.uniforms.uPointer.value.lerp(pointerVec, 0.07);
       materialRef.current.uniforms.uRipple.value = smooth.ripple;
       materialRef.current.uniforms.uPulse.value = smooth.pulse;
       materialRef.current.uniforms.uColorPulse.value = smooth.colorPulse;
@@ -132,19 +140,21 @@ export default function LiquidBlob({
     if (meshRef.current) {
       const scrollTilt = smooth.scroll * 0.12;
       meshRef.current.rotation.y =
-        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.25;
+        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.25 + pointerX * 0.06;
       meshRef.current.rotation.x =
         Math.sin(state.clock.elapsedTime * 0.15 * speed) * 0.08 +
         smooth.shiftY * 0.15 -
-        scrollTilt;
-      meshRef.current.position.x = smooth.shiftX * 0.18;
-      meshRef.current.position.y = smooth.shiftY * 0.12 - smooth.scroll * 0.15;
+        scrollTilt +
+        pointerY * 0.05;
+      meshRef.current.position.x = smooth.shiftX * 0.18 + pointerX * 0.12;
+      meshRef.current.position.y =
+        smooth.shiftY * 0.12 - smooth.scroll * 0.15 + pointerY * 0.08;
     }
   });
 
   return (
-    <mesh ref={meshRef} scale={1.35}>
-      <icosahedronGeometry args={[1.1, Math.max(1, Math.floor(segments / 16))]} />
+    <mesh ref={meshRef} scale={1.42}>
+      <icosahedronGeometry args={[1.18, Math.max(1, Math.floor(segments / 16))]} />
       <shaderMaterial
         ref={materialRef}
         uniforms={uniforms}

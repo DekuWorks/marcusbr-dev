@@ -54,6 +54,8 @@ export default function LiquidDroplets({
         Math.min(1, delta * 4);
     }
     const ripple = rippleRef.current;
+    const pointerX = interaction ? (interaction.pointerX - 0.5) * 2 : 0;
+    const pointerY = interaction ? (interaction.pointerY - 0.5) * 2 : 0;
 
     for (let i = 0; i < count; i++) {
       const baseX = positions[i * 3];
@@ -63,9 +65,12 @@ export default function LiquidDroplets({
       const rippleOffset = Math.sin(time * 4 + i) * ripple * 0.12;
 
       dummy.position.set(
-        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04),
-        baseY + Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.15 + ripple * 0.06) + rippleOffset,
-        baseZ + Math.cos(time * dropletSpeed + i) * (0.08 + ripple * 0.04),
+        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04) + pointerX * 0.04,
+        baseY +
+          Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.15 + ripple * 0.06) +
+          rippleOffset +
+          pointerY * 0.03,
+        baseZ + Math.cos(time * dropletSpeed + i) * (0.08 + ripple * 0.04) - pointerX * 0.02,
       );
       const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15 + ripple * 0.08);
       dummy.scale.setScalar(scale);
@@ -84,11 +89,11 @@ export default function LiquidDroplets({
       <meshStandardMaterial
         color="#4ade9a"
         emissive="#3eb489"
-        emissiveIntensity={0.6}
+        emissiveIntensity={0.72}
         transparent
-        opacity={0.75}
-        roughness={0.15}
-        metalness={0.4}
+        opacity={0.8}
+        roughness={0.12}
+        metalness={0.45}
       />
     </instancedMesh>
   );

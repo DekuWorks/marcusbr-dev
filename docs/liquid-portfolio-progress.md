@@ -35,8 +35,10 @@
 - [x] Phase 16 — Completion report (this file)
 - [x] Phase 17 — **Interaction bus** (`LiquidInteractionProvider`, section/tab/carousel reactions)
 - [x] Phase 18 — **Responsive pass** (iPad/mobile tiers, safe areas, touch guards)
+- [x] Phase 19 — **Global pointer tracking** (page-wide mouse/touch → ambient liquid drift)
+- [x] Phase 20 — **Liquid density pass** (richer blob, more droplets on Full desktop, CSS fallback polish)
 
-## Interaction Reactions (Phase 17)
+## Interaction Reactions (Phase 17–19)
 
 | Event | Trigger | Liquid response |
 |-------|---------|-----------------|
@@ -46,9 +48,11 @@
 | `experienceToggle` | Expand/collapse full timeline | Ripple + vertical shift |
 | `carouselNav` | Projects / Experience prev-next | Ripple + directional shift + grid bump |
 | `scrollProgress` | Hero scroll position (passive) | Blob tilt/fade, CSS vignette darken |
+| `globalPointer` | `pointermove` / touch anywhere on document (passive, rAF-coalesced) | Subtle blob lean, shader ripple hotspot, CSS `--liquid-pointer-*` drift |
 
 - **WebGL:** ref-driven state in `useFrame` (no React setState in rAF)
 - **CSS fallback:** `--liquid-*` custom properties on `#home`, updated by provider rAF loop
+- **Pointer:** normalized viewport coords (0–1), smoothed in `tickLiquidPointer`; coarse touch only while finger down
 - **Respects:** Full / Reduced (55% intensity) / Off (no reactions)
 
 ## Packages Added
@@ -95,16 +99,25 @@
 
 | Mode | Liquid 3D | Droplets | Bloom | Magnetic | Tilt | CSS Fallback | Interactions |
 |------|-----------|----------|-------|----------|------|--------------|--------------|
-| Full | ✅ | Full | ✅ | ✅ | 8° | When no WebGL | ✅ full |
-| Reduced | ✅ slower | Fewer | ❌ | ❌ | 4° | When no WebGL | ✅ 55% |
-| Off | ❌ | ❌ | ❌ | ❌ | 0° | ✅ | ❌ |
+| Full | ✅ | 32 droplets (high) | ✅ | ✅ | 8° | When no WebGL | ✅ full + global pointer |
+| Reduced | ✅ slower | ~40% of tier | ❌ | ❌ | 4° | When no WebGL | ✅ 55% + dampened pointer |
+| Off | ❌ | ❌ | ❌ | ❌ | 0° | ✅ +1 droplet | ❌ |
 
 System `prefers-reduced-motion` maps to reduced behavior.
+
+## Liquid Density (Phase 20)
+
+| Tier | Blob | Droplets | Visual tweaks |
+|------|------|----------|---------------|
+| Full desktop (high) | +scale, +deformation | 32 (was 24) | Stronger jade fresnel, bloom 0.42, brighter grid |
+| Medium / mobile | Unchanged counts | 12 / 0 | No perf regression |
+| Reduced | Modest bump via 40% multiplier | ~12 from high tier | Shader/CSS unchanged amplitude |
+| Off CSS | Larger morph blob | 9 static (+1) | Tertiary orb, stronger gradients |
 
 ## Tests
 
 - `lib/three/qualitySettings.test.ts` (2 tests)
-- `lib/liquid/interactionState.test.ts` (3 tests)
+- `lib/liquid/interactionState.test.ts` (6 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
 - **Total:** 11 tests passing
 

@@ -47,9 +47,9 @@ function LiquidScene({
   return (
     <>
       <color attach="background" args={["#0d1310"]} />
-      <ambientLight intensity={0.35} />
-      <pointLight position={[3, 4, 2]} intensity={1.2} color="#4ade9a" />
-      <pointLight position={[-3, -1, -2]} intensity={0.5} color="#22d3ee" />
+      <ambientLight intensity={0.38} />
+      <pointLight position={[3, 4, 2]} intensity={1.35} color="#4ade9a" />
+      <pointLight position={[-3, -1, -2]} intensity={0.58} color="#22d3ee" />
       <LiquidGrid
         density={gridDensity}
         speed={deformationSpeed}
@@ -71,9 +71,9 @@ function LiquidScene({
       {bloom && (
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={0.35}
-            luminanceThreshold={0.55}
-            luminanceSmoothing={0.9}
+            intensity={0.42}
+            luminanceThreshold={0.5}
+            luminanceSmoothing={0.88}
             mipmapBlur
           />
         </EffectComposer>
@@ -136,18 +136,27 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
 }
 
 export function LiquidHeroBackground() {
-  const { showWebGL, showCSSFallback, hydrated } = useLiquidEffects();
+  const { showWebGL, showCSSFallback, hydrated, effectsOff, effectsReduced } =
+    useLiquidEffects();
   const { webglSupported, webglChecked } = useWebGLSupport();
 
+  const fallbackDroplets = effectsOff ? 9 : effectsReduced ? 9 : 10;
+  const showTertiaryOrb = !effectsOff;
+
   if (!hydrated || !webglChecked) {
-    return <SceneFallback variant="loading" />;
+    return <SceneFallback variant="loading" dropletCount={9} showTertiaryOrb={false} />;
   }
 
   const useCanvas = showWebGL && webglSupported;
 
   return (
     <>
-      {(showCSSFallback || !useCanvas) && <SceneFallback />}
+      {(showCSSFallback || !useCanvas) && (
+        <SceneFallback
+          dropletCount={fallbackDroplets}
+          showTertiaryOrb={showTertiaryOrb}
+        />
+      )}
       {useCanvas && (
         <SceneErrorBoundary label="LiquidHero">
           <LiquidHeroCanvas />

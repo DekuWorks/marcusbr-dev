@@ -13,9 +13,11 @@ import {
   createLiquidInteractionState,
   hrefToSectionId,
   liquidStateToCssVars,
+  normalizeViewportPointer,
   tickLiquidInteraction,
   type LiquidInteractionEvent,
   type LiquidInteractionRefs,
+  type TickLiquidInteractionOptions,
 } from "@/lib/liquid/interactionState";
 import { useLiquidEffects } from "@/hooks/useEffectsPreference";
 
@@ -33,10 +35,19 @@ const LiquidInteractionContext =
 export function LiquidInteractionProvider({ children }: { children: ReactNode }) {
   const stateRef = useRef(createLiquidInteractionState());
   const cssTargetRef = useRef<HTMLElement | null>(null);
+  const pointerCoarseRef = useRef(false);
   const { effectsOff, effectsReduced } = useLiquidEffects();
   const reactionsEnabled = !effectsOff;
 
   const intensity = effectsReduced ? 0.55 : 1;
+  const tickOptionsRef = useRef<TickLiquidInteractionOptions>({
+    pointerStrength: intensity,
+    pointerCoarse: false,
+  });
+  tickOptionsRef.current = {
+    pointerStrength: intensity,
+    pointerCoarse: pointerCoarseRef.current,
+  };
 
   const emit = useCallback(
     (event: LiquidInteractionEvent) => {
@@ -55,7 +66,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
   );
 
   const tick = useCallback((delta: number) => {
-    tickLiquidInteraction(stateRef.current, delta);
+    tickLiquidInteraction(stateRef.current, delta, tickOptionsRef.current);
     const target = cssTargetRef.current;
     if (!target) return;
     const vars = liquidStateToCssVars(stateRef.current);
@@ -67,6 +78,95 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
   useEffect(() => {
     cssTargetRef.current = document.getElementById("home");
   }, []);
+
+  useEffect(() => {
+    if (!reactionsEnabled) return;
+
+    const coarseMq = window.matchMedia("(pointer: coarse)");
+    const syncCoarse = () => {
+      pointerCoarseRef.current = coarseMq.matches;
+    };
+    syncCoarse();
+    coarseMq.addEventListener("change", syncCoarse);
+
+    let frameId = 0;
+    let pendingX = 0.5;
+    let pendingY = 0.5;
+    let pendingActive = false;
+
+    const flushPointer = () => {
+      frameId = 0;
+      const state = stateRef.current;
+      state.targetPointerX = pendingX;
+      state.targetPointerY = pendingY;
+      state.pointerActive = pendingActive;
+    };
+
+    const schedulePointerFlush = () => {
+      if (frameId) return;
+      frameId = requestAnimationFrame(flushPointer);
+    };
+
+    const setPointerFromClient = (clientX: number, clientY: number, active: boolean) => {
+      const { x, y } = normalizeViewportPointer(
+        clientX,
+        clientY,
+        window.innerWidth,
+        window.innerHeight,
+      );
+      pendingX = x;
+      pendingY = y;
+      pendingActive = active;
+      schedulePointerFlush();
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (document.hidden) return;
+      setPointerFromClient(event.clientX, event.clientY, true);
+    };
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (document.hidden) return;
+      setPointerFromClient(event.clientX, event.clientY, true);
+    };
+
+    const onPointerUp = () => {
+      if (pointerCoarseRef.current) {
+        pendingActive = false;
+        schedulePointerFlush();
+      }
+    };
+
+    const onPointerLeave = (event: PointerEvent) => {
+      if (event.pointerType === "mouse") {
+        pendingActive = false;
+        schedulePointerFlush();
+      }
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        pendingActive = false;
+        schedulePointerFlush();
+      }
+    };
+
+    document.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("pointerdown", onPointerDown, { passive: true });
+    document.addEventListener("pointerup", onPointerUp, { passive: true });
+    document.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      coarseMq.removeEventListener("change", syncCoarse);
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("pointerleave", onPointerLeave);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [reactionsEnabled]);
 
   useEffect(() => {
     if (!reactionsEnabled) return;

@@ -14,7 +14,7 @@ export type QualitySettings = {
 export const QUALITY_SETTINGS: Record<SceneQuality, QualitySettings> = {
   high: {
     dpr: [1, 2],
-    dropletCount: 24,
+    dropletCount: 32,
     blobSegments: 64,
     gridDensity: 1,
     bloom: true,

@@ -24,7 +24,41 @@ export type LiquidInteractionRefs = {
   scrollProgress: number;
   activeSectionIndex: number;
   gridBump: number;
+  /** Smoothed viewport pointer X (0–1). */
+  pointerX: number;
+  /** Smoothed viewport pointer Y (0–1). */
+  pointerY: number;
+  /** Raw target from last pointer event (0–1). */
+  targetPointerX: number;
+  targetPointerY: number;
+  /** True while pointer is actively tracked (mouse in viewport or touch down). */
+  pointerActive: boolean;
 };
+
+export type TickLiquidInteractionOptions = {
+  lerpSpeed?: number;
+  pointerStrength?: number;
+  pointerCoarse?: boolean;
+};
+
+export function normalizeViewportPointer(
+  clientX: number,
+  clientY: number,
+  width = 1,
+  height = 1,
+): { x: number; y: number } {
+  return {
+    x: width > 0 ? Math.min(1, Math.max(0, clientX / width)) : 0.5,
+    y: height > 0 ? Math.min(1, Math.max(0, clientY / height)) : 0.5,
+  };
+}
+
+export function pointerOffset(state: LiquidInteractionRefs): { x: number; y: number } {
+  return {
+    x: (state.pointerX - 0.5) * 2,
+    y: (state.pointerY - 0.5) * 2,
+  };
+}
 
 export const SECTION_TARGETS: Record<
   LiquidSectionId,
@@ -55,6 +89,11 @@ export function createLiquidInteractionState(): LiquidInteractionRefs {
     scrollProgress: 0,
     activeSectionIndex: 0,
     gridBump: 0,
+    pointerX: 0.5,
+    pointerY: 0.5,
+    targetPointerX: 0.5,
+    targetPointerY: 0.5,
+    pointerActive: false,
   };
 }
 
@@ -97,11 +136,36 @@ export function applyLiquidInteraction(
   }
 }
 
+export function tickLiquidPointer(
+  state: LiquidInteractionRefs,
+  delta: number,
+  options: TickLiquidInteractionOptions = {},
+): void {
+  const { pointerStrength = 1, pointerCoarse = false } = options;
+  if (pointerStrength <= 0) return;
+
+  if (!state.pointerActive) {
+    const centerT = Math.min(1, delta * 0.65);
+    state.targetPointerX += (0.5 - state.targetPointerX) * centerT;
+    state.targetPointerY += (0.5 - state.targetPointerY) * centerT;
+  }
+
+  const activeLerp = pointerCoarse ? 2.4 : 4.8;
+  const idleLerp = pointerCoarse ? 1.4 : 2.2;
+  const lerpRate = state.pointerActive ? activeLerp : idleLerp;
+  const t = Math.min(1, delta * lerpRate * pointerStrength);
+
+  state.pointerX += (state.targetPointerX - state.pointerX) * t;
+  state.pointerY += (state.targetPointerY - state.pointerY) * t;
+}
+
 export function tickLiquidInteraction(
   state: LiquidInteractionRefs,
   delta: number,
-  lerpSpeed = 2.4,
+  options: TickLiquidInteractionOptions = {},
 ): void {
+  const lerpSpeed = options.lerpSpeed ?? 2.4;
+
   const decay = (key: "ripple" | "pulse" | "colorPulse" | "gridBump") => {
     state[key] *= Math.exp(-delta * 3.8);
     if (state[key] < 0.001) state[key] = 0;
@@ -111,6 +175,8 @@ export function tickLiquidInteraction(
   decay("pulse");
   decay("colorPulse");
   decay("gridBump");
+
+  tickLiquidPointer(state, delta, options);
 
   const t = Math.min(1, delta * lerpSpeed);
   state.shiftX += (state.targetShiftX - state.shiftX) * t;
@@ -123,6 +189,7 @@ export function tickLiquidInteraction(
 }
 
 export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<string, string> {
+  const { x: pointerX, y: pointerY } = pointerOffset(state);
   return {
     "--liquid-ripple": String(state.ripple),
     "--liquid-pulse": String(state.pulse),
@@ -130,5 +197,7 @@ export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<strin
     "--liquid-shift-y": String(state.shiftY),
     "--liquid-scroll": String(state.scrollProgress),
     "--liquid-color-pulse": String(state.colorPulse),
+    "--liquid-pointer-x": String(pointerX),
+    "--liquid-pointer-y": String(pointerY),
   };
 }
