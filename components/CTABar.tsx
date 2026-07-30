@@ -59,8 +59,12 @@ export default function CTABar() {
           transition={{ duration: motionEnabled ? 0.45 : 0 }}
           className="relative"
         >
-          <LiquidBorder className="overflow-hidden rounded-2xl shadow-glow">
-            <GlassPanel className="relative overflow-hidden rounded-2xl border-0 p-8 sm:p-10">
+          <LiquidBorder className="cta-liquid-border overflow-hidden rounded-2xl shadow-glow">
+            <GlassPanel className="cta-liquid-panel relative overflow-hidden rounded-2xl border-0 p-8 sm:p-10 lg:p-12">
+              <div
+                className="cta-liquid-panel__ambient pointer-events-none absolute inset-0"
+                aria-hidden
+              />
               <div
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-jade/50 to-transparent"
                 aria-hidden

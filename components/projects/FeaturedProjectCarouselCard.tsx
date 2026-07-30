@@ -119,7 +119,7 @@ export default function FeaturedProjectCarouselCard({
                 rel="noopener noreferrer"
                 className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
               >
-                <ExternalLink className="h-4 w-4" aria-hidden />
+                <ExternalLink className="btn-icon-shift h-4 w-4" aria-hidden />
                 {getProjectLiveUrlLabel(project)}
               </a>
             )}
@@ -128,7 +128,7 @@ export default function FeaturedProjectCarouselCard({
               className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
             >
               Details
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
+              <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
             </Link>
           </div>
         </div>

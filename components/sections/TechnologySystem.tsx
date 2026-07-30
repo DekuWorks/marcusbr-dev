@@ -286,7 +286,15 @@ export default function TechnologySystem() {
           })}
         </div>
 
-        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)_minmax(260px,320px)] lg:items-start lg:gap-6 xl:gap-8">
+        <div className="relative lg:grid lg:grid-cols-[220px_minmax(0,1fr)_minmax(260px,320px)] lg:items-start lg:gap-6 xl:gap-8">
+          {selectedTech && (
+            <div
+              className="tech-connection-bridge pointer-events-none absolute inset-y-0 right-[min(320px,28%)] z-0 hidden w-8 lg:block xl:right-[320px]"
+              aria-hidden
+            >
+              <span className="tech-connection-bridge__line" />
+            </div>
+          )}
           <nav
             role="tablist"
             aria-label="Technology categories"
@@ -345,7 +353,7 @@ export default function TechnologySystem() {
                       onClick={() => handleTechSelect(tech.name)}
                       aria-pressed={isSelected}
                       aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
-                      className={`tech-float-chip rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                      className={`tech-float-chip relative rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                         isSelected
                           ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
                           : "border-jade-border bg-background-secondary/80 text-cream/90 hover:border-jade/35 hover:bg-jade/10"
@@ -372,7 +380,9 @@ export default function TechnologySystem() {
             relatedProjects={relatedProjects}
             motionEnabled={motionEnabled}
             onClear={() => setSelectedTech(null)}
-            className="hidden lg:block lg:sticky lg:top-28"
+            className={`hidden lg:block lg:sticky lg:top-28 ${
+              selectedTech ? "tech-related-connected" : ""
+            }`}
           />
         </div>
       </PortfolioContainer>

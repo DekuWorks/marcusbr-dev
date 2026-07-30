@@ -53,7 +53,7 @@ function ExperienceSummaryCard({
     >
       <div className="mb-4 hidden lg:flex lg:justify-start">
         <span
-          className={`relative z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
+          className={`experience-timeline-node relative z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
             current ? "border-jade-bright shadow-glow-sm" : "border-jade"
           }`}
           aria-hidden
@@ -128,7 +128,7 @@ function ExperienceDetailEntry({
       className="relative pl-8 sm:pl-10"
     >
       <span
-        className={`absolute top-1.5 left-0 z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
+        className={`experience-timeline-node absolute top-1.5 left-0 z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
           current ? "border-jade-bright shadow-glow-sm" : "border-jade"
         }`}
         aria-hidden
@@ -139,7 +139,7 @@ function ExperienceDetailEntry({
       </span>
       {!isLast && (
         <span
-          className="absolute top-6 left-[9px] h-[calc(100%+1.5rem)] w-px bg-gradient-to-b from-jade/50 via-jade/25 to-jade/5"
+          className="experience-timeline-segment absolute top-6 left-[9px] h-[calc(100%+1.5rem)] w-px"
           aria-hidden
         />
       )}
@@ -393,7 +393,11 @@ export default function Experience() {
 
             <div className="hidden lg:block">
               <div
-                className="absolute top-8 left-0 h-px w-full bg-gradient-to-r from-jade/40 via-jade/20 to-transparent"
+                className="experience-timeline-spine absolute top-8 bottom-0 left-[9px] w-px"
+                aria-hidden
+              />
+              <div
+                className="absolute top-8 left-0 h-px w-full bg-gradient-to-r from-jade/50 via-jade/25 to-transparent"
                 aria-hidden
               />
               <ol className="relative space-y-6 pt-12">

@@ -49,7 +49,8 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
       <LiquidPageBackdrop />
-      <div className="relative z-10 grid-background">
+      <div className="page-depth-ambient" aria-hidden />
+      <div className="relative z-10 grid-background content-parallax">
         <SkipLink />
         <Navbar />
         <main

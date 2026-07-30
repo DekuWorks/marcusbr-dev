@@ -44,7 +44,7 @@ export default function CurrentlyBuilding() {
             className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
           >
             View All Projects
-            <ArrowRight className="h-4 w-4" aria-hidden />
+            <ArrowRight className="btn-icon-shift h-4 w-4" aria-hidden />
           </a>
         </ScrollReveal>
 
@@ -75,13 +75,13 @@ export default function CurrentlyBuilding() {
                     aria-label={`View ${project.name} project details`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10 transition-colors group-hover:border-[color-mix(in_srgb,var(--project-accent)_35%,transparent)]">
+                      <div className="active-build-icon flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10 transition-colors group-hover:border-[color-mix(in_srgb,var(--project-accent)_35%,transparent)]">
                         <Image
                           src={project.icon}
                           alt={`${project.name} icon`}
                           width={40}
                           height={40}
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"
                           aria-hidden
                         />
@@ -123,7 +123,7 @@ export default function CurrentlyBuilding() {
 
                     <span className="mt-3 inline-flex min-h-9 items-center gap-1 text-xs font-medium text-jade opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                       View details
-                      <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                      <ArrowRight className="btn-icon-shift h-3.5 w-3.5" aria-hidden />
                     </span>
                   </Link>
                 </TiltCard>

@@ -68,11 +68,16 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
 
   const tick = useCallback((delta: number) => {
     tickLiquidInteraction(stateRef.current, delta, tickOptionsRef.current);
-    const target = cssTargetRef.current;
-    if (!target) return;
     const vars = liquidStateToCssVars(stateRef.current);
-    for (const [key, value] of Object.entries(vars)) {
-      target.style.setProperty(key, value);
+    const targets = [
+      cssTargetRef.current,
+      document.documentElement,
+    ].filter((target): target is HTMLElement => Boolean(target));
+
+    for (const target of targets) {
+      for (const [key, value] of Object.entries(vars)) {
+        target.style.setProperty(key, value);
+      }
     }
   }, []);
 
