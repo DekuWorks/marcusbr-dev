@@ -6,6 +6,8 @@ import { ArrowRight, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react"
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import ScrollReveal from "@/components/motion/ScrollReveal";
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import ReadableCopy from "@/components/layout/ReadableCopy";
 import { getFeaturedProjects } from "@/lib/projects";
 import FeaturedProjectCarouselCard from "@/components/projects/FeaturedProjectCarouselCard";
 
@@ -62,9 +64,9 @@ export default function FeaturedProjects() {
     <section
       id="projects"
       aria-labelledby="featured-projects-heading"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="w-full py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
+      <PortfolioContainer>
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <motion.div
             initial={motionEnabled ? { opacity: 0, y: 20 } : false}
@@ -82,10 +84,12 @@ export default function FeaturedProjects() {
             >
               Platforms I&apos;m Building
             </h2>
-            <p className="mt-3 max-w-2xl text-muted">
-              Productivity, community, security, and financial clarity — selected
-              work across mobile and SaaS.
-            </p>
+            <ReadableCopy className="mt-3 text-muted">
+              <p>
+                Productivity, community, security, and financial clarity — selected
+                work across mobile and SaaS.
+              </p>
+            </ReadableCopy>
           </motion.div>
           <a
             href="#projects"
@@ -101,7 +105,7 @@ export default function FeaturedProjects() {
             type="button"
             onClick={() => scrollByCard(-1)}
             disabled={!canScrollLeft}
-            className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-left-5"
+            className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-left-4"
             aria-label="Scroll to previous projects"
             aria-controls={trackId}
           >
@@ -123,7 +127,7 @@ export default function FeaturedProjects() {
               <ScrollReveal
                 key={project.id}
                 delay={index * 0.05}
-                className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px]"
+                className="h-full w-[min(100%,320px)] shrink-0 snap-start sm:w-[340px] lg:w-[min(100%,380px)] xl:w-[min(100%,400px)]"
               >
                 <FeaturedProjectCarouselCard
                   project={project}
@@ -137,7 +141,7 @@ export default function FeaturedProjects() {
             type="button"
             onClick={() => scrollByCard(1)}
             disabled={!canScrollRight}
-            className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-right-5"
+            className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-right-4"
             aria-label="Scroll to next projects"
             aria-controls={trackId}
           >
@@ -150,7 +154,7 @@ export default function FeaturedProjects() {
             </p>
           )}
         </div>
-      </div>
+      </PortfolioContainer>
     </section>
   );
 }

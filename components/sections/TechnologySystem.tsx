@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Layers } from "lucide-react";
 import GlassPanel from "@/components/liquid/GlassPanel";
 import AnimatedGrid from "@/components/liquid/AnimatedGrid";
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import ReadableCopy from "@/components/layout/ReadableCopy";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { getProjectsForTechnology } from "@/lib/techProjectMatch";
@@ -21,6 +23,113 @@ const categoryFilters: { id: CategoryFilter; label: string }[] = [
     label: group.title,
   })),
 ];
+
+function RelatedProjectsPanel({
+  selectedTech,
+  relatedProjects,
+  motionEnabled,
+  onClear,
+  className = "",
+}: {
+  selectedTech: string | null;
+  relatedProjects: ReturnType<typeof getProjectsForTechnology>;
+  motionEnabled: boolean;
+  onClear: () => void;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <GlassPanel className="rounded-2xl p-4 sm:p-5">
+        {selectedTech ? (
+          <AnimatePresence initial={false} mode="wait">
+            <motion.div
+              key={selectedTech}
+              initial={motionEnabled ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              exit={motionEnabled ? { opacity: 0, y: -6 } : undefined}
+              transition={{ duration: motionEnabled ? 0.25 : 0 }}
+              aria-live="polite"
+            >
+              <div className="mb-3 flex items-start justify-between gap-2">
+                <h3 className="text-sm font-semibold text-cream">
+                  Projects using{" "}
+                  <span className="text-jade-bright">{selectedTech}</span>
+                </h3>
+                <button
+                  type="button"
+                  onClick={onClear}
+                  aria-label={`Clear ${selectedTech} filter`}
+                  className="shrink-0 text-xs text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                >
+                  Clear
+                </button>
+              </div>
+
+              {relatedProjects.length > 0 ? (
+                <ul className="space-y-2">
+                  {relatedProjects.map((project, index) => (
+                    <motion.li
+                      key={project.id}
+                      initial={motionEnabled ? { opacity: 0, y: 8 } : false}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: motionEnabled ? 0.2 : 0,
+                        delay: motionEnabled ? index * 0.04 : 0,
+                      }}
+                    >
+                      <Link
+                        href={`/projects/${project.id}/`}
+                        className="group flex items-center gap-2.5 rounded-lg border border-jade-border bg-card/45 p-3 backdrop-blur-sm transition-all hover:border-jade/35 hover:bg-card/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        style={
+                          {
+                            "--project-accent": project.accent,
+                          } as React.CSSProperties
+                        }
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10">
+                          <Image
+                            src={project.icon}
+                            alt=""
+                            width={36}
+                            height={36}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                            aria-hidden
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium text-cream transition-colors group-hover:text-jade-bright">
+                            {project.name}
+                          </p>
+                          <p className="mt-0.5 line-clamp-1 text-xs text-muted">
+                            {project.statusLabel}
+                          </p>
+                        </div>
+                        <ArrowUpRight
+                          className="h-3.5 w-3.5 shrink-0 text-jade opacity-0 transition-opacity group-hover:opacity-100"
+                          aria-hidden
+                        />
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="rounded-lg border border-jade-border bg-card/35 px-3 py-2.5 text-xs text-muted backdrop-blur-sm">
+                  No featured projects currently list {selectedTech} — check
+                  back as the portfolio grows.
+                </p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <p className="text-sm text-muted">
+            Select a technology to see related portfolio projects.
+          </p>
+        )}
+      </GlassPanel>
+    </div>
+  );
+}
 
 export default function TechnologySystem() {
   const { motionEnabled } = useMotionEnabled();
@@ -100,14 +209,28 @@ export default function TechnologySystem() {
     [focusCategoryTab, handleCategoryChange],
   );
 
+  const categoryTabClass = (isActive: boolean) =>
+    `min-h-10 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+      isActive
+        ? "border-jade/50 bg-jade/15 text-jade-bright"
+        : "border-jade-border bg-card/40 text-muted hover:border-jade/30 hover:text-cream"
+    }`;
+
+  const categoryNavClass = (isActive: boolean) =>
+    `w-full min-h-10 rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+      isActive
+        ? "border-jade/50 bg-jade/15 text-jade-bright"
+        : "border-transparent text-muted hover:border-jade-border hover:bg-card/40 hover:text-cream"
+    }`;
+
   return (
     <section
       id="skills"
       aria-labelledby="technology-heading"
-      className="relative w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="relative w-full py-20 sm:py-24"
     >
       <AnimatedGrid className="opacity-20" />
-      <div className="relative mx-auto max-w-6xl">
+      <PortfolioContainer className="relative">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
@@ -125,17 +248,19 @@ export default function TechnologySystem() {
           >
             Tools & Technologies
           </h2>
-          <p className="mt-3 max-w-2xl text-muted">
-            Filter by category, then select a technology to see related
-            projects across the portfolio.
-          </p>
+          <ReadableCopy className="mt-3 text-muted">
+            <p>
+              Filter by category, then select a technology to see related
+              projects across the portfolio.
+            </p>
+          </ReadableCopy>
         </motion.div>
 
         <div
           id={categoryListId}
           role="tablist"
           aria-label="Technology categories"
-          className="mb-6 flex flex-wrap gap-2 sm:gap-2.5"
+          className="mb-6 flex flex-wrap gap-2 sm:gap-2.5 lg:hidden"
         >
           {categoryFilters.map((filter, index) => {
             const isActive = activeCategory === filter.id;
@@ -153,11 +278,7 @@ export default function TechnologySystem() {
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => handleCategoryChange(filter.id)}
                 onKeyDown={(event) => handleCategoryKeyDown(event, index)}
-                className={`min-h-10 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                  isActive
-                    ? "border-jade/50 bg-jade/15 text-jade-bright"
-                    : "border-jade-border bg-card/40 text-muted hover:border-jade/30 hover:text-cream"
-                }`}
+                className={categoryTabClass(isActive)}
               >
                 {filter.label}
               </button>
@@ -165,132 +286,96 @@ export default function TechnologySystem() {
           })}
         </div>
 
-        <div
-          id={techGridId}
-          role="tabpanel"
-          aria-labelledby={`${categoryListId}-${activeCategory}`}
-        >
-        <GlassPanel className="rounded-2xl p-5 sm:p-6">
-          <motion.div
-            key={activeCategory}
-            initial={motionEnabled ? { opacity: 0, y: 8 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: motionEnabled ? 0.25 : 0 }}
-            className="flex flex-wrap gap-2"
+        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)_minmax(260px,320px)] lg:items-start lg:gap-6 xl:gap-8">
+          <nav
+            role="tablist"
+            aria-label="Technology categories"
+            className="hidden lg:flex lg:flex-col lg:gap-1"
           >
-            {visibleTechnologies.map((tech, index) => {
-              const isSelected = selectedTech === tech.name;
+            {categoryFilters.map((filter, index) => {
+              const isActive = activeCategory === filter.id;
               return (
-                <motion.button
-                  key={`${tech.category}-${tech.name}`}
-                  type="button"
-                  initial={motionEnabled ? { opacity: 0, scale: 0.95 } : false}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: motionEnabled ? 0.2 : 0,
-                    delay: motionEnabled ? index * 0.015 : 0,
+                <button
+                  key={filter.id}
+                  ref={(element) => {
+                    categoryTabRefs.current[index] = element;
                   }}
-                  onClick={() => handleTechSelect(tech.name)}
-                  aria-pressed={isSelected}
-                  aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
-                  className={`tech-float-chip rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                    isSelected
-                      ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
-                      : "border-jade-border bg-background-secondary/80 text-cream/90 hover:border-jade/35 hover:bg-jade/10"
-                  }`}
+                  type="button"
+                  role="tab"
+                  id={`${categoryListId}-desktop-${filter.id}`}
+                  aria-selected={isActive}
+                  aria-controls={techGridId}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => handleCategoryChange(filter.id)}
+                  onKeyDown={(event) => handleCategoryKeyDown(event, index)}
+                  className={categoryNavClass(isActive)}
                 >
-                  {tech.name}
-                </motion.button>
+                  {filter.label}
+                </button>
               );
             })}
-          </motion.div>
-        </GlassPanel>
-        </div>
+          </nav>
 
-        <AnimatePresence initial={false} mode="wait">
-          {selectedTech && (
-            <motion.div
-              key={selectedTech}
-              initial={motionEnabled ? { opacity: 0, y: 12 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              exit={motionEnabled ? { opacity: 0, y: -8 } : undefined}
-              transition={{ duration: motionEnabled ? 0.3 : 0 }}
-              className="mt-6"
-              aria-live="polite"
-            >
-              <div className="mb-4 flex items-center justify-between gap-3">
-                <h3 className="text-lg font-semibold text-cream">
-                  Projects using{" "}
-                  <span className="text-jade-bright">{selectedTech}</span>
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setSelectedTech(null)}
-                  aria-label={`Clear ${selectedTech} filter`}
-                  className="text-sm text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-                >
-                  Clear
-                </button>
-              </div>
-
-              {relatedProjects.length > 0 ? (
-                <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {relatedProjects.map((project, index) => (
-                    <motion.li
-                      key={project.id}
-                      initial={motionEnabled ? { opacity: 0, y: 10 } : false}
-                      animate={{ opacity: 1, y: 0 }}
+          <div
+            id={techGridId}
+            role="tabpanel"
+            aria-labelledby={`${categoryListId}-${activeCategory}`}
+            className="min-w-0"
+          >
+            <GlassPanel className="rounded-2xl p-5 sm:p-6">
+              <motion.div
+                key={activeCategory}
+                initial={motionEnabled ? { opacity: 0, y: 8 } : false}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: motionEnabled ? 0.25 : 0 }}
+                className="flex flex-wrap gap-2"
+              >
+                {visibleTechnologies.map((tech, index) => {
+                  const isSelected = selectedTech === tech.name;
+                  return (
+                    <motion.button
+                      key={`${tech.category}-${tech.name}`}
+                      type="button"
+                      initial={motionEnabled ? { opacity: 0, scale: 0.95 } : false}
+                      animate={{ opacity: 1, scale: 1 }}
                       transition={{
-                        duration: motionEnabled ? 0.25 : 0,
-                        delay: motionEnabled ? index * 0.05 : 0,
+                        duration: motionEnabled ? 0.2 : 0,
+                        delay: motionEnabled ? index * 0.015 : 0,
                       }}
+                      onClick={() => handleTechSelect(tech.name)}
+                      aria-pressed={isSelected}
+                      aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
+                      className={`tech-float-chip rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                        isSelected
+                          ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
+                          : "border-jade-border bg-background-secondary/80 text-cream/90 hover:border-jade/35 hover:bg-jade/10"
+                      }`}
                     >
-                      <Link
-                        href={`/projects/${project.id}/`}
-                        className="group flex items-center gap-3 rounded-xl border border-jade-border bg-card/45 p-4 backdrop-blur-sm transition-all hover:border-jade/35 hover:bg-card/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                        style={
-                          {
-                            "--project-accent": project.accent,
-                          } as React.CSSProperties
-                        }
-                      >
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10">
-                          <Image
-                            src={project.icon}
-                            alt=""
-                            width={40}
-                            height={40}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                            aria-hidden
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="font-medium text-cream transition-colors group-hover:text-jade-bright">
-                            {project.name}
-                          </p>
-                          <p className="mt-0.5 line-clamp-1 text-xs text-muted">
-                            {project.statusLabel}
-                          </p>
-                        </div>
-                        <ArrowUpRight
-                          className="h-4 w-4 shrink-0 text-jade opacity-0 transition-opacity group-hover:opacity-100"
-                          aria-hidden
-                        />
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="rounded-xl border border-jade-border bg-card/35 px-4 py-3 text-sm text-muted backdrop-blur-sm">
-                  No featured projects currently list {selectedTech} — check
-                  back as the portfolio grows.
-                </p>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                      {tech.name}
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+            </GlassPanel>
+
+            <RelatedProjectsPanel
+              selectedTech={selectedTech}
+              relatedProjects={relatedProjects}
+              motionEnabled={motionEnabled}
+              onClear={() => setSelectedTech(null)}
+              className="mt-6 lg:hidden"
+            />
+          </div>
+
+          <RelatedProjectsPanel
+            selectedTech={selectedTech}
+            relatedProjects={relatedProjects}
+            motionEnabled={motionEnabled}
+            onClear={() => setSelectedTech(null)}
+            className="hidden lg:block lg:sticky lg:top-28"
+          />
+        </div>
+      </PortfolioContainer>
     </section>
   );
 }

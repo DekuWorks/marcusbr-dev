@@ -1,3 +1,4 @@
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import SkeletonBlock from "./SkeletonBlock";
 
 export default function ExperienceSkeleton() {
@@ -5,9 +6,9 @@ export default function ExperienceSkeleton() {
     <section
       aria-busy="true"
       aria-label="Loading experience timeline"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="w-full py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
+      <PortfolioContainer>
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
             <SkeletonBlock className="h-4 w-44" />
@@ -34,7 +35,7 @@ export default function ExperienceSkeleton() {
             </div>
           ))}
         </div>
-      </div>
+      </PortfolioContainer>
     </section>
   );
 }

@@ -16,6 +16,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import ReadableCopy from "@/components/layout/ReadableCopy";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import AnimatedGrid from "@/components/liquid/AnimatedGrid";
@@ -45,9 +47,9 @@ function ExperienceSummaryCard({
         duration: motionEnabled ? 0.4 : 0,
         delay: motionEnabled ? index * 0.08 : 0,
       }}
-      className="relative w-[min(100%,320px)] shrink-0 snap-start sm:w-[min(100%,300px)] lg:w-[min(100%,280px)]"
+      className="relative w-[min(100%,320px)] shrink-0 snap-start sm:w-[min(100%,300px)] lg:w-full lg:shrink"
     >
-      <div className="mb-4 hidden lg:flex lg:justify-center">
+      <div className="mb-4 hidden lg:flex lg:justify-start">
         <span
           className={`relative z-10 flex h-5 w-5 items-center justify-center rounded-full border-2 bg-background ${
             current ? "border-jade-bright shadow-glow-sm" : "border-jade"
@@ -261,18 +263,10 @@ export default function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="relative w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="relative w-full py-20 sm:py-24"
     >
-      <AnimatedGrid className="opacity-25" density="fine" />
-      <div className="experience-wave-bg" aria-hidden>
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path
-            d="M0,60 C150,100 350,20 600,60 C850,100 1050,20 1200,60 L1200,120 L0,120 Z"
-            fill="rgba(62, 180, 137, 0.04)"
-          />
-        </svg>
-      </div>
-      <div className="relative mx-auto max-w-6xl">
+      <AnimatedGrid className="opacity-25 lg:hidden" density="fine" />
+      <PortfolioContainer className="relative">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}
@@ -291,10 +285,12 @@ export default function Experience() {
             >
               Professional Journey
             </h2>
-            <p className="mt-3 max-w-2xl text-muted">
-              A snapshot of roles across product engineering, AI workflows, and
-              platform leadership — expand for the full timeline.
-            </p>
+            <ReadableCopy className="mt-3 text-muted">
+              <p>
+                A snapshot of roles across product engineering, AI workflows, and
+                platform leadership — expand for the full timeline.
+              </p>
+            </ReadableCopy>
           </div>
           <button
             type="button"
@@ -317,79 +313,115 @@ export default function Experience() {
           </button>
         </motion.div>
 
-        <div className="relative">
-          <div
-            className="absolute top-8 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent lg:block"
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute top-[1.6rem] right-0 left-0 hidden h-8 bg-gradient-to-r from-transparent via-jade/5 to-transparent blur-md lg:block"
-            aria-hidden
-          />
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.9fr)] lg:gap-10 xl:gap-14">
+          <div className="relative min-w-0">
+            <div className="relative lg:hidden">
+              <div
+                className="absolute top-8 right-0 left-0 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent lg:block"
+                aria-hidden
+              />
 
-          {canScrollLeft && (
-            <div
-              className="pointer-events-none absolute top-12 bottom-2 left-0 z-[1] w-10 bg-gradient-to-r from-background/40 to-transparent sm:w-14"
-              aria-hidden
-            />
-          )}
-          {canScrollRight && (
-            <div
-              className="pointer-events-none absolute top-12 right-0 bottom-2 z-[1] w-10 bg-gradient-to-l from-background/40 to-transparent sm:w-14"
-              aria-hidden
-            />
-          )}
-
-          <button
-            type="button"
-            onClick={() => scrollByCard(-1)}
-            disabled={!canScrollLeft}
-            className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-left-5"
-            aria-label="Scroll to earlier experience"
-            aria-controls={trackId}
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-
-          <div
-            ref={trackRef}
-            id={trackId}
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Experience timeline overview"
-            tabIndex={0}
-            onKeyDown={handleTrackKeyDown}
-            onScroll={updateScrollState}
-            className="carousel-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-xl lg:pt-0"
-          >
-            <ol className="flex min-w-full gap-6">
-              {experiences.map((exp, index) => (
-                <ExperienceSummaryCard
-                  key={exp.company}
-                  exp={exp}
-                  index={index}
-                  motionEnabled={motionEnabled}
+              {canScrollLeft && (
+                <div
+                  className="pointer-events-none absolute top-12 bottom-2 left-0 z-[1] w-10 bg-gradient-to-r from-background/40 to-transparent sm:w-14"
+                  aria-hidden
                 />
-              ))}
-            </ol>
+              )}
+              {canScrollRight && (
+                <div
+                  className="pointer-events-none absolute top-12 right-0 bottom-2 z-[1] w-10 bg-gradient-to-l from-background/40 to-transparent sm:w-14"
+                  aria-hidden
+                />
+              )}
+
+              <button
+                type="button"
+                onClick={() => scrollByCard(-1)}
+                disabled={!canScrollLeft}
+                className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex"
+                aria-label="Scroll to earlier experience"
+                aria-controls={trackId}
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              <div
+                ref={trackRef}
+                id={trackId}
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="Experience timeline overview"
+                tabIndex={0}
+                onKeyDown={handleTrackKeyDown}
+                onScroll={updateScrollState}
+                className="carousel-track flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-xl"
+              >
+                <ol className="flex min-w-full gap-6">
+                  {experiences.map((exp, index) => (
+                    <ExperienceSummaryCard
+                      key={exp.company}
+                      exp={exp}
+                      index={index}
+                      motionEnabled={motionEnabled}
+                    />
+                  ))}
+                </ol>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => scrollByCard(1)}
+                disabled={!canScrollRight}
+                className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex"
+                aria-label="Scroll to later experience"
+                aria-controls={trackId}
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+
+              {canScrollRight && (
+                <p className="mt-3 text-center text-xs text-muted sm:hidden">
+                  Swipe to explore the full timeline
+                </p>
+              )}
+            </div>
+
+            <div className="hidden lg:block">
+              <div
+                className="absolute top-8 left-0 h-px w-full bg-gradient-to-r from-jade/40 via-jade/20 to-transparent"
+                aria-hidden
+              />
+              <ol className="relative space-y-6 pt-12">
+                {experiences.map((exp, index) => (
+                  <ExperienceSummaryCard
+                    key={exp.company}
+                    exp={exp}
+                    index={index}
+                    motionEnabled={motionEnabled}
+                  />
+                ))}
+              </ol>
+            </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => scrollByCard(1)}
-            disabled={!canScrollRight}
-            className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream backdrop-blur-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex lg:-right-5"
-            aria-label="Scroll to later experience"
-            aria-controls={trackId}
+          <div
+            className="relative hidden min-h-[420px] overflow-hidden rounded-2xl border border-jade-border bg-card/20 lg:block"
+            aria-hidden
           >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
-          {canScrollRight && (
-            <p className="mt-3 text-center text-xs text-muted sm:hidden">
-              Swipe to explore the full timeline
-            </p>
-          )}
+            <AnimatedGrid className="opacity-30" density="fine" />
+            <div className="experience-wave-bg opacity-70">
+              <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path
+                  d="M0,60 C150,100 350,20 600,60 C850,100 1050,20 1200,60 L1200,120 L0,120 Z"
+                  fill="rgba(62, 180, 137, 0.06)"
+                />
+              </svg>
+            </div>
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-jade/5 via-transparent to-transparent"
+              aria-hidden
+            />
+          </div>
         </div>
 
         <AnimatePresence initial={false}>
@@ -431,7 +463,7 @@ export default function Experience() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </PortfolioContainer>
     </section>
   );
 }

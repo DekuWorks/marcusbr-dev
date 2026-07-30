@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 import { stats as statsData } from "@/lib/technologies";
@@ -26,10 +27,10 @@ export default function AboutStatsTech() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="w-full py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-6">
+      <PortfolioContainer>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-6 xl:gap-8">
           <motion.article
             initial={motionEnabled ? { opacity: 0, y: 20 } : false}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +96,7 @@ export default function AboutStatsTech() {
             ))}
           </motion.div>
         </div>
-      </div>
+      </PortfolioContainer>
     </section>
   );
 }

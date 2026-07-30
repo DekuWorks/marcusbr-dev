@@ -1,3 +1,4 @@
+import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import SkeletonBlock from "./SkeletonBlock";
 
 export default function TechnologySystemSkeleton() {
@@ -5,9 +6,9 @@ export default function TechnologySystemSkeleton() {
     <section
       aria-busy="true"
       aria-label="Loading technology stack"
-      className="w-full px-4 py-20 sm:px-6 sm:py-24"
+      className="w-full py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-6xl">
+      <PortfolioContainer>
         <div className="mb-10 space-y-3">
           <SkeletonBlock className="h-4 w-40" />
           <SkeletonBlock className="h-9 w-full max-w-sm" />
@@ -32,7 +33,7 @@ export default function TechnologySystemSkeleton() {
             />
           ))}
         </div>
-      </div>
+      </PortfolioContainer>
     </section>
   );
 }

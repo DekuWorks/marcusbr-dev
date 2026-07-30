@@ -40,6 +40,14 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -48,6 +56,40 @@ body {
   background-color: transparent;
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.portfolio-container {
+  width: min(100% - 48px, 1800px);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .portfolio-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-container {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .portfolio-container {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .portfolio-container {
+    padding-inline: 3rem;
+  }
+}
+
+.readable-copy {
+  max-width: 680px;
 }
 
 .skip-link {
