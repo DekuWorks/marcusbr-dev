@@ -77,6 +77,21 @@ export function hrefToSectionId(href: string): LiquidSectionId | null {
   return id in SECTION_TARGETS ? id : null;
 }
 
+export function computePageScrollProgress(
+  scrollY = typeof window !== "undefined" ? window.scrollY : 0,
+  scrollHeight = typeof document !== "undefined"
+    ? document.documentElement.scrollHeight -
+      (typeof window !== "undefined" ? window.innerHeight : 0)
+    : 0,
+): number {
+  if (scrollHeight <= 0) return 0;
+  return Math.min(1, Math.max(0, scrollY / scrollHeight));
+}
+
+export function sectionZoneFromIndex(index: number): number {
+  return Math.min(1, Math.max(0, index / 5));
+}
+
 export function createLiquidInteractionState(): LiquidInteractionRefs {
   return {
     ripple: 0,
@@ -190,12 +205,15 @@ export function tickLiquidInteraction(
 
 export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<string, string> {
   const { x: pointerX, y: pointerY } = pointerOffset(state);
+  const sectionZone = sectionZoneFromIndex(state.activeSectionIndex);
   return {
     "--liquid-ripple": String(state.ripple),
     "--liquid-pulse": String(state.pulse),
     "--liquid-shift-x": String(state.shiftX),
     "--liquid-shift-y": String(state.shiftY),
     "--liquid-scroll": String(state.scrollProgress),
+    "--liquid-scroll-progress": String(state.scrollProgress),
+    "--liquid-section-zone": String(sectionZone),
     "--liquid-color-pulse": String(state.colorPulse),
     "--liquid-pointer-x": String(pointerX),
     "--liquid-pointer-y": String(pointerY),

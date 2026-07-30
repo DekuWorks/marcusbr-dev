@@ -20,6 +20,7 @@ export default function LiquidGrid({
 }: LiquidGridProps) {
   const groupRef = useRef<THREE.Group>(null);
   const bumpRef = useRef(0);
+  const scrollRef = useRef(0);
   const lines = useMemo(() => {
     const size = 6 * density;
     const divisions = Math.floor(20 * density);
@@ -33,9 +34,15 @@ export default function LiquidGrid({
     const interaction = interactionRef?.current;
     if (interaction) {
       bumpRef.current += (interaction.gridBump - bumpRef.current) * Math.min(1, delta * 5);
+      scrollRef.current +=
+        (interaction.scrollProgress - scrollRef.current) * Math.min(1, delta * 3);
     }
     const bump = bumpRef.current;
+    const scroll = scrollRef.current;
     groupRef.current.rotation.y += delta * (0.04 + bump * 0.06) * speed;
+    groupRef.current.rotation.x = scroll * 0.12;
+    groupRef.current.position.y = -scroll * 0.35;
+    groupRef.current.position.x = Math.sin(scroll * Math.PI * 2) * 0.08;
   });
 
   return (

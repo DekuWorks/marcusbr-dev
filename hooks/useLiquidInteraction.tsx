@@ -10,6 +10,7 @@ import {
 } from "react";
 import {
   applyLiquidInteraction,
+  computePageScrollProgress,
   createLiquidInteractionState,
   hrefToSectionId,
   liquidStateToCssVars,
@@ -76,7 +77,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
   }, []);
 
   useEffect(() => {
-    cssTargetRef.current = document.getElementById("home");
+    cssTargetRef.current = document.getElementById("liquid-backdrop");
   }, []);
 
   useEffect(() => {
@@ -189,11 +190,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     if (!reactionsEnabled) return;
 
     const updateScroll = () => {
-      const hero = document.getElementById("home");
-      if (!hero) return;
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, -rect.top / Math.max(rect.height, 1)));
-      stateRef.current.scrollProgress = progress;
+      stateRef.current.scrollProgress = computePageScrollProgress();
     };
 
     updateScroll();

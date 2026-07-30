@@ -971,7 +971,7 @@ body {
   }
 }
 
-/* ── Liquid hero fallback (CSS / no WebGL) ── */
+/* ── Liquid page backdrop (CSS / no WebGL) ── */
 
 .liquid-interactive {
   --liquid-ripple: 0;
@@ -979,15 +979,26 @@ body {
   --liquid-shift-x: 0;
   --liquid-shift-y: 0;
   --liquid-scroll: 0;
+  --liquid-scroll-progress: 0;
+  --liquid-section-zone: 0;
   --liquid-color-pulse: 0;
   --liquid-pointer-x: 0;
   --liquid-pointer-y: 0;
 }
 
+.liquid-page-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.liquid-page-fallback,
 .liquid-hero-fallback {
   background:
-    radial-gradient(ellipse 85% 65% at 50% 35%, rgba(62, 180, 137, 0.15) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 45% at 70% 60%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 85% 65% at 50% calc(35% + var(--liquid-scroll-progress, 0) * 18%), rgba(62, 180, 137, calc(0.14 + var(--liquid-section-zone, 0) * 0.04)) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at calc(70% - var(--liquid-scroll-progress, 0) * 8%) calc(60% + var(--liquid-scroll-progress, 0) * 12%), rgba(34, 211, 238, calc(0.07 + var(--liquid-section-zone, 0) * 0.03)) 0%, transparent 60%),
     #0d1310;
 }
 
@@ -999,7 +1010,7 @@ body {
 }
 
 .liquid-hero-fallback__orb--primary {
-  top: calc(18% + var(--liquid-pointer-y, 0) * 14px);
+  top: calc(18% + var(--liquid-pointer-y, 0) * 14px + var(--liquid-scroll-progress, 0) * 12vh);
   left: calc(50% + var(--liquid-shift-x, 0) * 40px + var(--liquid-pointer-x, 0) * 28px);
   width: min(74vw, 560px);
   height: min(74vw, 560px);
@@ -1009,7 +1020,7 @@ body {
 }
 
 .liquid-hero-fallback__orb--secondary {
-  top: calc(42% + var(--liquid-pointer-y, 0) * 10px);
+  top: calc(42% + var(--liquid-pointer-y, 0) * 10px - var(--liquid-scroll-progress, 0) * 8vh);
   right: calc(12% - var(--liquid-shift-x, 0) * 20px - var(--liquid-pointer-x, 0) * 16px);
   width: min(44vw, 300px);
   height: min(44vw, 300px);
@@ -1030,7 +1041,7 @@ body {
 
 .liquid-hero-fallback__blob {
   position: absolute;
-  top: calc(28% + var(--liquid-pointer-y, 0) * 18px);
+  top: calc(28% + var(--liquid-pointer-y, 0) * 18px + var(--liquid-scroll-progress, 0) * 10vh);
   left: calc(50% + var(--liquid-shift-x, 0) * 30px + var(--liquid-pointer-x, 0) * 24px);
   width: min(58vw, 400px);
   height: min(48vw, 340px);
@@ -1048,6 +1059,7 @@ body {
 .liquid-hero-fallback__grid {
   position: absolute;
   inset: 0;
+  transform: translateY(calc(var(--liquid-scroll-progress, 0) * -6vh)) rotate(calc(var(--liquid-scroll-progress, 0) * 3deg));
   background-image:
     linear-gradient(rgba(62, 180, 137, 0.065) 1px, transparent 1px),
     linear-gradient(90deg, rgba(62, 180, 137, 0.065) 1px, transparent 1px);
@@ -1078,11 +1090,11 @@ body {
   0%,
   100% {
     transform: translateX(-50%)
-      translateY(calc(var(--liquid-shift-y, 0) * 20px - var(--liquid-scroll, 0) * 30px));
+      translateY(calc(var(--liquid-shift-y, 0) * 20px - var(--liquid-scroll, 0) * 45px));
   }
   50% {
     transform: translateX(-48%)
-      translateY(calc(12px + var(--liquid-shift-y, 0) * 20px - var(--liquid-scroll, 0) * 30px));
+      translateY(calc(12px + var(--liquid-shift-y, 0) * 20px - var(--liquid-scroll, 0) * 45px));
   }
 }
 
@@ -1091,19 +1103,19 @@ body {
   100% {
     border-radius: 42% 58% 52% 48% / 48% 42% 58% 52%;
     transform: translateX(-50%)
-      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 24px))
+      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 38px))
       scale(calc(1.02 + var(--liquid-pulse, 0) * 0.05));
   }
   33% {
     border-radius: 58% 42% 48% 52% / 52% 58% 42% 48%;
     transform: translateX(-50%)
-      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 24px))
+      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 38px))
       scale(calc(1.05 + var(--liquid-pulse, 0) * 0.05));
   }
   66% {
     border-radius: 48% 52% 58% 42% / 42% 48% 52% 58%;
     transform: translateX(-50%)
-      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 24px))
+      translateY(calc(var(--liquid-shift-y, 0) * 18px - var(--liquid-scroll, 0) * 38px))
       scale(calc(0.99 + var(--liquid-pulse, 0) * 0.05));
   }
 }
@@ -1120,11 +1132,12 @@ body {
   }
 }
 
+.liquid-page-canvas__vignette,
 .liquid-hero-canvas__vignette {
   background: radial-gradient(
-    ellipse 85% 70% at 50% 40%,
-    transparent 35%,
-    rgba(13, 19, 16, calc(0.55 + var(--liquid-scroll, 0) * 0.15)) 100%
+    ellipse 90% 75% at 50% calc(40% + var(--liquid-scroll-progress, 0) * 10%),
+    transparent 30%,
+    rgba(13, 19, 16, calc(0.42 + var(--liquid-scroll, 0) * 0.22)) 100%
   );
 }
 

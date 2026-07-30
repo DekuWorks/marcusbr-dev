@@ -2,7 +2,7 @@
 
 **Started:** July 29, 2026  
 **Completed:** July 29, 2026  
-**Status:** ✅ Shipped (always-on liquid + mobile visibility fix)
+**Status:** ✅ Shipped (full-page scroll-linked liquid backdrop)
 
 ## Audit Summary
 
@@ -38,6 +38,7 @@
 - [x] Phase 19 — **Global pointer tracking** (page-wide mouse/touch → ambient liquid drift)
 - [x] Phase 20 — **Liquid density pass** (richer blob, more droplets on Full desktop, CSS fallback polish)
 - [x] Phase 21 — **Always-on effects** (removed navbar toggle; liquid visible on all mobile/tablet tiers)
+- [x] Phase 22 — **Full-page liquid backdrop** (fixed viewport canvas, scroll-linked parallax)
 
 ## Interaction Reactions (Phase 17–19)
 
@@ -48,13 +49,25 @@
 | `pillSelect` | Tech chip selection | Micro pulse + ripple |
 | `experienceToggle` | Expand/collapse full timeline | Ripple + vertical shift |
 | `carouselNav` | Projects / Experience prev-next | Ripple + directional shift + grid bump |
-| `scrollProgress` | Hero scroll position (passive) | Blob tilt/fade, CSS vignette darken |
+| `scrollProgress` | Full-page scroll (0 top → 1 bottom, passive) | Blob parallax, grid tilt/offset, droplet drift, jade zone color, CSS vignette |
 | `globalPointer` | `pointermove` / touch anywhere on document (passive, rAF-coalesced) | Subtle blob lean, shader ripple hotspot, CSS `--liquid-pointer-*` drift |
 
 - **WebGL:** ref-driven state in `useFrame` (no React setState in rAF)
-- **CSS fallback:** `--liquid-*` custom properties on `#home`, updated by provider rAF loop
+- **CSS fallback:** `--liquid-*` custom properties on `#liquid-backdrop`, updated by provider rAF loop
 - **Pointer:** normalized viewport coords (0–1), smoothed in `tickLiquidPointer`; coarse touch only while finger down
+- **Scroll:** `computePageScrollProgress()` from `window.scrollY` / document height; section zone from `activeSectionIndex`
 - **Respects:** OS `prefers-reduced-motion` only (reduced tier, no manual toggle)
+
+## Full-Page Liquid Backdrop (Phase 22)
+
+| Change | Detail |
+|--------|--------|
+| Architecture | Single fixed `position: fixed; inset: 0; z-index: 0` canvas/CSS layer behind all content (`LiquidPageBackdrop` in `app/page.tsx`) |
+| Mount | Moved from `Hero.tsx` to page wrapper; content at `z-10`, navbar `z-50` |
+| Scroll mapping | `scrollProgress` 0→1 page-wide drives blob Y parallax, grid rotation/offset, droplet drift, section-zone jade tint |
+| CSS vars | `--liquid-scroll-progress`, `--liquid-section-zone` on `#liquid-backdrop` |
+| Interaction | Global pointer + navbar section changes unchanged; no scroll-jacking |
+| Mobile | Same quality tiers; fixed canvas `pointer-events: none`; pauses when tab hidden |
 
 ## Always-On Effects (Phase 21)
 
@@ -78,7 +91,8 @@
 
 | Path | Purpose |
 |------|---------|
-| `components/three/LiquidHeroCanvas.tsx` | R3F canvas + `LiquidHeroBackground` export |
+| `components/liquid/LiquidPageBackdrop.tsx` | Fixed full-viewport liquid mount (`#liquid-backdrop`) |
+| `components/three/LiquidHeroCanvas.tsx` | R3F canvas + `LiquidPageBackground` export |
 | `components/three/LiquidBlob.tsx` | Shader-based icosahedron liquid form |
 | `components/three/LiquidDroplets.tsx` | Instanced jade droplets |
 | `components/three/LiquidGrid.tsx` | Rotating ground grid |
@@ -125,22 +139,22 @@
 ## Tests
 
 - `lib/three/qualitySettings.test.ts` (3 tests)
-- `lib/liquid/interactionState.test.ts` (6 tests)
+- `lib/liquid/interactionState.test.ts` (8 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
-- **Total:** 15 tests passing
+- **Total:** 17 tests passing
 
 ## Build Status
 
 ```
-npm test   ✅ 15/15
+npm test   ✅ 17/17
 npm run build ✅ static export (15 pages)
 ```
 
 ## Limitations
 
-- Single hero canvas only (no second WebGL context in tech section — CSS/Motion used there per spec)
+- Single fixed viewport canvas (one WebGL context); sections scroll over ambient backdrop
 - Bloom disabled on medium/low device tiers and reduced effects
-- Interaction reactions are hero-scoped (ambient sections use CSS/Motion only)
+- Section CSS/Motion accents in tech/experience remain separate from WebGL layer
 - Manual cross-browser QA still recommended on physical iPad
 - ForgeOne 3D lab remains out of scope
 

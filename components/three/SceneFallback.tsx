@@ -13,7 +13,7 @@ export default function SceneFallback({
 }: SceneFallbackProps) {
   return (
     <div
-      className={`liquid-hero-fallback pointer-events-none absolute inset-0 z-0 overflow-hidden ${className}`}
+      className={`liquid-page-fallback pointer-events-none absolute inset-0 overflow-hidden ${className}`}
       aria-hidden
       data-variant={variant}
     >

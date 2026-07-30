@@ -103,7 +103,7 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
   return (
     <div
       ref={containerRef}
-      className={`liquid-hero-canvas absolute inset-0 z-0 overflow-hidden ${className}`}
+      className={`liquid-page-canvas absolute inset-0 overflow-hidden ${className}`}
       aria-hidden
     >
       <Canvas
@@ -130,12 +130,12 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
           />
         </Suspense>
       </Canvas>
-      <div className="liquid-hero-canvas__vignette pointer-events-none absolute inset-0" />
+      <div className="liquid-page-canvas__vignette pointer-events-none absolute inset-0" />
     </div>
   );
 }
 
-export function LiquidHeroBackground() {
+export function LiquidPageBackground() {
   const { showWebGL, showCSSFallback, hydrated, effectsReduced } =
     useLiquidEffects();
   const { webglSupported, webglChecked } = useWebGLSupport();
@@ -157,10 +157,13 @@ export function LiquidHeroBackground() {
         />
       )}
       {useCanvas && (
-        <SceneErrorBoundary label="LiquidHero">
+        <SceneErrorBoundary label="LiquidPage">
           <LiquidHeroCanvas />
         </SceneErrorBoundary>
       )}
     </>
   );
 }
+
+/** @deprecated Use LiquidPageBackground — kept for import compatibility */
+export const LiquidHeroBackground = LiquidPageBackground;

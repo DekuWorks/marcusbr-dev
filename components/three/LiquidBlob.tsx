@@ -13,6 +13,7 @@ const vertexShader = /* glsl */ `
   uniform float uPulse;
   uniform vec2 uShift;
   uniform float uScroll;
+  uniform float uSectionZone;
   varying vec3 vNormal;
   varying vec3 vViewPosition;
   varying float vFresnel;
@@ -25,8 +26,9 @@ const vertexShader = /* glsl */ `
     float ripple = sin(length(pos.xy) * 4.0 - uTime * 3.0) * uRipple * 0.11;
     float pulse = uPulse * 0.07;
     vec2 shifted = pos.xy + uShift * 0.35;
-    float scrollWave = sin(shifted.x * 1.8 + uScroll * 3.14) * uScroll * 0.045;
-    return pos + normal * (wave + pointer + ripple + pulse + scrollWave);
+    float scrollWave = sin(shifted.x * 1.8 + uScroll * 6.28) * uScroll * 0.065;
+    float zoneWave = sin(shifted.y * 2.4 + uSectionZone * 3.14) * uSectionZone * 0.035;
+    return pos + normal * (wave + pointer + ripple + pulse + scrollWave + zoneWave);
   }
 
   void main() {
@@ -43,14 +45,15 @@ const vertexShader = /* glsl */ `
 const fragmentShader = /* glsl */ `
   uniform float uTime;
   uniform float uColorPulse;
+  uniform float uSectionZone;
   varying vec3 vNormal;
   varying vec3 vViewPosition;
   varying float vFresnel;
 
   void main() {
-    vec3 jade = vec3(0.243, 0.706, 0.537);
+    vec3 jade = mix(vec3(0.22, 0.62, 0.48), vec3(0.29, 0.87, 0.60), uSectionZone * 0.35);
     vec3 jadeBright = vec3(0.29, 0.87, 0.60);
-    vec3 cyan = vec3(0.22, 0.78, 0.72);
+    vec3 cyan = mix(vec3(0.18, 0.62, 0.58), vec3(0.22, 0.78, 0.72), uSectionZone * 0.4);
     vec3 base = vec3(0.04, 0.07, 0.06);
 
     vec3 viewDir = normalize(vViewPosition);
@@ -88,6 +91,7 @@ export default function LiquidBlob({
     shiftX: 0,
     shiftY: 0,
     scroll: 0,
+    sectionZone: 0,
     pointerX: 0.5,
     pointerY: 0.5,
   });
@@ -102,6 +106,7 @@ export default function LiquidBlob({
       uPulse: { value: 0 },
       uShift: { value: new THREE.Vector2(0, 0) },
       uScroll: { value: 0 },
+      uSectionZone: { value: 0 },
       uColorPulse: { value: 0 },
     }),
     [speed],
@@ -120,6 +125,8 @@ export default function LiquidBlob({
       smooth.shiftX += (interaction.shiftX - smooth.shiftX) * t;
       smooth.shiftY += (interaction.shiftY - smooth.shiftY) * t;
       smooth.scroll += (interaction.scrollProgress - smooth.scroll) * t;
+      const zone = interaction.activeSectionIndex / 5;
+      smooth.sectionZone += (zone - smooth.sectionZone) * t;
       smooth.pointerX += (interaction.pointerX - smooth.pointerX) * t;
       smooth.pointerY += (interaction.pointerY - smooth.pointerY) * t;
     }
@@ -136,19 +143,21 @@ export default function LiquidBlob({
       materialRef.current.uniforms.uColorPulse.value = smooth.colorPulse;
       materialRef.current.uniforms.uShift.value.set(smooth.shiftX, smooth.shiftY);
       materialRef.current.uniforms.uScroll.value = smooth.scroll;
+      materialRef.current.uniforms.uSectionZone.value = smooth.sectionZone;
     }
     if (meshRef.current) {
-      const scrollTilt = smooth.scroll * 0.12;
+      const scrollTilt = smooth.scroll * 0.28;
+      const scrollParallaxY = smooth.scroll * 0.55 - 0.15;
       meshRef.current.rotation.y =
-        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.25 + pointerX * 0.06;
+        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.25 + pointerX * 0.06 + smooth.scroll * 0.18;
       meshRef.current.rotation.x =
         Math.sin(state.clock.elapsedTime * 0.15 * speed) * 0.08 +
         smooth.shiftY * 0.15 -
         scrollTilt +
         pointerY * 0.05;
-      meshRef.current.position.x = smooth.shiftX * 0.18 + pointerX * 0.12;
+      meshRef.current.position.x = smooth.shiftX * 0.18 + pointerX * 0.12 + smooth.scroll * 0.08;
       meshRef.current.position.y =
-        smooth.shiftY * 0.12 - smooth.scroll * 0.15 + pointerY * 0.08;
+        smooth.shiftY * 0.12 + scrollParallaxY + pointerY * 0.08;
     }
   });
 

@@ -56,6 +56,10 @@ export default function LiquidDroplets({
     const ripple = rippleRef.current;
     const pointerX = interaction ? (interaction.pointerX - 0.5) * 2 : 0;
     const pointerY = interaction ? (interaction.pointerY - 0.5) * 2 : 0;
+    const scrollDrift = interaction ? interaction.scrollProgress : 0;
+    const scrollDirection = interaction
+      ? (interaction.activeSectionIndex % 2 === 0 ? 1 : -1)
+      : 1;
 
     for (let i = 0; i < count; i++) {
       const baseX = positions[i * 3];
@@ -63,13 +67,16 @@ export default function LiquidDroplets({
       const baseZ = positions[i * 3 + 2];
       const dropletSpeed = speeds[i] * speed;
       const rippleOffset = Math.sin(time * 4 + i) * ripple * 0.12;
+      const scrollOffset =
+        scrollDrift * (0.35 + (i % 5) * 0.04) * scrollDirection;
 
       dummy.position.set(
-        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04) + pointerX * 0.04,
+        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04) + pointerX * 0.04 + scrollDrift * 0.06,
         baseY +
           Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.15 + ripple * 0.06) +
           rippleOffset +
-          pointerY * 0.03,
+          pointerY * 0.03 -
+          scrollOffset,
         baseZ + Math.cos(time * dropletSpeed + i) * (0.08 + ripple * 0.04) - pointerX * 0.02,
       );
       const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15 + ripple * 0.08);

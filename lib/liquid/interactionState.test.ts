@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   applyLiquidInteraction,
+  computePageScrollProgress,
   createLiquidInteractionState,
   hrefToSectionId,
   normalizeViewportPointer,
+  sectionZoneFromIndex,
   tickLiquidInteraction,
   tickLiquidPointer,
 } from "./interactionState";
@@ -61,5 +63,18 @@ describe("interactionState", () => {
     tickLiquidPointer(state, 0.2);
     expect(state.pointerX).toBeLessThan(0.9);
     expect(state.pointerY).toBeGreaterThan(0.1);
+  });
+
+  it("computes page scroll progress from scroll metrics", () => {
+    expect(computePageScrollProgress(0, 1000)).toBe(0);
+    expect(computePageScrollProgress(500, 1000)).toBe(0.5);
+    expect(computePageScrollProgress(1200, 1000)).toBe(1);
+    expect(computePageScrollProgress(100, 0)).toBe(0);
+  });
+
+  it("maps section index to zone 0–1", () => {
+    expect(sectionZoneFromIndex(0)).toBe(0);
+    expect(sectionZoneFromIndex(5)).toBe(1);
+    expect(sectionZoneFromIndex(2)).toBeCloseTo(0.4);
   });
 });

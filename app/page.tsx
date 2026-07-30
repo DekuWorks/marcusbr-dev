@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
+import LiquidPageBackdrop from "@/components/liquid/LiquidPageBackdrop";
 import { SITE } from "@/lib/site";
 import { SITE_DESCRIPTION } from "@/lib/seo";
 import ScrollReveal from "@/components/motion/ScrollReveal";
@@ -43,41 +44,44 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="grid-background relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
-      <SkipLink />
-      <Navbar />
-      <main
-        id="main-content"
-        tabIndex={-1}
-        className="flex w-full flex-col items-center outline-none"
-      >
-        <Hero />
-        <ScrollReveal>
-          <CurrentlyBuilding />
-        </ScrollReveal>
-        <ScrollReveal delay={0.05}>
-          <SectionErrorBoundary sectionLabel="Featured Projects">
-            <FeaturedProjects />
-          </SectionErrorBoundary>
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <AboutStatsTech />
-        </ScrollReveal>
-        <ScrollReveal delay={0.12}>
-          <SectionErrorBoundary sectionLabel="Technology Stack">
-            <TechnologySystem />
-          </SectionErrorBoundary>
-        </ScrollReveal>
-        <ScrollReveal delay={0.15}>
-          <SectionErrorBoundary sectionLabel="Experience">
-            <Experience />
-          </SectionErrorBoundary>
-        </ScrollReveal>
-        <ScrollReveal delay={0.2}>
-          <CTABar />
-        </ScrollReveal>
-      </main>
-      <Footer />
+    <div className="relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
+      <LiquidPageBackdrop />
+      <div className="relative z-10 grid-background">
+        <SkipLink />
+        <Navbar />
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="flex w-full flex-col items-center outline-none"
+        >
+          <Hero />
+          <ScrollReveal>
+            <CurrentlyBuilding />
+          </ScrollReveal>
+          <ScrollReveal delay={0.05}>
+            <SectionErrorBoundary sectionLabel="Featured Projects">
+              <FeaturedProjects />
+            </SectionErrorBoundary>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
+            <AboutStatsTech />
+          </ScrollReveal>
+          <ScrollReveal delay={0.12}>
+            <SectionErrorBoundary sectionLabel="Technology Stack">
+              <TechnologySystem />
+            </SectionErrorBoundary>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
+            <SectionErrorBoundary sectionLabel="Experience">
+              <Experience />
+            </SectionErrorBoundary>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
+            <CTABar />
+          </ScrollReveal>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -16,18 +15,6 @@ import MagneticButton from "@/components/motion/MagneticButton";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { SITE } from "@/lib/site";
-import SceneFallback from "@/components/three/SceneFallback";
-
-const LiquidHeroBackground = dynamic(
-  () =>
-    import("@/components/three/LiquidHeroCanvas").then(
-      (mod) => mod.LiquidHeroBackground,
-    ),
-  {
-    ssr: false,
-    loading: () => <SceneFallback variant="loading" />,
-  },
-);
 
 const roleTags = [
   "Senior Developer",
@@ -48,10 +35,8 @@ export default function Hero() {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="liquid-interactive relative w-full min-h-[min(100dvh,920px)] overflow-hidden px-4 pt-[max(7rem,env(safe-area-inset-top,0px)+5rem)] pb-16 sm:px-6 sm:pb-20 lg:pt-32"
+      className="relative w-full min-h-[min(100dvh,920px)] overflow-hidden px-4 pt-[max(7rem,env(safe-area-inset-top,0px)+5rem)] pb-16 sm:px-6 sm:pb-20 lg:pt-32"
     >
-      <LiquidHeroBackground />
-
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-8 sm:gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 24 } : false}
