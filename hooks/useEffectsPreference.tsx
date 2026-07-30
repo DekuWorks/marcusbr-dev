@@ -124,3 +124,35 @@ export function useMotionEnabled() {
     hydrated,
   };
 }
+
+export function useLiquidEffects() {
+  const prefersReducedMotion = useReducedMotion();
+  const { preference, shouldReduceMotion, motionEnabled, hydrated } =
+    useEffectsPreference();
+
+  const systemReduced = Boolean(prefersReducedMotion);
+  const reduced = preference === "reduced" || shouldReduceMotion || systemReduced;
+  const off = preference === "off" || systemReduced;
+
+  return {
+    preference,
+    hydrated,
+    effectsOff: off,
+    effectsReduced: reduced && !off,
+    effectsFull: preference === "full" && motionEnabled && !systemReduced,
+    showWebGL: hydrated && preference !== "off" && !systemReduced,
+    showCSSFallback: !hydrated || preference === "off" || systemReduced,
+    magneticEnabled:
+      hydrated && preference === "full" && motionEnabled && !systemReduced,
+    tiltEnabled: off ? 0 : reduced ? 4 : 8,
+    cursorGlowEnabled:
+      hydrated && preference === "full" && motionEnabled && !systemReduced,
+    parallaxEnabled:
+      hydrated && preference === "full" && motionEnabled && !systemReduced,
+    animatedGridEnabled: hydrated && preference !== "off" && !systemReduced,
+    bloomEnabled:
+      hydrated && preference === "full" && motionEnabled && !systemReduced,
+    liquidSpeed: off ? 0 : reduced ? 0.45 : 1,
+    dropletMultiplier: off ? 0 : reduced ? 0.35 : 1,
+  };
+}
