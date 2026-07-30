@@ -7,6 +7,9 @@ import Button from "./Button";
 import SiteLogo from "./SiteLogo";
 import CommandPaletteHint from "./CommandPaletteHint";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import CursorSpotlight from "@/components/liquid/CursorSpotlight";
+import ScrollProgressBar from "@/components/nav/ScrollProgressBar";
+import NavMagneticLink from "@/components/nav/NavMagneticLink";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { hrefToSectionId } from "@/lib/liquid/interactionState";
 
@@ -76,10 +79,10 @@ export default function Navbar() {
   }, [updateActiveSection]);
 
   const linkClass = (href: string) =>
-    `text-sm transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm ${
+    `nav-link relative z-10 rounded-full px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
       activeSection === href
-        ? "nav-link-active font-medium text-jade-bright"
-        : "text-muted"
+        ? "font-medium text-jade-bright"
+        : "text-muted hover:text-cream"
     }`;
 
   return (
@@ -90,57 +93,87 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <PortfolioContainer>
-        <nav
-          className="flex items-center justify-between py-4"
-          aria-label="Main navigation"
-        >
-          <a
-            href="#home"
-            onClick={() => handleNavClick("#home")}
-            className="flex items-center gap-2 rounded-sm text-cream transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      <ScrollProgressBar />
+      <CursorSpotlight className="relative">
+        <PortfolioContainer>
+          <nav
+            className={`flex items-center justify-between transition-all duration-300 ${
+              scrolled ? "py-2.5" : "py-4"
+            }`}
+            aria-label="Main navigation"
           >
-            <SiteLogo priority />
-            <span className="text-sm font-bold tracking-wide sm:text-base">
-              Marcus Brown
-            </span>
-          </a>
+            <a
+              href="#home"
+              onClick={() => handleNavClick("#home")}
+              className={`flex items-center gap-2 rounded-sm text-cream transition-all duration-300 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                scrolled ? "scale-[0.97]" : "scale-100"
+              }`}
+            >
+              <SiteLogo priority />
+              <span
+                className={`font-bold tracking-wide transition-all duration-300 ${
+                  scrolled ? "text-sm sm:text-sm" : "text-sm sm:text-base"
+                }`}
+              >
+                Marcus Brown
+              </span>
+            </a>
 
-          <ul className="hidden items-center gap-6 lg:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={linkClass(link.href)}
-                  aria-current={activeSection === link.href ? "page" : undefined}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+            <ul className="hidden items-center gap-1 lg:flex">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <NavMagneticLink>
+                    <a
+                      href={link.href}
+                      onClick={() => handleNavClick(link.href)}
+                      className={linkClass(link.href)}
+                      aria-current={
+                        activeSection === link.href ? "page" : undefined
+                      }
+                    >
+                      {activeSection === link.href && (
+                        <motion.span
+                          layoutId="nav-active-pill"
+                          className="nav-active-pill"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      <span className="relative z-10">{link.label}</span>
+                    </a>
+                  </NavMagneticLink>
+                </li>
+              ))}
+            </ul>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <CommandPaletteHint />
-            <Button href="#contact" variant="secondary" className="min-h-11">
-              Let&apos;s Work Together
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
-            </Button>
-          </div>
+            <div className="hidden items-center gap-3 lg:flex">
+              <CommandPaletteHint />
+              <Button href="#contact" variant="secondary" className="min-h-11">
+                Let&apos;s Work Together
+                <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
+              </Button>
+            </div>
 
-          <button
-            type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-lg text-cream transition-colors hover:bg-jade/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade lg:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </nav>
-      </PortfolioContainer>
+            <button
+              type="button"
+              className="flex h-11 w-11 items-center justify-center rounded-lg text-cream transition-colors hover:bg-jade/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade lg:hidden"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </nav>
+        </PortfolioContainer>
+      </CursorSpotlight>
 
       <AnimatePresence>
         {mobileOpen && (
@@ -166,7 +199,9 @@ export default function Navbar() {
                           ? "bg-jade/10 font-medium text-jade-bright"
                           : "text-muted"
                       }`}
-                      aria-current={activeSection === link.href ? "page" : undefined}
+                      aria-current={
+                        activeSection === link.href ? "page" : undefined
+                      }
                     >
                       {link.label}
                     </a>

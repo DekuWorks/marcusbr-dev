@@ -6,7 +6,7 @@ export default function FeaturedProjectsSkeleton() {
     <section
       aria-busy="true"
       aria-label="Loading featured projects"
-      className="w-full py-20 sm:py-24"
+      className="w-full section-spacing"
     >
       <PortfolioContainer>
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

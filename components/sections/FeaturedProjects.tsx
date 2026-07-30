@@ -64,7 +64,7 @@ export default function FeaturedProjects() {
     <section
       id="projects"
       aria-labelledby="featured-projects-heading"
-      className="w-full py-20 sm:py-24"
+      className="w-full section-spacing"
     >
       <PortfolioContainer>
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

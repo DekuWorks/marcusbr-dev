@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Code2, FolderKanban, Rocket } from "lucide-react";
 import Button from "@/components/Button";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { SITE } from "@/lib/site";
 import { stats as statsData } from "@/lib/technologies";
@@ -27,7 +28,7 @@ export default function AboutStatsTech() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="w-full py-20 sm:py-24"
+      className="w-full section-spacing"
     >
       <PortfolioContainer>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-6 xl:gap-8">
@@ -65,7 +66,7 @@ export default function AboutStatsTech() {
               className="mt-6 min-h-11 w-full sm:w-auto"
             >
               Explore Tech Stack
-              <ArrowUpRight className="h-4 w-4" aria-hidden />
+              <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
             </Button>
           </motion.article>
 
@@ -81,18 +82,17 @@ export default function AboutStatsTech() {
             aria-label="Career statistics"
           >
             {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-card flex flex-col items-center justify-center rounded-xl p-4 text-center sm:p-5"
-              >
-                <stat.icon className="mb-2 h-6 w-6 text-jade" aria-hidden />
-                <p className="text-2xl font-bold text-jade-bright sm:text-3xl">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs font-medium text-muted sm:text-sm">
-                  {stat.label}
-                </p>
-              </div>
+              <CursorSpotlight key={stat.label} className="rounded-xl">
+                <div className="glass-card flex h-full flex-col items-center justify-center rounded-xl p-4 text-center sm:p-5">
+                  <stat.icon className="mb-2 h-6 w-6 text-jade" aria-hidden />
+                  <p className="text-2xl font-bold text-jade-bright sm:text-3xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-xs font-medium text-muted sm:text-sm">
+                    {stat.label}
+                  </p>
+                </div>
+              </CursorSpotlight>
             ))}
           </motion.div>
         </div>

@@ -17,7 +17,7 @@ export default function CurrentlyBuilding() {
     <section
       id="building"
       aria-labelledby="building-heading"
-      className="w-full py-16 sm:py-20"
+      className="w-full section-spacing-compact"
     >
       <PortfolioContainer>
         <ScrollReveal className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

@@ -227,7 +227,7 @@ export default function TechnologySystem() {
     <section
       id="skills"
       aria-labelledby="technology-heading"
-      className="relative w-full py-20 sm:py-24"
+      className="relative w-full section-spacing"
     >
       <AnimatedGrid className="opacity-20" />
       <PortfolioContainer className="relative">

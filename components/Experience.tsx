@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import ReadableCopy from "@/components/layout/ReadableCopy";
+import TiltCard from "@/components/motion/TiltCard";
+import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import AnimatedGrid from "@/components/liquid/AnimatedGrid";
@@ -61,39 +63,43 @@ function ExperienceSummaryCard({
           />
         </span>
       </div>
-      <article
-        className={`experience-summary-card glass-card group h-full rounded-xl p-5 transition-all sm:p-6 ${
-          current
-            ? "border-jade/35 shadow-glow-sm"
-            : "hover:border-jade/25 hover:shadow-glow-sm"
-        }`}
-      >
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-base font-bold text-cream sm:text-lg">
-            {exp.company}
-          </h3>
-          {current && (
-            <span className="shrink-0 rounded-full border border-jade/40 bg-jade/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
-              Current
-            </span>
-          )}
-        </div>
-        <p className="mt-1 text-sm font-medium text-jade">{exp.role}</p>
-        <p className="mt-1 text-xs font-medium tracking-wide text-muted uppercase">
-          {exp.period}
-        </p>
-        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted">
-          {exp.description}
-        </p>
-        <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-cream/75">
-          <span className="font-medium text-jade/90">Highlight:</span>{" "}
-          {exp.highlights[0]}
-        </p>
-        <div
-          className="mt-4 h-px bg-gradient-to-r from-jade/30 via-jade/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
-          aria-hidden
-        />
-      </article>
+      <CursorSpotlight className="h-full rounded-xl">
+        <TiltCard maxTilt={6} className="h-full">
+          <article
+            className={`experience-summary-card glass-card group h-full rounded-xl p-5 transition-all sm:p-6 ${
+              current
+                ? "border-jade/35 shadow-glow-sm"
+                : "hover:border-jade/25 hover:shadow-glow-sm"
+            }`}
+          >
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="text-base font-bold text-cream sm:text-lg">
+                {exp.company}
+              </h3>
+              {current && (
+                <span className="shrink-0 rounded-full border border-jade/40 bg-jade/15 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-jade-bright uppercase">
+                  Current
+                </span>
+              )}
+            </div>
+            <p className="mt-1 text-sm font-medium text-jade">{exp.role}</p>
+            <p className="mt-1 text-xs font-medium tracking-wide text-muted uppercase">
+              {exp.period}
+            </p>
+            <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-muted">
+              {exp.description}
+            </p>
+            <p className="mt-4 line-clamp-2 text-xs leading-relaxed text-cream/75">
+              <span className="font-medium text-jade/90">Highlight:</span>{" "}
+              {exp.highlights[0]}
+            </p>
+            <div
+              className="mt-4 h-px bg-gradient-to-r from-jade/30 via-jade/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+              aria-hidden
+            />
+          </article>
+        </TiltCard>
+      </CursorSpotlight>
     </motion.li>
   );
 }
@@ -263,7 +269,7 @@ export default function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="relative w-full py-20 sm:py-24"
+      className="relative w-full section-spacing"
     >
       <AnimatedGrid className="opacity-25 lg:hidden" density="fine" />
       <PortfolioContainer className="relative">

@@ -49,7 +49,7 @@ export default function CTABar() {
     <section
       id="contact"
       aria-labelledby="cta-heading"
-      className="w-full py-16 pb-[max(4rem,env(safe-area-inset-bottom,0px)+1rem)] sm:py-20"
+      className="w-full section-spacing-compact pb-[max(4rem,env(safe-area-inset-bottom,0px)+1rem)]"
     >
       <PortfolioContainer>
         <motion.div

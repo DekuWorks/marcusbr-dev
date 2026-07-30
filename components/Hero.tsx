@@ -37,7 +37,7 @@ export default function Hero() {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="relative w-full min-h-[min(100dvh,920px)] overflow-hidden pt-[max(7rem,env(safe-area-inset-top,0px)+5rem)] pb-16 sm:pb-20 lg:pt-32"
+      className="relative w-full min-h-[min(100dvh,920px)] overflow-hidden pt-[max(7rem,env(safe-area-inset-top,0px)+5rem)] pb-16 sm:pb-20 lg:pb-24 lg:pt-32 xl:pb-28"
     >
       <PortfolioContainer className="relative z-10">
         <div
@@ -84,7 +84,7 @@ export default function Hero() {
               <MagneticButton className="w-full sm:w-auto">
                 <Button href="#projects" variant="primary" className="min-h-11 w-full sm:w-auto">
                   View My Work
-                  <ArrowRight className="h-4 w-4" aria-hidden />
+                  <ArrowRight className="btn-icon-shift h-4 w-4" aria-hidden />
                 </Button>
               </MagneticButton>
               <MagneticButton className="w-full sm:w-auto">

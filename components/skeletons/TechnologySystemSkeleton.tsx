@@ -6,7 +6,7 @@ export default function TechnologySystemSkeleton() {
     <section
       aria-busy="true"
       aria-label="Loading technology stack"
-      className="w-full py-20 sm:py-24"
+      className="w-full section-spacing"
     >
       <PortfolioContainer>
         <div className="mb-10 space-y-3">
