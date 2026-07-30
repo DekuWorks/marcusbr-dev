@@ -2,7 +2,6 @@
 
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -10,42 +9,26 @@ import {
 } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export type EffectsPreference = "full" | "reduced" | "off";
-
 const STORAGE_KEY = "portfolio-effects-preference";
 const LEGACY_STORAGE_KEYS = [
   "marcus-os-effects-preference",
   "marcus-os-effects",
 ] as const;
 
-function readStoredPreference(): EffectsPreference | null {
-  if (typeof window === "undefined") return null;
-
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "full" || stored === "reduced" || stored === "off") {
-    return stored;
-  }
-
-  for (const legacyKey of LEGACY_STORAGE_KEYS) {
-    const legacy = localStorage.getItem(legacyKey);
-    if (legacy === "full" || legacy === "reduced" || legacy === "off") {
-      localStorage.setItem(STORAGE_KEY, legacy);
-      localStorage.removeItem(legacyKey);
-      return legacy;
-    }
-  }
-
-  return null;
-}
-
 function getSystemReducedMotion(): boolean {
   if (typeof window === "undefined") return false;
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function clearStoredPreferences() {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(STORAGE_KEY);
+  for (const legacyKey of LEGACY_STORAGE_KEYS) {
+    localStorage.removeItem(legacyKey);
+  }
+}
+
 type EffectsPreferenceContextValue = {
-  preference: EffectsPreference;
-  setPreference: (next: EffectsPreference) => void;
   shouldReduceMotion: boolean;
   motionEnabled: boolean;
   hydrated: boolean;
@@ -55,45 +38,28 @@ const EffectsPreferenceContext =
   createContext<EffectsPreferenceContextValue | null>(null);
 
 export function EffectsPreferenceProvider({ children }: { children: ReactNode }) {
-  const [preference, setPreferenceState] = useState<EffectsPreference>("full");
   const [systemReducedMotion, setSystemReducedMotion] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const stored = readStoredPreference();
-    const systemReduced = getSystemReducedMotion();
-    setSystemReducedMotion(systemReduced);
-    setPreferenceState(stored ?? (systemReduced ? "reduced" : "full"));
+    clearStoredPreferences();
+    setSystemReducedMotion(getSystemReducedMotion());
     setHydrated(true);
 
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onChange = (event: MediaQueryListEvent) => {
       setSystemReducedMotion(event.matches);
-      if (!readStoredPreference()) {
-        setPreferenceState(event.matches ? "reduced" : "full");
-      }
     };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  const setPreference = useCallback((next: EffectsPreference) => {
-    setPreferenceState(next);
-    localStorage.setItem(STORAGE_KEY, next);
-  }, []);
-
-  const shouldReduceMotion =
-    preference === "off" ||
-    preference === "reduced" ||
-    (preference === "full" && systemReducedMotion);
-
-  const motionEnabled = hydrated && preference === "full" && !systemReducedMotion;
+  const shouldReduceMotion = systemReducedMotion;
+  const motionEnabled = hydrated && !systemReducedMotion;
 
   return (
     <EffectsPreferenceContext.Provider
       value={{
-        preference,
-        setPreference,
         shouldReduceMotion,
         motionEnabled,
         hydrated,
@@ -127,32 +93,25 @@ export function useMotionEnabled() {
 
 export function useLiquidEffects() {
   const prefersReducedMotion = useReducedMotion();
-  const { preference, shouldReduceMotion, motionEnabled, hydrated } =
-    useEffectsPreference();
+  const { shouldReduceMotion, motionEnabled, hydrated } = useEffectsPreference();
 
-  const systemReduced = Boolean(prefersReducedMotion);
-  const reduced = preference === "reduced" || shouldReduceMotion || systemReduced;
-  const off = preference === "off" || systemReduced;
+  const systemReduced = shouldReduceMotion || Boolean(prefersReducedMotion);
+  const reduced = systemReduced;
 
   return {
-    preference,
     hydrated,
-    effectsOff: off,
-    effectsReduced: reduced && !off,
-    effectsFull: preference === "full" && motionEnabled && !systemReduced,
-    showWebGL: hydrated && preference !== "off" && !systemReduced,
-    showCSSFallback: !hydrated || preference === "off" || systemReduced,
-    magneticEnabled:
-      hydrated && preference === "full" && motionEnabled && !systemReduced,
-    tiltEnabled: off ? 0 : reduced ? 4 : 8,
-    cursorGlowEnabled:
-      hydrated && preference === "full" && motionEnabled && !systemReduced,
-    parallaxEnabled:
-      hydrated && preference === "full" && motionEnabled && !systemReduced,
-    animatedGridEnabled: hydrated && preference !== "off" && !systemReduced,
-    bloomEnabled:
-      hydrated && preference === "full" && motionEnabled && !systemReduced,
-    liquidSpeed: off ? 0 : reduced ? 0.45 : 1,
-    dropletMultiplier: off ? 0 : reduced ? 0.35 : 1,
+    effectsOff: false,
+    effectsReduced: reduced,
+    effectsFull: !reduced && motionEnabled,
+    showWebGL: hydrated && !systemReduced,
+    showCSSFallback: !hydrated || systemReduced,
+    magneticEnabled: hydrated && !systemReduced && motionEnabled,
+    tiltEnabled: reduced ? 4 : 8,
+    cursorGlowEnabled: hydrated && !systemReduced && motionEnabled,
+    parallaxEnabled: hydrated && !systemReduced && motionEnabled,
+    animatedGridEnabled: hydrated && !systemReduced,
+    bloomEnabled: hydrated && !systemReduced && motionEnabled,
+    liquidSpeed: reduced ? 0.45 : 1,
+    dropletMultiplier: reduced ? 0.35 : 1,
   };
 }

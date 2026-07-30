@@ -5,11 +5,11 @@ import { useEffectsPreference } from "@/hooks/useEffectsPreference";
 
 export function useReducedMotion() {
   const prefersReduced = useFramerReducedMotion();
-  const { shouldReduceMotion, preference } = useEffectsPreference();
+  const { shouldReduceMotion } = useEffectsPreference();
 
   return {
     prefersReducedMotion: Boolean(prefersReduced) || shouldReduceMotion,
-    effectsOff: preference === "off",
-    effectsReduced: preference === "reduced" || shouldReduceMotion,
+    effectsOff: false,
+    effectsReduced: shouldReduceMotion || Boolean(prefersReduced),
   };
 }

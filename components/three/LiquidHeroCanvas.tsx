@@ -103,7 +103,7 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
   return (
     <div
       ref={containerRef}
-      className={`liquid-hero-canvas absolute inset-0 -z-10 overflow-hidden ${className}`}
+      className={`liquid-hero-canvas absolute inset-0 z-0 overflow-hidden ${className}`}
       aria-hidden
     >
       <Canvas
@@ -136,12 +136,11 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
 }
 
 export function LiquidHeroBackground() {
-  const { showWebGL, showCSSFallback, hydrated, effectsOff, effectsReduced } =
+  const { showWebGL, showCSSFallback, hydrated, effectsReduced } =
     useLiquidEffects();
   const { webglSupported, webglChecked } = useWebGLSupport();
 
-  const fallbackDroplets = effectsOff ? 9 : effectsReduced ? 9 : 10;
-  const showTertiaryOrb = !effectsOff;
+  const fallbackDroplets = effectsReduced ? 9 : 10;
 
   if (!hydrated || !webglChecked) {
     return <SceneFallback variant="loading" dropletCount={9} showTertiaryOrb={false} />;
@@ -154,7 +153,7 @@ export function LiquidHeroBackground() {
       {(showCSSFallback || !useCanvas) && (
         <SceneFallback
           dropletCount={fallbackDroplets}
-          showTertiaryOrb={showTertiaryOrb}
+          showTertiaryOrb
         />
       )}
       {useCanvas && (

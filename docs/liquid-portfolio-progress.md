@@ -2,7 +2,7 @@
 
 **Started:** July 29, 2026  
 **Completed:** July 29, 2026  
-**Status:** ✅ Shipped (interaction + responsive pass)
+**Status:** ✅ Shipped (always-on liquid + mobile visibility fix)
 
 ## Audit Summary
 
@@ -10,7 +10,7 @@
 |------|---------|
 | Framework | Next.js 16.2.9, React 19, static export (`output: "export"`) |
 | Deploy | GitHub Pages via static export |
-| Motion | `framer-motion` v12, `useEffectsPreference` (full/reduced/off) |
+| Motion | `framer-motion` v12, system `prefers-reduced-motion` only (effects always on) |
 | 3D | Reinstalled `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing` |
 | Hero | Abstract liquid-glass WebGL hero + CSS fallback |
 | Data | `lib/projects.ts`, `lib/experience.ts`, `lib/technologies.ts` — **unchanged** |
@@ -37,6 +37,7 @@
 - [x] Phase 18 — **Responsive pass** (iPad/mobile tiers, safe areas, touch guards)
 - [x] Phase 19 — **Global pointer tracking** (page-wide mouse/touch → ambient liquid drift)
 - [x] Phase 20 — **Liquid density pass** (richer blob, more droplets on Full desktop, CSS fallback polish)
+- [x] Phase 21 — **Always-on effects** (removed navbar toggle; liquid visible on all mobile/tablet tiers)
 
 ## Interaction Reactions (Phase 17–19)
 
@@ -53,7 +54,17 @@
 - **WebGL:** ref-driven state in `useFrame` (no React setState in rAF)
 - **CSS fallback:** `--liquid-*` custom properties on `#home`, updated by provider rAF loop
 - **Pointer:** normalized viewport coords (0–1), smoothed in `tickLiquidPointer`; coarse touch only while finger down
-- **Respects:** Full / Reduced (55% intensity) / Off (no reactions)
+- **Respects:** OS `prefers-reduced-motion` only (reduced tier, no manual toggle)
+
+## Always-On Effects (Phase 21)
+
+| Change | Detail |
+|--------|--------|
+| Removed | `EffectsToggle` from navbar (desktop + mobile menu) |
+| Removed | `portfolio-effects-preference` localStorage cycling |
+| Default | Full liquid effects for all users |
+| Accessibility | OS `prefers-reduced-motion` → reduced WebGL off, CSS fallback with static animations |
+| Mobile fix | Canvas `z-0` (was `-z-10`, painted behind hero), low tier droplets `6` (was `0`), removed `max-height: 70vh` clip |
 
 ## Packages Added
 
@@ -95,36 +106,33 @@
 | Touch devices | Magnetic + tilt disabled via `(pointer: coarse)` |
 | Notched devices | `safe-area-inset` on navbar, hero, contact, page bottom |
 
-## Effects by Preference
+## Effects Behavior
 
 | Mode | Liquid 3D | Droplets | Bloom | Magnetic | Tilt | CSS Fallback | Interactions |
 |------|-----------|----------|-------|----------|------|--------------|--------------|
-| Full | ✅ | 32 droplets (high) | ✅ | ✅ | 8° | When no WebGL | ✅ full + global pointer |
-| Reduced | ✅ slower | ~40% of tier | ❌ | ❌ | 4° | When no WebGL | ✅ 55% + dampened pointer |
-| Off | ❌ | ❌ | ❌ | ❌ | 0° | ✅ +1 droplet | ❌ |
-
-System `prefers-reduced-motion` maps to reduced behavior.
+| Default (full) | ✅ | tier-based | high only | ✅ | 8° | When no WebGL | ✅ full + global pointer |
+| OS reduced motion | ❌ | static CSS | ❌ | ❌ | 4° | ✅ | ✅ 55% + dampened pointer |
 
 ## Liquid Density (Phase 20)
 
 | Tier | Blob | Droplets | Visual tweaks |
 |------|------|----------|---------------|
 | Full desktop (high) | +scale, +deformation | 32 (was 24) | Stronger jade fresnel, bloom 0.42, brighter grid |
-| Medium / mobile | Unchanged counts | 12 / 0 | No perf regression |
+| Medium / mobile | Unchanged counts | 12 / 6 (low) | No perf regression |
 | Reduced | Modest bump via 40% multiplier | ~12 from high tier | Shader/CSS unchanged amplitude |
 | Off CSS | Larger morph blob | 9 static (+1) | Tertiary orb, stronger gradients |
 
 ## Tests
 
-- `lib/three/qualitySettings.test.ts` (2 tests)
+- `lib/three/qualitySettings.test.ts` (3 tests)
 - `lib/liquid/interactionState.test.ts` (6 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
-- **Total:** 14 tests passing
+- **Total:** 15 tests passing
 
 ## Build Status
 
 ```
-npm test   ✅ 14/14
+npm test   ✅ 15/15
 npm run build ✅ static export (15 pages)
 ```
 
@@ -141,6 +149,7 @@ npm run build ✅ static export (15 pages)
 - ✅ All content/data/assets preserved
 - ✅ Abstract liquid hero (no MB logo/object)
 - ✅ Works without WebGL (CSS fallback)
-- ✅ Mobile/low-perf reduced effects
+- ✅ Effects always on; OS reduced motion respected automatically
+- ✅ Mobile/tablet liquid visible (WebGL reduced quality or CSS fallback)
 - ✅ No ForgeOne added
 - ✅ Jade + graphite theme maintained

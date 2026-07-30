@@ -34,7 +34,7 @@ export const QUALITY_SETTINGS: Record<SceneQuality, QualitySettings> = {
   },
   low: {
     dpr: [1, 1],
-    dropletCount: 0,
+    dropletCount: 6,
     blobSegments: 32,
     gridDensity: 0.5,
     bloom: false,

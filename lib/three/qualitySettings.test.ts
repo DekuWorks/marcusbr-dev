@@ -16,4 +16,8 @@ describe("qualitySettings", () => {
     expect(reduced.bloom).toBe(false);
     expect(reduced.magneticStrength).toBe(0);
   });
+
+  it("keeps droplets visible on low tier for mobile", () => {
+    expect(QUALITY_SETTINGS.low.dropletCount).toBeGreaterThan(0);
+  });
 });

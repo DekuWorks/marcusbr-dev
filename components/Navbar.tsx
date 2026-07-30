@@ -5,7 +5,6 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 import SiteLogo from "./SiteLogo";
-import EffectsToggle from "./EffectsToggle";
 import CommandPaletteHint from "./CommandPaletteHint";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { hrefToSectionId } from "@/lib/liquid/interactionState";
@@ -122,7 +121,6 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <CommandPaletteHint />
-          <EffectsToggle />
           <Button href="#contact" variant="secondary" className="min-h-11">
             Let&apos;s Work Together
             <ArrowUpRight className="h-4 w-4" aria-hidden />
@@ -170,9 +168,6 @@ export default function Navbar() {
                   </a>
                 </li>
               ))}
-              <li className="pt-2">
-                <EffectsToggle className="w-full justify-center" />
-              </li>
               <li className="pt-2">
                 <a
                   href="#contact"

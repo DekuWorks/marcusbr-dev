@@ -1153,10 +1153,6 @@ body {
     width: 4px;
     height: 4px;
   }
-
-  .liquid-hero-canvas {
-    max-height: 70vh;
-  }
 }
 
 @media (orientation: landscape) and (max-height: 500px) {
