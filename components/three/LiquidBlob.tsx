@@ -22,7 +22,7 @@ const vertexShader = /* glsl */ `
     float wave = sin(pos.x * 2.2 + uTime * 1.4 * uSpeed) * 0.095;
     wave += cos(pos.y * 2.8 - uTime * 1.1 * uSpeed) * 0.082;
     wave += sin(pos.z * 2.0 + uTime * 0.9 * uSpeed) * 0.072;
-    float pointer = exp(-length(pos.xy - uPointer * 1.2) * 2.2) * 0.14;
+    float pointer = exp(-length(pos.xy - uPointer * 1.35) * 2.0) * 0.17;
     float ripple = sin(length(pos.xy) * 4.0 - uTime * 3.0) * uRipple * 0.11;
     float pulse = uPulse * 0.07;
     vec2 shifted = pos.xy + uShift * 0.35;
@@ -146,23 +146,23 @@ export default function LiquidBlob({
       materialRef.current.uniforms.uSectionZone.value = smooth.sectionZone;
     }
     if (meshRef.current) {
-      const scrollTilt = smooth.scroll * 0.28;
-      const scrollParallaxY = smooth.scroll * 0.55 - 0.15;
+      const scrollTilt = smooth.scroll * 0.38;
+      const scrollParallaxY = smooth.scroll * 0.72 - 0.18;
       meshRef.current.rotation.y =
-        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.25 + pointerX * 0.06 + smooth.scroll * 0.18;
+        state.clock.elapsedTime * 0.08 * speed + smooth.shiftX * 0.28 + pointerX * 0.09 + smooth.scroll * 0.24;
       meshRef.current.rotation.x =
         Math.sin(state.clock.elapsedTime * 0.15 * speed) * 0.08 +
-        smooth.shiftY * 0.15 -
+        smooth.shiftY * 0.18 -
         scrollTilt +
-        pointerY * 0.05;
-      meshRef.current.position.x = smooth.shiftX * 0.18 + pointerX * 0.12 + smooth.scroll * 0.08;
+        pointerY * 0.07;
+      meshRef.current.position.x = smooth.shiftX * 0.22 + pointerX * 0.16 + smooth.scroll * 0.12;
       meshRef.current.position.y =
-        smooth.shiftY * 0.12 + scrollParallaxY + pointerY * 0.08;
+        smooth.shiftY * 0.15 + scrollParallaxY + pointerY * 0.11;
     }
   });
 
   return (
-    <mesh ref={meshRef} scale={1.42}>
+    <mesh ref={meshRef} scale={1.52}>
       <icosahedronGeometry args={[1.18, Math.max(1, Math.floor(segments / 16))]} />
       <shaderMaterial
         ref={materialRef}

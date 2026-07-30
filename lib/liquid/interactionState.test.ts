@@ -3,6 +3,7 @@ import {
   applyLiquidInteraction,
   computePageScrollProgress,
   createLiquidInteractionState,
+  footerZoneFromScroll,
   hrefToSectionId,
   normalizeViewportPointer,
   sectionZoneFromIndex,
@@ -76,5 +77,12 @@ describe("interactionState", () => {
     expect(sectionZoneFromIndex(0)).toBe(0);
     expect(sectionZoneFromIndex(5)).toBe(1);
     expect(sectionZoneFromIndex(2)).toBeCloseTo(0.4);
+  });
+
+  it("ramps footer zone in the last portion of scroll", () => {
+    expect(footerZoneFromScroll(0)).toBe(0);
+    expect(footerZoneFromScroll(0.72)).toBe(0);
+    expect(footerZoneFromScroll(1)).toBe(1);
+    expect(footerZoneFromScroll(0.86)).toBeCloseTo(0.5);
   });
 });

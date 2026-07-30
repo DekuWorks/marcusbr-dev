@@ -46,7 +46,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     pointerCoarse: false,
   });
   tickOptionsRef.current = {
-    pointerStrength: intensity,
+    pointerStrength: intensity * (pointerCoarseRef.current ? 1.45 : 1),
     pointerCoarse: pointerCoarseRef.current,
   };
 
@@ -152,10 +152,18 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
       }
     };
 
+    const onTouchMove = (event: TouchEvent) => {
+      if (document.hidden) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      setPointerFromClient(touch.clientX, touch.clientY, true);
+    };
+
     document.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
     document.addEventListener("pointerup", onPointerUp, { passive: true });
     document.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    document.addEventListener("touchmove", onTouchMove, { passive: true });
     document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
@@ -164,6 +172,7 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("pointerup", onPointerUp);
       document.removeEventListener("pointerleave", onPointerLeave);
+      document.removeEventListener("touchmove", onTouchMove);
       document.removeEventListener("visibilitychange", onVisibilityChange);
       if (frameId) cancelAnimationFrame(frameId);
     };

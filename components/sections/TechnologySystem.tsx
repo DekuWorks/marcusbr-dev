@@ -156,7 +156,7 @@ export default function TechnologySystem() {
                 className={`min-h-10 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   isActive
                     ? "border-jade/50 bg-jade/15 text-jade-bright"
-                    : "border-jade-border bg-card/60 text-muted hover:border-jade/30 hover:text-cream"
+                    : "border-jade-border bg-card/40 text-muted hover:border-jade/30 hover:text-cream"
                 }`}
               >
                 {filter.label}
@@ -247,7 +247,7 @@ export default function TechnologySystem() {
                     >
                       <Link
                         href={`/projects/${project.id}/`}
-                        className="group flex items-center gap-3 rounded-xl border border-jade-border bg-card/70 p-4 transition-all hover:border-jade/35 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                        className="group flex items-center gap-3 rounded-xl border border-jade-border bg-card/45 p-4 backdrop-blur-sm transition-all hover:border-jade/35 hover:bg-card/55 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         style={
                           {
                             "--project-accent": project.accent,
@@ -282,7 +282,7 @@ export default function TechnologySystem() {
                   ))}
                 </ul>
               ) : (
-                <p className="rounded-xl border border-jade-border bg-card/50 px-4 py-3 text-sm text-muted">
+                <p className="rounded-xl border border-jade-border bg-card/35 px-4 py-3 text-sm text-muted backdrop-blur-sm">
                   No featured projects currently list {selectedTech} — check
                   back as the portfolio grows.
                 </p>

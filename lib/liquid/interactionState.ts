@@ -77,6 +77,10 @@ export function hrefToSectionId(href: string): LiquidSectionId | null {
   return id in SECTION_TARGETS ? id : null;
 }
 
+export function footerZoneFromScroll(scrollProgress: number): number {
+  return Math.min(1, Math.max(0, (scrollProgress - 0.72) / 0.28));
+}
+
 export function computePageScrollProgress(
   scrollY = typeof window !== "undefined" ? window.scrollY : 0,
   scrollHeight = typeof document !== "undefined"
@@ -165,8 +169,8 @@ export function tickLiquidPointer(
     state.targetPointerY += (0.5 - state.targetPointerY) * centerT;
   }
 
-  const activeLerp = pointerCoarse ? 2.4 : 4.8;
-  const idleLerp = pointerCoarse ? 1.4 : 2.2;
+  const activeLerp = pointerCoarse ? 3.6 : 5.2;
+  const idleLerp = pointerCoarse ? 2.0 : 2.4;
   const lerpRate = state.pointerActive ? activeLerp : idleLerp;
   const t = Math.min(1, delta * lerpRate * pointerStrength);
 
@@ -206,6 +210,7 @@ export function tickLiquidInteraction(
 export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<string, string> {
   const { x: pointerX, y: pointerY } = pointerOffset(state);
   const sectionZone = sectionZoneFromIndex(state.activeSectionIndex);
+  const footerZone = footerZoneFromScroll(state.scrollProgress);
   return {
     "--liquid-ripple": String(state.ripple),
     "--liquid-pulse": String(state.pulse),
@@ -214,6 +219,7 @@ export function liquidStateToCssVars(state: LiquidInteractionRefs): Record<strin
     "--liquid-scroll": String(state.scrollProgress),
     "--liquid-scroll-progress": String(state.scrollProgress),
     "--liquid-section-zone": String(sectionZone),
+    "--liquid-footer-zone": String(footerZone),
     "--liquid-color-pulse": String(state.colorPulse),
     "--liquid-pointer-x": String(pointerX),
     "--liquid-pointer-y": String(pointerY),

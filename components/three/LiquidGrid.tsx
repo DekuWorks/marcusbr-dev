@@ -40,9 +40,9 @@ export default function LiquidGrid({
     const bump = bumpRef.current;
     const scroll = scrollRef.current;
     groupRef.current.rotation.y += delta * (0.04 + bump * 0.06) * speed;
-    groupRef.current.rotation.x = scroll * 0.12;
-    groupRef.current.position.y = -scroll * 0.35;
-    groupRef.current.position.x = Math.sin(scroll * Math.PI * 2) * 0.08;
+    groupRef.current.rotation.x = scroll * 0.18;
+    groupRef.current.position.y = -scroll * 0.48;
+    groupRef.current.position.x = Math.sin(scroll * Math.PI * 2) * 0.12;
   });
 
   return (

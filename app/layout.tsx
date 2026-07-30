@@ -92,7 +92,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#0d1310" />
         <meta name="color-scheme" content="dark" />
       </head>
-      <body className="min-h-full bg-background text-cream">
+      <body className="min-h-full bg-transparent text-cream">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

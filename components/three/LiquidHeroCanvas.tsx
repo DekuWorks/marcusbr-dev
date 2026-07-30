@@ -71,8 +71,8 @@ function LiquidScene({
       {bloom && (
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={0.42}
-            luminanceThreshold={0.5}
+            intensity={0.48}
+            luminanceThreshold={0.45}
             luminanceSmoothing={0.88}
             mipmapBlur
           />
@@ -140,7 +140,7 @@ export function LiquidPageBackground() {
     useLiquidEffects();
   const { webglSupported, webglChecked } = useWebGLSupport();
 
-  const fallbackDroplets = effectsReduced ? 9 : 10;
+  const fallbackDroplets = effectsReduced ? 12 : 16;
 
   if (!hydrated || !webglChecked) {
     return <SceneFallback variant="loading" dropletCount={9} showTertiaryOrb={false} />;

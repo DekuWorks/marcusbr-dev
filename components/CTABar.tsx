@@ -148,7 +148,7 @@ export default function CTABar() {
           ))}
         </div>
 
-        <div className="mx-auto mt-8 max-w-md rounded-xl border border-jade-border bg-background/40 px-4 py-3 transition-colors hover:border-jade/30">
+        <div className="mx-auto mt-8 max-w-md rounded-xl border border-jade-border bg-background/30 px-4 py-3 backdrop-blur-sm transition-colors hover:border-jade/30">
           <p className="text-xs font-medium tracking-wide text-muted uppercase">
             Direct email
           </p>

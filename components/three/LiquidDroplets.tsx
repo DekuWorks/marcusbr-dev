@@ -71,13 +71,13 @@ export default function LiquidDroplets({
         scrollDrift * (0.35 + (i % 5) * 0.04) * scrollDirection;
 
       dummy.position.set(
-        baseX + Math.sin(time * dropletSpeed + i) * (0.08 + ripple * 0.04) + pointerX * 0.04 + scrollDrift * 0.06,
+        baseX + Math.sin(time * dropletSpeed + i) * (0.1 + ripple * 0.05) + pointerX * 0.06 + scrollDrift * 0.1,
         baseY +
-          Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.15 + ripple * 0.06) +
+          Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.18 + ripple * 0.08) +
           rippleOffset +
-          pointerY * 0.03 -
+          pointerY * 0.05 -
           scrollOffset,
-        baseZ + Math.cos(time * dropletSpeed + i) * (0.08 + ripple * 0.04) - pointerX * 0.02,
+        baseZ + Math.cos(time * dropletSpeed + i) * (0.1 + ripple * 0.05) - pointerX * 0.03,
       );
       const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15 + ripple * 0.08);
       dummy.scale.setScalar(scale);
@@ -96,9 +96,9 @@ export default function LiquidDroplets({
       <meshStandardMaterial
         color="#4ade9a"
         emissive="#3eb489"
-        emissiveIntensity={0.72}
+        emissiveIntensity={0.82}
         transparent
-        opacity={0.8}
+        opacity={0.86}
         roughness={0.12}
         metalness={0.45}
       />

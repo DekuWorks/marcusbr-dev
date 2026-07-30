@@ -23,7 +23,7 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-jade/10 px-4 py-12 sm:px-6">
+    <footer className="w-full border-t border-jade/10 bg-background/35 px-4 py-12 backdrop-blur-md sm:px-6">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
         <div>
           <a href="#home" className="inline-flex items-center gap-2 text-cream">

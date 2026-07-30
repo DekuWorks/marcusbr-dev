@@ -145,7 +145,7 @@ export default function Hero() {
         >
           <div className="relative mx-auto aspect-[9/16] w-full max-w-[min(300px,72vw)] sm:max-w-[320px] lg:max-w-[340px]">
             <div className="hero-portrait-glow" aria-hidden />
-            <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310]/80 shadow-glow backdrop-blur-sm">
+            <div className="relative flex h-full items-center justify-center overflow-hidden rounded-2xl border border-jade-border bg-[#0D1310]/45 shadow-glow backdrop-blur-md">
               <Image
                 src="/marcus-brown.webp"
                 alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
@@ -156,7 +156,7 @@ export default function Hero() {
                 priority
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-4 pt-16">
-                <div className="rounded-xl border border-jade-border bg-card/90 p-3 backdrop-blur-sm">
+                <div className="rounded-xl border border-jade-border bg-card/55 p-3 backdrop-blur-md">
                   <p className="text-sm font-semibold text-cream">
                     Marcus <span className="text-jade-bright">B.</span>, 29
                   </p>
@@ -171,7 +171,7 @@ export default function Hero() {
           >
             {statusBadges.map((badge) => (
               <li key={badge.label}>
-                <div className="flex items-center gap-2 rounded-full border border-jade-border bg-card/80 px-3 py-2 text-xs text-cream backdrop-blur-sm">
+                <div className="flex items-center gap-2 rounded-full border border-jade-border bg-card/50 px-3 py-2 text-xs text-cream backdrop-blur-md">
                   <badge.icon className="h-3.5 w-3.5 shrink-0 text-jade" aria-hidden />
                   <span>{badge.label}</span>
                 </div>

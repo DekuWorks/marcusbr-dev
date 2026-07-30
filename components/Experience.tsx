@@ -329,13 +329,13 @@ export default function Experience() {
 
           {canScrollLeft && (
             <div
-              className="pointer-events-none absolute top-12 bottom-2 left-0 z-[1] w-10 bg-gradient-to-r from-background to-transparent sm:w-14"
+              className="pointer-events-none absolute top-12 bottom-2 left-0 z-[1] w-10 bg-gradient-to-r from-background/40 to-transparent sm:w-14"
               aria-hidden
             />
           )}
           {canScrollRight && (
             <div
-              className="pointer-events-none absolute top-12 right-0 bottom-2 z-[1] w-10 bg-gradient-to-l from-background to-transparent sm:w-14"
+              className="pointer-events-none absolute top-12 right-0 bottom-2 z-[1] w-10 bg-gradient-to-l from-background/40 to-transparent sm:w-14"
               aria-hidden
             />
           )}

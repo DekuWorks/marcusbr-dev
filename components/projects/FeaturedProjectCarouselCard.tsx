@@ -47,7 +47,7 @@ export default function FeaturedProjectCarouselCard({
       <CursorSpotlight className="h-full rounded-2xl">
       <TiltCard
         maxTilt={8}
-        className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/80"
+        className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/45 backdrop-blur-md"
         style={{ "--project-accent": project.accent } as React.CSSProperties}
       >
         <div className="featured-card-shine" aria-hidden />

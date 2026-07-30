@@ -20,7 +20,10 @@ export default function SceneFallback({
       <div className="liquid-hero-fallback__orb liquid-hero-fallback__orb--primary" />
       <div className="liquid-hero-fallback__orb liquid-hero-fallback__orb--secondary" />
       {showTertiaryOrb && (
-        <div className="liquid-hero-fallback__orb liquid-hero-fallback__orb--tertiary" />
+        <>
+          <div className="liquid-hero-fallback__orb liquid-hero-fallback__orb--tertiary" />
+          <div className="liquid-hero-fallback__orb liquid-hero-fallback__orb--quaternary" />
+        </>
       )}
       <div className="liquid-hero-fallback__blob" />
       <div className="liquid-hero-fallback__grid" />

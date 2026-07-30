@@ -39,6 +39,7 @@
 - [x] Phase 20 — **Liquid density pass** (richer blob, more droplets on Full desktop, CSS fallback polish)
 - [x] Phase 21 — **Always-on effects** (removed navbar toggle; liquid visible on all mobile/tablet tiers)
 - [x] Phase 22 — **Full-page liquid backdrop** (fixed viewport canvas, scroll-linked parallax)
+- [x] Phase 23 — **Full-page visibility pass** (transparent sections, footer-zone scroll, mobile touch + density)
 
 ## Interaction Reactions (Phase 17–19)
 
@@ -68,6 +69,17 @@
 | CSS vars | `--liquid-scroll-progress`, `--liquid-section-zone` on `#liquid-backdrop` |
 | Interaction | Global pointer + navbar section changes unchanged; no scroll-jacking |
 | Mobile | Same quality tiers; fixed canvas `pointer-events: none`; pauses when tab hidden |
+
+## Full-Page Visibility Pass (Phase 23)
+
+| Change | Detail |
+|--------|--------|
+| Root cause | Opaque `body`/`bg-background`, heavy card fills (`glass-card`, `featured-product-card`), and dark canvas vignette hid the fixed backdrop below the hero |
+| Transparency | `body` + layout → transparent; `glass-card` 0.42, `glass-panel` 0.45, featured cards ~0.5, footer `bg-background/35 backdrop-blur-md` |
+| Footer zone | `--liquid-footer-zone` ramps 0→1 over last 28% of scroll; intensifies CSS orbs + lightens vignette near bottom |
+| Mobile touch | Passive `touchmove` updates pointer while scrolling; coarse pointer strength ×1.45, faster lerp |
+| Density | Droplets high/medium/low → 36/18/10; CSS fallback 16 orbs; quaternary ambient orb; bloom 0.48 |
+| iOS | Backdrop `min-height: 100dvh`; larger mobile CSS blob/orbs |
 
 ## Always-On Effects (Phase 21)
 
@@ -131,17 +143,17 @@
 
 | Tier | Blob | Droplets | Visual tweaks |
 |------|------|----------|---------------|
-| Full desktop (high) | +scale, +deformation | 32 (was 24) | Stronger jade fresnel, bloom 0.42, brighter grid |
-| Medium / mobile | Unchanged counts | 12 / 6 (low) | No perf regression |
-| Reduced | Modest bump via 40% multiplier | ~12 from high tier | Shader/CSS unchanged amplitude |
-| Off CSS | Larger morph blob | 9 static (+1) | Tertiary orb, stronger gradients |
+| Full desktop (high) | +scale 1.52, +deformation | 36 | Stronger jade fresnel, bloom 0.48, brighter grid |
+| Medium / mobile | Unchanged counts | 18 / 10 (low) | Touch boost, larger CSS fallback |
+| Reduced | Modest bump via 40% multiplier | ~14 from high tier | Shader/CSS unchanged amplitude |
+| Off CSS | Larger morph blob | 16 static | Tertiary + quaternary orbs, stronger gradients |
 
 ## Tests
 
 - `lib/three/qualitySettings.test.ts` (3 tests)
-- `lib/liquid/interactionState.test.ts` (8 tests)
+- `lib/liquid/interactionState.test.ts` (9 tests)
 - Existing: `lib/seo.test.ts`, `lib/techProjectMatch.test.ts`
-- **Total:** 17 tests passing
+- **Total:** 18 tests passing
 
 ## Build Status
 
