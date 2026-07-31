@@ -84,7 +84,7 @@ export default function Hero() {
           fill
           sizes="100vw"
           priority
-          className="object-cover object-center opacity-70 mix-blend-screen"
+          className="object-cover object-center opacity-55 mix-blend-soft-light"
         />
         <div className="cinematic-hero__lighting-fade" />
       </div>
@@ -220,7 +220,8 @@ export default function Hero() {
               <div className="hero-portrait-glow" aria-hidden />
               <div className="hero-portrait-rim" aria-hidden />
               <TiltCard maxTilt={5} className="h-full">
-                <div className="hero-portrait-frame relative flex h-full items-center justify-center overflow-hidden rounded-2xl bg-[#0D1310]/45 backdrop-blur-md">
+                {/* Solid plate under photo — no backdrop-blur sampling of WebGL/video */}
+                <div className="hero-portrait-frame relative flex h-full items-center justify-center overflow-hidden rounded-2xl">
                   <Image
                     src="/marcus-brown.webp"
                     alt="Marcus Brown — Senior Full-Stack Developer & AI Engineer"
@@ -230,8 +231,8 @@ export default function Hero() {
                     className="h-full w-full rounded-2xl object-contain object-center"
                     priority
                   />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/90 to-transparent p-4 pt-16">
-                    <div className="rounded-xl border border-jade-border bg-card/55 p-3 backdrop-blur-md">
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/95 to-transparent p-4 pt-16">
+                    <div className="rounded-xl border border-jade-border bg-card/90 p-3">
                       <p className="text-sm font-semibold text-cream">
                         Marcus <span className="text-jade-bright">B.</span>, 29
                       </p>

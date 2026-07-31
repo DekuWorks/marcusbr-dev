@@ -1,10 +1,11 @@
 /**
  * @fileoverview Page-wide interactive jade liquid-lava metal WebGL layer.
  *
- * Single R3F context: molten blob + droplets + optional bloom. Reacts to
- * pointer/scroll/UI emitters via LiquidInteractionProvider. Sits behind
- * vignette/content — never over the hero face. CSS cinematic stills remain
- * when WebGL is unavailable or reduced-motion is on.
+ * Single R3F context: molten blob + droplets (no EffectComposer bloom —
+ * bloom on a transparent canvas flashes black). Reacts to pointer/scroll/UI
+ * emitters via LiquidInteractionProvider. Sits behind vignette/content —
+ * never over the hero face. CSS cinematic stills remain when WebGL is
+ * unavailable or reduced-motion is on.
  *
  * Interaction ticking stays in LiquidInteractionProvider (one rAF) — this
  * canvas only reads the shared state ref to avoid double-decay jank.
@@ -24,8 +25,7 @@ import {
   type ReactNode,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import * as THREE from "three";
+import type { Group } from "three";
 import { useLiquidEffects } from "@/hooks/useEffectsPreference";
 import { useDeviceQuality } from "@/hooks/useDeviceQuality";
 import { useLiquidInteraction } from "@/hooks/useLiquidInteraction";
@@ -43,35 +43,49 @@ import type { LiquidInteractionRefs } from "@/lib/liquid/interactionState";
 
 type LavaSceneProps = {
   paused: boolean;
-  bloom: boolean;
   dropletCount: number;
   blobSegments: number;
   blobScale: number;
   deformationSpeed: number;
   interactionRef: MutableRefObject<LiquidInteractionRefs>;
+  onFirstFrame?: () => void;
 };
 
-function TransparentClear() {
+/** Configure transparent clear once — avoid per-frame clear fights with bloom. */
+function TransparentClearOnce() {
   const { gl } = useThree();
-  useFrame(() => {
+  useEffect(() => {
     gl.setClearColor(0x000000, 0);
-  }, -1);
+    gl.setClearAlpha(0);
+  }, [gl]);
+  return null;
+}
+
+/** Fire once after the first successful rendered frame (scene is visible). */
+function FirstFrameSignal({ onReady }: { onReady?: () => void }) {
+  const fired = useRef(false);
+  useFrame(() => {
+    if (fired.current || !onReady) return;
+    fired.current = true;
+    onReady();
+  });
   return null;
 }
 
 function LavaScene({
   paused,
-  bloom,
   dropletCount,
   blobSegments,
   blobScale,
   deformationSpeed,
   interactionRef,
+  onFirstFrame,
 }: LavaSceneProps) {
   const envMap = useLiquidEnvMap();
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
+    if (paused) return;
     const group = groupRef.current;
     const interaction = interactionRef.current;
     if (!group || !interaction) return;
@@ -92,7 +106,8 @@ function LavaScene({
 
   return (
     <>
-      <TransparentClear />
+      <TransparentClearOnce />
+      <FirstFrameSignal onReady={onFirstFrame} />
       <LiquidEnvironment map={envMap} intensity={0.85} />
       <ambientLight intensity={0.22} />
       <pointLight position={[3.4, 4.4, 2.6]} intensity={1.45} color="#d8f5e8" />
@@ -114,40 +129,45 @@ function LavaScene({
           interactionRef={interactionRef}
         />
       </group>
-      {bloom && (
-        <EffectComposer multisampling={0} enableNormalPass={false}>
-          <Bloom
-            intensity={0.42}
-            luminanceThreshold={0.55}
-            luminanceSmoothing={0.72}
-            mipmapBlur
-          />
-        </EffectComposer>
-      )}
     </>
   );
 }
 
-function CinematicLiquidCanvasInner() {
+type CanvasInnerProps = {
+  onReady?: () => void;
+};
+
+function CinematicLiquidCanvasInner({ onReady }: CanvasInnerProps) {
   const [containerRef, inView] = useElementVisibility<HTMLDivElement>();
   const pageVisible = usePageVisible();
   const { stateRef } = useLiquidInteraction();
-  const { effectsReduced, bloomEnabled, liquidSpeed, dropletMultiplier } =
-    useLiquidEffects();
+  const { effectsReduced, liquidSpeed, dropletMultiplier } = useLiquidEffects();
   const { settings } = useDeviceQuality(effectsReduced);
+  const [canvasReady, setCanvasReady] = useState(false);
 
   const paused = !inView || !pageVisible;
   const dropletCount = Math.floor(settings.dropletCount * dropletMultiplier);
 
+  // Stabilize DPR tuple identity across renders
+  const dprMin = settings.dpr[0];
+  const dprMax = settings.dpr[1];
   const dpr = useMemo(
-    () => settings.dpr as [number, number],
-    [settings.dpr],
+    () => [dprMin, dprMax] as [number, number],
+    [dprMin, dprMax],
+  );
+
+  const handleFirstFrame = useMemo(
+    () => () => {
+      setCanvasReady(true);
+      onReady?.();
+    },
+    [onReady],
   );
 
   return (
     <div
       ref={containerRef}
-      className="cinematic-bg__orb-canvas cinematic-bg__liquid"
+      className={`cinematic-bg__orb-canvas cinematic-bg__liquid${canvasReady ? " is-ready" : ""}`}
       aria-hidden
     >
       <Canvas
@@ -155,24 +175,33 @@ function CinematicLiquidCanvasInner() {
         camera={{ position: [0.1, 0.12, 4.5], fov: 40 }}
         gl={{
           alpha: true,
-          antialias: settings.bloom,
+          antialias: false,
+          // Straight alpha from LiquidBlob shader — matches CSS normal blend
           premultipliedAlpha: false,
           powerPreference: "high-performance",
           stencil: false,
           depth: true,
+          // Preserve last frame when paused — avoids black clear flashes on resume
+          preserveDrawingBuffer: true,
         }}
-        frameloop={paused ? "never" : "always"}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+          gl.setClearAlpha(0);
+        }}
+        // Keep frameloop always while mounted; scene skips work when paused.
+        // Toggling never↔always causes a transparent/black flash.
+        frameloop={paused ? "demand" : "always"}
         style={{ width: "100%", height: "100%", background: "transparent" }}
       >
         <Suspense fallback={null}>
           <LavaScene
             paused={paused}
-            bloom={bloomEnabled && settings.bloom}
             dropletCount={dropletCount}
             blobSegments={settings.blobSegments}
             blobScale={settings.blobScale}
             deformationSpeed={settings.deformationSpeed * liquidSpeed}
             interactionRef={stateRef}
+            onFirstFrame={handleFirstFrame}
           />
         </Suspense>
       </Canvas>
@@ -203,11 +232,16 @@ class OrbErrorBoundary extends Component<
   }
 }
 
+type CinematicOrbLayerProps = {
+  /** Called once after the first WebGL frame — parent can drop CSS molten. */
+  onReady?: () => void;
+};
+
 /**
  * Interactive liquid lava metal. Desktop / large landscape only — phones keep
  * CSS molten + stills for FPS. Skips WebGL on reduced-motion.
  */
-export default function CinematicOrbLayer() {
+export default function CinematicOrbLayer({ onReady }: CinematicOrbLayerProps) {
   const { showWebGL, hydrated, effectsReduced } = useLiquidEffects();
   const { webglSupported, webglChecked } = useWebGLSupport();
   const [allowWebGL, setAllowWebGL] = useState(false);
@@ -229,7 +263,7 @@ export default function CinematicOrbLayer() {
 
   return (
     <OrbErrorBoundary>
-      <CinematicLiquidCanvasInner />
+      <CinematicLiquidCanvasInner onReady={onReady} />
     </OrbErrorBoundary>
   );
 }

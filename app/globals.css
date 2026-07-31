@@ -957,7 +957,8 @@ body {
   overflow: hidden;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(74, 222, 154, 0.28);
-  background: rgba(13, 19, 16, 0.4);
+  /* Solid enough that backdrop-blur does not sample flickering WebGL/video */
+  background: rgba(10, 14, 12, 0.92);
   box-shadow:
     0 0 0 1px rgba(62, 180, 137, 0.18),
     0 24px 64px rgba(0, 0, 0, 0.4),
@@ -2601,9 +2602,10 @@ a:focus-visible .btn-icon-shift {
   pointer-events: none;
 }
 
-/* When WebGL liquid mounts: kill CSS molten animation cost + avoid muddy stack */
-.cinematic-bg:has(.cinematic-bg__orb-canvas) .cinematic-bg__molten-fallback {
-  opacity: 0.1;
+/* WebGL ready: CSS molten is unmounted in React; belt-and-suspenders hide */
+.cinematic-bg.is-webgl-ready .cinematic-bg__molten-fallback,
+.cinematic-bg:has(.cinematic-bg__orb-canvas.is-ready) .cinematic-bg__molten-fallback {
+  display: none !important;
 }
 
 .cinematic-bg:has(.cinematic-bg__orb-canvas) .liquid-hero-fallback__orb,
@@ -2616,9 +2618,15 @@ a:focus-visible .btn-icon-shift {
   display: none;
 }
 
-/* Soften ambience video when WebGL is the hero liquid layer */
-.cinematic-bg:has(.cinematic-bg__orb-canvas) .cinematic-bg__video.is-ready {
-  opacity: 0.14;
+/* Solid poster under ambience video — covers loop seams + canplay delay */
+.cinematic-bg__poster {
+  position: absolute;
+  inset: -2%;
+  z-index: 1;
+  width: 104%;
+  height: 104%;
+  opacity: 0.18;
+  pointer-events: none;
 }
 
 .cinematic-bg__liquid,
@@ -2626,9 +2634,18 @@ a:focus-visible .btn-icon-shift {
   position: absolute;
   inset: 0;
   z-index: 3;
-  opacity: 0.92;
-  mix-blend-mode: screen;
+  /* Start hidden; fade in after first WebGL frame to avoid clear/bloom flash */
+  opacity: 0;
+  /* Normal blend — screen + transparent clear causes compositor flicker */
+  mix-blend-mode: normal;
   pointer-events: none;
+  transition: opacity 0.55s ease;
+  will-change: opacity;
+}
+
+.cinematic-bg__orb-canvas.is-ready,
+.cinematic-bg__liquid.is-ready {
+  opacity: 0.88;
 }
 
 .cinematic-bg__readability {
@@ -2739,15 +2756,15 @@ a:focus-visible .btn-icon-shift {
 }
 
 .cinematic-hero__lighting {
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .cinematic-hero__lighting-fade {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(5, 8, 7, 0.82) 0%, rgba(5, 8, 7, 0.35) 48%, rgba(5, 8, 7, 0.55) 100%),
-    linear-gradient(180deg, rgba(5, 8, 7, 0.25) 0%, transparent 40%, rgba(5, 8, 7, 0.75) 100%);
+    linear-gradient(90deg, rgba(5, 8, 7, 0.88) 0%, rgba(5, 8, 7, 0.42) 48%, rgba(5, 8, 7, 0.62) 100%),
+    linear-gradient(180deg, rgba(5, 8, 7, 0.3) 0%, transparent 40%, rgba(5, 8, 7, 0.8) 100%);
 }
 
 .cinematic-scroll-cue {
@@ -2797,12 +2814,18 @@ a:focus-visible .btn-icon-shift {
   height: 104%;
   object-fit: cover;
   opacity: 0;
-  mix-blend-mode: screen;
-  transition: opacity 0.9s ease;
+  /* Soft-light is stabler than screen over looping video seams */
+  mix-blend-mode: soft-light;
+  transition: opacity 1.1s ease;
 }
 
+/* Stable opacity — do not retarget when WebGL mounts (that caused a flash) */
 .cinematic-bg__video.is-ready {
-  opacity: 0.22;
+  opacity: 0.16;
+}
+
+.cinematic-bg.is-webgl-ready .cinematic-bg__video.is-ready {
+  opacity: 0.16;
 }
 
 /* orb-canvas styles consolidated with .cinematic-bg__liquid above */
