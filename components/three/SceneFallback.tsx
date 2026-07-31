@@ -27,7 +27,7 @@ export default function SceneFallback({
         </>
       )}
       <div className="liquid-hero-fallback__blob" />
-      <div className="liquid-hero-fallback__grid" />
+      {/* Ground grid muted — felt like "grid portfolio", not liquid metal */}
       <div className="liquid-hero-fallback__droplets">
         {Array.from({ length: dropletCount }).map((_, index) => (
           <span

@@ -17,12 +17,16 @@ export type LiquidSectionId =
   | "experience"
   | "contact";
 
+export type LiquidUiHoverSource = "nav" | "skill" | "project" | "button";
+
 export type LiquidInteractionEvent =
   | { type: "sectionChange"; section: LiquidSectionId }
   | { type: "tabChange"; category: string }
   | { type: "pillSelect"; tech: string }
   | { type: "experienceToggle"; expanded: boolean }
-  | { type: "carouselNav"; direction: -1 | 1; source: "projects" | "experience" };
+  | { type: "carouselNav"; direction: -1 | 1; source: "projects" | "experience" }
+  | { type: "uiHover"; source: LiquidUiHoverSource }
+  | { type: "navPulse" };
 
 export type LiquidInteractionRefs = {
   ripple: number;
@@ -130,6 +134,16 @@ export function createLiquidInteractionState(): LiquidInteractionRefs {
   };
 }
 
+const UI_HOVER_STRENGTH: Record<
+  LiquidUiHoverSource,
+  { ripple: number; pulse: number; color: number; shift: number }
+> = {
+  nav: { ripple: 0.28, pulse: 0.22, color: 0.18, shift: 0.06 },
+  skill: { ripple: 0.2, pulse: 0.16, color: 0.2, shift: 0.05 },
+  project: { ripple: 0.26, pulse: 0.2, color: 0.16, shift: 0.08 },
+  button: { ripple: 0.18, pulse: 0.14, color: 0.12, shift: 0.04 },
+};
+
 /** Apply a discrete UI event as an impulse to the liquid state. */
 export function applyLiquidInteraction(
   state: LiquidInteractionRefs,
@@ -142,30 +156,48 @@ export function applyLiquidInteraction(
       state.activeSectionIndex = target.index;
       state.targetShiftX = target.shiftX;
       state.targetShiftY = target.shiftY;
-      state.ripple = Math.min(1, state.ripple + 0.42 * intensity);
-      state.pulse = Math.min(1, state.pulse + 0.3 * intensity);
-      state.colorPulse = Math.min(1, state.colorPulse + 0.24 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.55 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.4 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.32 * intensity);
       state.gridBump = Math.min(1, state.gridBump + 0.28 * intensity);
       break;
     }
     case "tabChange":
-      state.pulse = Math.min(1, state.pulse + 0.24 * intensity);
-      state.colorPulse = Math.min(1, state.colorPulse + 0.16 * intensity);
-      state.targetShiftX += 0.08 * intensity;
+      state.pulse = Math.min(1, state.pulse + 0.32 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.22 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.16 * intensity);
+      state.targetShiftX += 0.1 * intensity;
       break;
     case "pillSelect":
-      state.pulse = Math.min(1, state.pulse + 0.14 * intensity);
-      state.ripple = Math.min(1, state.ripple + 0.12 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.2 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.18 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.14 * intensity);
       break;
     case "experienceToggle":
-      state.ripple = Math.min(1, state.ripple + 0.22 * intensity);
-      state.pulse = Math.min(1, state.pulse + 0.18 * intensity);
-      state.targetShiftY += event.expanded ? -0.07 : 0.07;
+      state.ripple = Math.min(1, state.ripple + 0.28 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.24 * intensity);
+      state.targetShiftY += event.expanded ? -0.09 : 0.09;
       break;
     case "carouselNav":
-      state.ripple = Math.min(1, state.ripple + 0.2 * intensity);
-      state.targetShiftX += event.direction * 0.11 * intensity;
+      state.ripple = Math.min(1, state.ripple + 0.28 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.14 * intensity);
+      state.targetShiftX += event.direction * 0.14 * intensity;
       state.gridBump = Math.min(1, state.gridBump + 0.16 * intensity);
+      break;
+    case "uiHover": {
+      const s = UI_HOVER_STRENGTH[event.source];
+      const dir =
+        event.source === "nav" || event.source === "skill" ? -1 : 1;
+      state.ripple = Math.min(1, state.ripple + s.ripple * intensity);
+      state.pulse = Math.min(1, state.pulse + s.pulse * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + s.color * intensity);
+      state.targetShiftX += s.shift * intensity * dir;
+      break;
+    }
+    case "navPulse":
+      state.ripple = Math.min(1, state.ripple + 0.36 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.28 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.22 * intensity);
       break;
   }
 }

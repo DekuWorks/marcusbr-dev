@@ -197,22 +197,39 @@ export function LiquidInteractionProvider({ children }: { children: ReactNode })
     };
   }, [reactionsEnabled]);
 
-  /* --- rAF tick loop: decay impulses and publish CSS vars --- */
+  /* --- rAF tick loop: decay impulses and publish CSS vars (sole tick owner) --- */
   useEffect(() => {
     if (!reactionsEnabled) return;
 
     let frameId = 0;
     let lastTime = performance.now();
+    let running = true;
 
     const loop = (time: number) => {
+      if (!running) return;
+      if (document.hidden) {
+        frameId = requestAnimationFrame(loop);
+        return;
+      }
       const delta = Math.min(0.05, (time - lastTime) / 1000);
       lastTime = time;
       tick(delta);
       frameId = requestAnimationFrame(loop);
     };
 
+    const onVisibility = () => {
+      if (!document.hidden) {
+        lastTime = performance.now();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
     frameId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frameId);
+    return () => {
+      running = false;
+      document.removeEventListener("visibilitychange", onVisibility);
+      cancelAnimationFrame(frameId);
+    };
   }, [reactionsEnabled, tick]);
 
   /* --- Scroll progress for footer zone and parallax --- */

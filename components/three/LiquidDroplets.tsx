@@ -1,8 +1,8 @@
 /**
- * @fileoverview Instanced floating droplets orbiting the liquid scene.
+ * @fileoverview Instanced floating molten-jade droplets orbiting the liquid blob.
  *
- * Mercury-bead droplets (`MeshPhysicalMaterial`) orbit the liquid-metal blob.
- * Ripple and scroll progress from the shared interaction ref add collective drift.
+ * Mercury/jade beads react to ripple, pulse, pointer, and scroll from the
+ * shared interaction ref.
  */
 
 "use client";
@@ -26,19 +26,19 @@ function createDropletPositions(count: number) {
 
   for (let i = 0; i < count; i++) {
     const theta = Math.random() * Math.PI * 2;
-    const radius = 1.4 + Math.random() * 1.2;
-    positions[i * 3] = Math.cos(theta) * radius;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 2.4;
-    positions[i * 3 + 2] = Math.sin(theta) * radius;
-    scales[i] = 0.02 + Math.random() * 0.04;
-    speeds[i] = 0.4 + Math.random() * 0.8;
+    const radius = 1.55 + Math.random() * 1.85;
+    positions[i * 3] = Math.cos(theta) * radius + 0.3;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 3.2;
+    positions[i * 3 + 2] = Math.sin(theta) * radius * 0.85;
+    scales[i] = 0.028 + Math.random() * 0.062;
+    speeds[i] = 0.28 + Math.random() * 0.7;
   }
 
   return { positions, scales, speeds };
 }
 
 export default function LiquidDroplets({
-  count = 24,
+  count = 40,
   speed = 1,
   paused = false,
   interactionRef,
@@ -57,8 +57,8 @@ export default function LiquidDroplets({
     const interaction = interactionRef?.current;
     if (interaction) {
       rippleRef.current +=
-        (interaction.ripple + interaction.pulse * 0.5 - rippleRef.current) *
-        Math.min(1, delta * 4);
+        (interaction.ripple + interaction.pulse * 0.55 - rippleRef.current) *
+        Math.min(1, delta * 4.5);
     }
     const ripple = rippleRef.current;
     const pointerX = interaction ? (interaction.pointerX - 0.5) * 2 : 0;
@@ -73,20 +73,27 @@ export default function LiquidDroplets({
       const baseY = positions[i * 3 + 1];
       const baseZ = positions[i * 3 + 2];
       const dropletSpeed = speeds[i] * speed;
-      const rippleOffset = Math.sin(time * 4 + i) * ripple * 0.12;
+      const rippleOffset = Math.sin(time * 3.2 + i) * ripple * 0.18;
       const scrollOffset =
-        scrollDrift * (0.35 + (i % 5) * 0.04) * scrollDirection;
+        scrollDrift * (0.42 + (i % 5) * 0.05) * scrollDirection;
 
       dummy.position.set(
-        baseX + Math.sin(time * dropletSpeed + i) * (0.1 + ripple * 0.05) + pointerX * 0.06 + scrollDrift * 0.1,
+        baseX +
+          Math.sin(time * dropletSpeed + i) * (0.14 + ripple * 0.08) +
+          pointerX * 0.12 +
+          scrollDrift * 0.14,
         baseY +
-          Math.sin(time * 0.6 * dropletSpeed + i * 0.5) * (0.18 + ripple * 0.08) +
+          Math.sin(time * 0.45 * dropletSpeed + i * 0.5) *
+            (0.22 + ripple * 0.12) +
           rippleOffset +
-          pointerY * 0.05 -
+          pointerY * 0.1 -
           scrollOffset,
-        baseZ + Math.cos(time * dropletSpeed + i) * (0.1 + ripple * 0.05) - pointerX * 0.03,
+        baseZ +
+          Math.cos(time * dropletSpeed + i) * (0.14 + ripple * 0.08) -
+          pointerX * 0.05,
       );
-      const scale = scales[i] * (1 + Math.sin(time * 2 + i) * 0.15 + ripple * 0.08);
+      const scale =
+        scales[i] * (1 + Math.sin(time * 1.6 + i) * 0.18 + ripple * 0.14);
       dummy.scale.setScalar(scale);
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
@@ -98,20 +105,17 @@ export default function LiquidDroplets({
   if (count === 0) return null;
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <sphereGeometry args={[1, 12, 12]} />
-      <meshPhysicalMaterial
-        color="#7dceb0"
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]} frustumCulled>
+      <sphereGeometry args={[1, 8, 8]} />
+      <meshStandardMaterial
+        color="#8ad9b8"
         emissive="#3eb489"
-        emissiveIntensity={0.28}
+        emissiveIntensity={0.38}
         transparent
         opacity={0.9}
         roughness={0.12}
-        metalness={0.85}
-        clearcoat={0.55}
-        clearcoatRoughness={0.18}
-        reflectivity={0.95}
-        envMapIntensity={1.15}
+        metalness={0.88}
+        envMapIntensity={1.2}
       />
     </instancedMesh>
   );

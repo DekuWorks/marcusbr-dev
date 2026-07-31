@@ -99,13 +99,16 @@ export default function FeaturedProjects() {
               </p>
             </ReadableCopy>
           </motion.div>
-          <a
-            href="#projects"
-            className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-          >
-            View All Projects
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </a>
+          {projects[0] && (
+            <a
+              href={`/projects/${projects[0].id}/`}
+              className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+              onMouseEnter={() => emit({ type: "uiHover", source: "project" })}
+            >
+              View {projects[0].name}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+          )}
         </div>
 
         <div className="relative">

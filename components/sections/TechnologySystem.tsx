@@ -179,6 +179,10 @@ export default function TechnologySystem() {
     });
   }, [emit]);
 
+  const handleSkillHover = useCallback(() => {
+    emit({ type: "uiHover", source: "skill" });
+  }, [emit]);
+
   const focusCategoryTab = useCallback((index: number) => {
     categoryTabRefs.current[index]?.focus();
   }, []);
@@ -283,6 +287,8 @@ export default function TechnologySystem() {
                 aria-controls={techGridId}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => handleCategoryChange(filter.id)}
+                onMouseEnter={handleSkillHover}
+                onFocus={handleSkillHover}
                 onKeyDown={(event) => handleCategoryKeyDown(event, index)}
                 className={categoryTabClass(isActive)}
               >
@@ -321,6 +327,8 @@ export default function TechnologySystem() {
                   aria-controls={techGridId}
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => handleCategoryChange(filter.id)}
+                  onMouseEnter={handleSkillHover}
+                  onFocus={handleSkillHover}
                   onKeyDown={(event) => handleCategoryKeyDown(event, index)}
                   className={categoryNavClass(isActive)}
                 >
@@ -359,6 +367,8 @@ export default function TechnologySystem() {
                       <button
                         type="button"
                         onClick={() => handleTechSelect(tech.name)}
+                        onMouseEnter={handleSkillHover}
+                        onFocus={handleSkillHover}
                         aria-pressed={isSelected}
                         aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
                         className={`skill-row interactive-lift flex w-full min-h-12 items-center gap-3 rounded-xl border px-3 py-2.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${

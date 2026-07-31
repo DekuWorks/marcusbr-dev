@@ -8,9 +8,10 @@ export const CINEMATIC_ASSETS = {
   atmosphere: "/cinematic/atmosphere.webp",
   particles: "/cinematic/particles.webp",
   contactGlow: "/cinematic/contact-glow.webp",
-  /** Optional slow ambience loop — poster falls back to atmosphere still. */
+  /** Optional slow ambience loop — poster falls back to dedicated poster still. */
   ambienceLoop: "/cinematic/ambience-loop.mp4",
-  ambiencePoster: "/cinematic/atmosphere.webp",
+  ambienceLoopWebm: "/cinematic/ambience-loop.webm",
+  ambiencePoster: "/cinematic/ambience-poster.webp",
 } as const;
 
 export type CinematicAssetKey = keyof typeof CINEMATIC_ASSETS;

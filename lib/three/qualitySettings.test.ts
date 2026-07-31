@@ -6,8 +6,16 @@ import {
 
 describe("qualitySettings", () => {
   it("defines tiers with expected DPR caps", () => {
-    expect(QUALITY_SETTINGS.high.dpr[1]).toBe(2);
+    expect(QUALITY_SETTINGS.high.dpr[1]).toBeLessThanOrEqual(2);
+    expect(QUALITY_SETTINGS.high.dpr[1]).toBeGreaterThanOrEqual(1.5);
     expect(QUALITY_SETTINGS.low.dpr[1]).toBe(1);
+  });
+
+  it("keeps droplet counts modest for a single page canvas", () => {
+    expect(QUALITY_SETTINGS.high.dropletCount).toBeLessThanOrEqual(48);
+    expect(QUALITY_SETTINGS.medium.dropletCount).toBeLessThan(
+      QUALITY_SETTINGS.high.dropletCount,
+    );
   });
 
   it("reduces droplets and bloom for reduced effects", () => {

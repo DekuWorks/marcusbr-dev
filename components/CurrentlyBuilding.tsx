@@ -8,11 +8,13 @@ import ScrollReveal from "@/components/motion/ScrollReveal";
 import ProjectTransitionLink from "@/components/cinematic/ProjectTransitionLink";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import ReadableCopy from "@/components/layout/ReadableCopy";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { getCurrentlyBuildingProjects } from "@/lib/projects";
 import ProjectTrackerProgress from "@/components/projects/ProjectTrackerProgress";
 
 export default function CurrentlyBuilding() {
   const projects = getCurrentlyBuildingProjects();
+  const { emit } = useLiquidInteractionEmitter();
 
   return (
     <section
@@ -42,6 +44,7 @@ export default function CurrentlyBuilding() {
           </div>
           <a
             href="#projects"
+            onMouseEnter={() => emit({ type: "uiHover", source: "project" })}
             className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
           >
             View All Projects
@@ -69,6 +72,9 @@ export default function CurrentlyBuilding() {
                 <TiltCard maxTilt={5} className="h-full">
                   <ProjectTransitionLink
                     href={`/projects/${project.id}/`}
+                    onMouseEnter={() =>
+                      emit({ type: "uiHover", source: "project" })
+                    }
                     className="active-build-card glass-card group flex h-full flex-col rounded-xl p-4 transition-all hover:border-jade/25"
                     style={
                       { "--project-accent": project.accent } as React.CSSProperties

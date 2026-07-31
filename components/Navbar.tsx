@@ -60,12 +60,17 @@ export default function Navbar() {
   const handleNavClick = useCallback(
     (href: string) => {
       setActiveSection(href);
+      emit({ type: "navPulse" });
       emitSectionFromHref(href);
       scrollToSection(href, motionEnabled);
       window.history.pushState(null, "", href);
     },
-    [emitSectionFromHref, motionEnabled],
+    [emit, emitSectionFromHref, motionEnabled],
   );
+
+  const handleNavHover = useCallback(() => {
+    emit({ type: "uiHover", source: "nav" });
+  }, [emit]);
 
   const updateActiveSection = useCallback(() => {
     if (isScrollSpyPaused()) return;
@@ -133,6 +138,8 @@ export default function Navbar() {
             >
               <a
                 href="#home"
+                onMouseEnter={handleNavHover}
+                onFocus={handleNavHover}
                 onClick={(event) => {
                   event.preventDefault();
                   handleNavClick("#home");
@@ -157,6 +164,8 @@ export default function Navbar() {
                     <NavMagneticLink>
                       <a
                         href={link.href}
+                        onMouseEnter={handleNavHover}
+                        onFocus={handleNavHover}
                         onClick={(event) => {
                           event.preventDefault();
                           handleNavClick(link.href);
@@ -197,14 +206,20 @@ export default function Navbar() {
                   <Download className="h-4 w-4" aria-hidden />
                   Resume
                 </Button>
-                <Button
-                  variant="primary"
-                  className="min-h-10 uppercase tracking-[0.12em]"
-                  onClick={() => handleNavClick("#contact")}
+                <span
+                  onMouseEnter={handleNavHover}
+                  onFocus={handleNavHover}
+                  className="inline-flex"
                 >
-                  Let&apos;s Connect
-                  <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
-                </Button>
+                  <Button
+                    variant="primary"
+                    className="min-h-10 uppercase tracking-[0.12em]"
+                    onClick={() => handleNavClick("#contact")}
+                  >
+                    Let&apos;s Connect
+                    <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
+                  </Button>
+                </span>
               </div>
 
               <button
@@ -241,6 +256,8 @@ export default function Navbar() {
                   <li key={link.href}>
                     <a
                       href={link.href}
+                      onMouseEnter={handleNavHover}
+                      onFocus={handleNavHover}
                       onClick={(event) => {
                         event.preventDefault();
                         handleNavClick(link.href);

@@ -85,4 +85,17 @@ describe("interactionState", () => {
     expect(footerZoneFromScroll(1)).toBe(1);
     expect(footerZoneFromScroll(0.86)).toBeCloseTo(0.5);
   });
+
+  it("applies uiHover and navPulse impulses", () => {
+    const hover = createLiquidInteractionState();
+    applyLiquidInteraction(hover, { type: "uiHover", source: "skill" });
+    expect(hover.ripple).toBeGreaterThan(0);
+    expect(hover.pulse).toBeGreaterThan(0);
+    expect(hover.targetShiftX).toBeLessThan(0);
+
+    const nav = createLiquidInteractionState();
+    applyLiquidInteraction(nav, { type: "navPulse" });
+    expect(nav.ripple).toBeGreaterThan(0.3);
+    expect(nav.colorPulse).toBeGreaterThan(0);
+  });
 });

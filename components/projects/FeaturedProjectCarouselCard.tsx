@@ -1,10 +1,12 @@
 /** Card for a single featured project in the horizontal carousel. */
 "use client";
 
+import { useCallback } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import TiltCard from "@/components/motion/TiltCard";
 import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import ProjectTransitionLink from "@/components/cinematic/ProjectTransitionLink";
+import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import TechLogo from "@/components/tech/TechLogo";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
@@ -43,9 +45,18 @@ export default function FeaturedProjectCarouselCard({
 }: FeaturedProjectCarouselCardProps) {
   const statusStyle = STATUS_STYLES[project.status];
   const detailUrl = `/projects/${project.id}/`;
+  const { emit } = useLiquidInteractionEmitter();
+
+  const handleCardHover = useCallback(() => {
+    emit({ type: "uiHover", source: "project" });
+  }, [emit]);
 
   return (
-    <article className="h-full w-full">
+    <article
+      className="h-full w-full"
+      onMouseEnter={handleCardHover}
+      onFocusCapture={handleCardHover}
+    >
       <CursorSpotlight className="h-full rounded-2xl">
       <TiltCard
         maxTilt={10}
