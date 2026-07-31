@@ -1,8 +1,8 @@
 /**
  * @fileoverview Instanced floating droplets orbiting the liquid scene.
  *
- * Each droplet oscillates independently; ripple and scroll progress from the
- * shared interaction ref add collective drift.
+ * Mercury-bead droplets (`MeshPhysicalMaterial`) orbit the liquid-metal blob.
+ * Ripple and scroll progress from the shared interaction ref add collective drift.
  */
 
 "use client";
@@ -99,15 +99,19 @@ export default function LiquidDroplets({
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <sphereGeometry args={[1, 8, 8]} />
-      <meshStandardMaterial
-        color="#4ade9a"
+      <sphereGeometry args={[1, 12, 12]} />
+      <meshPhysicalMaterial
+        color="#7dceb0"
         emissive="#3eb489"
-        emissiveIntensity={0.82}
+        emissiveIntensity={0.28}
         transparent
-        opacity={0.86}
+        opacity={0.9}
         roughness={0.12}
-        metalness={0.45}
+        metalness={0.85}
+        clearcoat={0.55}
+        clearcoatRoughness={0.18}
+        reflectivity={0.95}
+        envMapIntensity={1.15}
       />
     </instancedMesh>
   );

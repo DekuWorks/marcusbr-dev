@@ -1,11 +1,11 @@
 /** Currently-in-development projects strip below the hero. */
 "use client";
 
-import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
 import TiltCard from "@/components/motion/TiltCard";
 import ScrollReveal from "@/components/motion/ScrollReveal";
+import ProjectTransitionLink from "@/components/cinematic/ProjectTransitionLink";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import ReadableCopy from "@/components/layout/ReadableCopy";
 import { getCurrentlyBuildingProjects } from "@/lib/projects";
@@ -67,7 +67,7 @@ export default function CurrentlyBuilding() {
             >
               <article role="listitem" className="h-full">
                 <TiltCard maxTilt={5} className="h-full">
-                  <Link
+                  <ProjectTransitionLink
                     href={`/projects/${project.id}/`}
                     className="active-build-card glass-card group flex h-full flex-col rounded-xl p-4 transition-all hover:border-jade/25"
                     style={
@@ -122,11 +122,11 @@ export default function CurrentlyBuilding() {
                       showPercentage={project.status !== "Client Project"}
                     />
 
-                    <span className="mt-3 inline-flex min-h-9 items-center gap-1 text-xs font-medium text-jade opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                    <span className="mt-3 inline-flex min-h-9 items-center gap-1 text-xs font-medium text-jade transition-colors group-hover:text-jade-bright">
                       View details
                       <ArrowRight className="btn-icon-shift h-3.5 w-3.5" aria-hidden />
                     </span>
-                  </Link>
+                  </ProjectTransitionLink>
                 </TiltCard>
               </article>
             </ScrollReveal>

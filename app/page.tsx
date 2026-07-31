@@ -10,10 +10,11 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
-import LiquidPageBackdrop from "@/components/liquid/LiquidPageBackdrop";
+import CinematicBackground from "@/components/cinematic/CinematicBackground";
+import CommandSideRail from "@/components/cinematic/CommandSideRail";
 import { SITE } from "@/lib/site";
 import { SITE_DESCRIPTION, buildDefaultOpenGraph, buildDefaultTwitter } from "@/lib/seo";
-import ScrollReveal from "@/components/motion/ScrollReveal";
+import SectionReveal from "@/components/cinematic/SectionReveal";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
 import AboutStatsTech from "@/components/sections/AboutStatsTech";
 import CTABar from "@/components/CTABar";
@@ -55,41 +56,41 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
-      <LiquidPageBackdrop />
-      <div className="page-depth-ambient" aria-hidden />
-      <div className="relative z-10 grid-background content-parallax">
+      <CinematicBackground />
+      <div className="relative z-10">
         <SkipLink />
         <Navbar />
+        <CommandSideRail />
         <main
           id="main-content"
           tabIndex={-1}
           className="flex w-full flex-col items-center outline-none"
         >
           <Hero />
-          <ScrollReveal>
+          <SectionReveal delay={0.02}>
             <CurrentlyBuilding />
-          </ScrollReveal>
-          <ScrollReveal delay={0.05}>
+          </SectionReveal>
+          <SectionReveal delay={0.04}>
             <SectionErrorBoundary sectionLabel="Featured Projects">
               <FeaturedProjects />
             </SectionErrorBoundary>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
+          </SectionReveal>
+          <SectionReveal delay={0.06}>
             <AboutStatsTech />
-          </ScrollReveal>
-          <ScrollReveal delay={0.12}>
+          </SectionReveal>
+          <SectionReveal delay={0.08}>
             <SectionErrorBoundary sectionLabel="Technology Stack">
               <TechnologySystem />
             </SectionErrorBoundary>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
+          </SectionReveal>
+          <SectionReveal delay={0.1}>
             <SectionErrorBoundary sectionLabel="Experience">
               <Experience />
             </SectionErrorBoundary>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
+          </SectionReveal>
+          <SectionReveal delay={0.12}>
             <CTABar />
-          </ScrollReveal>
+          </SectionReveal>
         </main>
         <Footer />
       </div>

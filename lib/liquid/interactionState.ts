@@ -142,30 +142,30 @@ export function applyLiquidInteraction(
       state.activeSectionIndex = target.index;
       state.targetShiftX = target.shiftX;
       state.targetShiftY = target.shiftY;
-      state.ripple = Math.min(1, state.ripple + 0.32 * intensity);
-      state.pulse = Math.min(1, state.pulse + 0.22 * intensity);
-      state.colorPulse = Math.min(1, state.colorPulse + 0.18 * intensity);
-      state.gridBump = Math.min(1, state.gridBump + 0.2 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.42 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.3 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.24 * intensity);
+      state.gridBump = Math.min(1, state.gridBump + 0.28 * intensity);
       break;
     }
     case "tabChange":
-      state.pulse = Math.min(1, state.pulse + 0.18 * intensity);
-      state.colorPulse = Math.min(1, state.colorPulse + 0.12 * intensity);
-      state.targetShiftX += 0.06 * intensity;
+      state.pulse = Math.min(1, state.pulse + 0.24 * intensity);
+      state.colorPulse = Math.min(1, state.colorPulse + 0.16 * intensity);
+      state.targetShiftX += 0.08 * intensity;
       break;
     case "pillSelect":
-      state.pulse = Math.min(1, state.pulse + 0.1 * intensity);
-      state.ripple = Math.min(1, state.ripple + 0.08 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.14 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.12 * intensity);
       break;
     case "experienceToggle":
-      state.ripple = Math.min(1, state.ripple + 0.16 * intensity);
-      state.pulse = Math.min(1, state.pulse + 0.14 * intensity);
-      state.targetShiftY += event.expanded ? -0.05 : 0.05;
+      state.ripple = Math.min(1, state.ripple + 0.22 * intensity);
+      state.pulse = Math.min(1, state.pulse + 0.18 * intensity);
+      state.targetShiftY += event.expanded ? -0.07 : 0.07;
       break;
     case "carouselNav":
-      state.ripple = Math.min(1, state.ripple + 0.14 * intensity);
-      state.targetShiftX += event.direction * 0.08 * intensity;
-      state.gridBump = Math.min(1, state.gridBump + 0.12 * intensity);
+      state.ripple = Math.min(1, state.ripple + 0.2 * intensity);
+      state.targetShiftX += event.direction * 0.11 * intensity;
+      state.gridBump = Math.min(1, state.gridBump + 0.16 * intensity);
       break;
   }
 }
@@ -185,10 +185,10 @@ export function tickLiquidPointer(
     state.targetPointerY += (0.5 - state.targetPointerY) * centerT;
   }
 
-  const activeLerp = pointerCoarse ? 3.6 : 5.2;
-  const idleLerp = pointerCoarse ? 2.0 : 2.4;
+  const activeLerp = pointerCoarse ? 4.4 : 6.5;
+  const idleLerp = pointerCoarse ? 2.4 : 3.0;
   const lerpRate = state.pointerActive ? activeLerp : idleLerp;
-  const t = Math.min(1, delta * lerpRate * pointerStrength);
+  const t = Math.min(1, delta * lerpRate * pointerStrength * 1.3);
 
   state.pointerX += (state.targetPointerX - state.pointerX) * t;
   state.pointerY += (state.targetPointerY - state.pointerY) * t;
@@ -206,7 +206,7 @@ export function tickLiquidInteraction(
   const lerpSpeed = options.lerpSpeed ?? 2.4;
 
   const decay = (key: "ripple" | "pulse" | "colorPulse" | "gridBump") => {
-    state[key] *= Math.exp(-delta * 3.8);
+    state[key] *= Math.exp(-delta * 4.6);
     if (state[key] < 0.001) state[key] = 0;
   };
 

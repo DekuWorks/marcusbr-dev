@@ -105,8 +105,8 @@
 |------|---------|
 | `components/liquid/LiquidPageBackdrop.tsx` | Fixed full-viewport liquid mount (`#liquid-backdrop`) |
 | `components/three/LiquidHeroCanvas.tsx` | R3F canvas + `LiquidPageBackground` export |
-| `components/three/LiquidBlob.tsx` | Shader-based icosahedron liquid form |
-| `components/three/LiquidDroplets.tsx` | Instanced jade droplets |
+| `components/three/LiquidBlob.tsx` | Chrome/mercury shader icosahedron + env map |
+| `components/three/LiquidDroplets.tsx` | Instanced mercury droplets |
 | `components/three/LiquidGrid.tsx` | Rotating ground grid |
 | `components/three/SceneFallback.tsx` | CSS gradient/blob fallback |
 | `components/three/SceneErrorBoundary.tsx` | WebGL error → CSS fallback |
@@ -158,9 +158,23 @@
 ## Build Status
 
 ```
-npm test   ✅ 17/17
+npm test   ✅ 21/21
 npm run build ✅ static export (15 pages)
 ```
+
+## Phase 24 — Liquid Metal (Higgsfield + WebGL)
+
+| Change | Detail |
+|--------|--------|
+| Assets | `public/liquid/env-metal.webp` + `metal-still-0N.webp` (procedural stand-ins; swap via Higgsfield) |
+| Pipeline | `scripts/process-liquid-metal-assets.mjs` — reads `tmp-screenshots/liquid/` or `--generate` |
+| Blob | Chrome/mercury shader with equirect env sampling; interaction uniforms unchanged |
+| Droplets | `MeshPhysicalMaterial` mercury beads (metalness 1, clearcoat) |
+| Scene | Cooler key light + jade rim; bloom threshold raised for tight metal sparkle |
+| CSS fallback | Silver/chrome blob + metallic droplets with jade rim accents |
+| Docs | `public/liquid/README.md` Higgsfield prompts |
+
+**Higgsfield workflow:** generate abstract chrome mercury stills (no portrait) → drop into `tmp-screenshots/liquid/` as `env-metal.*` / `metal-still-01.*` … → `node scripts/process-liquid-metal-assets.mjs`
 
 ## Limitations
 
@@ -169,6 +183,7 @@ npm run build ✅ static export (15 pages)
 - Section CSS/Motion accents in tech/experience remain separate from WebGL layer
 - Manual cross-browser QA still recommended on physical iPad
 - ForgeOne 3D lab remains out of scope
+- Higgsfield API not wired (static assets only for v1)
 
 ## Constraints Verified
 
@@ -178,4 +193,5 @@ npm run build ✅ static export (15 pages)
 - ✅ Effects always on; OS reduced motion respected automatically
 - ✅ Mobile/tablet liquid visible (WebGL reduced quality or CSS fallback)
 - ✅ No ForgeOne added
-- ✅ Jade + graphite theme maintained
+- ✅ Jade + graphite theme maintained (chrome metal with jade/cyan rim)
+- ✅ Interactive scroll/pointer liquid bus retained

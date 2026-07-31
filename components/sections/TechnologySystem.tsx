@@ -1,9 +1,8 @@
 /**
  * @fileoverview Interactive technology stack with category tabs and project linking.
  *
- * Desktop: sidebar tabs + tech pill grid + sticky related-projects panel.
- * Mobile: horizontal tab pills with related projects below the grid.
- * Emits liquid `tabChange` and `pillSelect` events on interaction.
+ * Skill rows show local tech logos beside each name. Category tabs map to
+ * existing `techStack` groups (no invented skills / percentages).
  */
 
 "use client";
@@ -14,9 +13,9 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Layers } from "lucide-react";
 import GlassPanel from "@/components/liquid/GlassPanel";
-import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import ReadableCopy from "@/components/layout/ReadableCopy";
+import TechLogo from "@/components/tech/TechLogo";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
 import { getProjectsForTechnology } from "@/lib/techProjectMatch";
@@ -67,7 +66,7 @@ function RelatedProjectsPanel({
                   type="button"
                   onClick={onClear}
                   aria-label={`Clear ${selectedTech} filter`}
-                  className="shrink-0 text-xs text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                  className="shrink-0 rounded-sm text-xs text-muted transition-colors hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   Clear
                 </button>
@@ -97,7 +96,7 @@ function RelatedProjectsPanel({
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-jade-border bg-jade/10">
                           <Image
                             src={project.icon}
-                            alt={`${project.name} icon`}
+                            alt=""
                             width={36}
                             height={36}
                             className="h-full w-full object-cover"
@@ -218,16 +217,16 @@ export default function TechnologySystem() {
   );
 
   const categoryTabClass = (isActive: boolean) =>
-    `min-h-10 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+    `interactive-lift min-h-10 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-sm sm:tracking-[0.12em] ${
       isActive
-        ? "border-jade/50 bg-jade/15 text-jade-bright"
-        : "border-jade-border bg-card/40 text-muted hover:border-jade/30 hover:text-cream"
+        ? "border-jade/50 bg-jade/15 text-jade-bright shadow-[0_0_20px_rgba(62,180,137,0.15)]"
+        : "border-jade-border bg-card/40 text-muted hover:border-jade/35 hover:text-cream"
     }`;
 
   const categoryNavClass = (isActive: boolean) =>
-    `w-full min-h-10 rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+    `interactive-lift w-full min-h-10 rounded-lg border px-3 py-2 text-left text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
       isActive
-        ? "border-jade/50 bg-jade/15 text-jade-bright"
+        ? "border-jade/50 bg-jade/15 text-jade-bright shadow-[0_0_20px_rgba(62,180,137,0.12)]"
         : "border-transparent text-muted hover:border-jade-border hover:bg-card/40 hover:text-cream"
     }`;
 
@@ -237,7 +236,6 @@ export default function TechnologySystem() {
       aria-labelledby="technology-heading"
       className="relative w-full section-spacing"
     >
-      <AnimatedGrid className="opacity-20" />
       <PortfolioContainer className="relative">
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
@@ -248,7 +246,7 @@ export default function TechnologySystem() {
         >
           <p className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-jade uppercase">
             <Layers className="h-4 w-4" aria-hidden />
-            Technology Stack
+            Skills
           </p>
           <h2
             id="technology-heading"
@@ -294,7 +292,7 @@ export default function TechnologySystem() {
           })}
         </div>
 
-        <div className="relative lg:grid lg:grid-cols-[220px_minmax(0,1fr)_minmax(260px,320px)] lg:items-start lg:gap-6 xl:gap-8">
+        <div className="relative lg:grid lg:grid-cols-[200px_minmax(0,1fr)_minmax(260px,320px)] lg:items-start lg:gap-6 xl:gap-8">
           {selectedTech && (
             <div
               className="tech-connection-bridge pointer-events-none absolute inset-y-0 right-[min(320px,28%)] z-0 hidden w-8 lg:block xl:right-[320px]"
@@ -338,40 +336,53 @@ export default function TechnologySystem() {
             aria-labelledby={`${categoryListId}-${activeCategory}`}
             className="min-w-0"
           >
-            <GlassPanel className="rounded-2xl p-5 sm:p-6">
-              <motion.div
+            <GlassPanel className="skill-glass-panel rounded-2xl p-4 sm:p-5">
+              <motion.ul
                 key={activeCategory}
                 initial={motionEnabled ? { opacity: 0, y: 8 } : false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: motionEnabled ? 0.25 : 0 }}
-                className="flex flex-wrap gap-2"
+                className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3"
               >
                 {visibleTechnologies.map((tech, index) => {
                   const isSelected = selectedTech === tech.name;
                   return (
-                    <motion.button
+                    <motion.li
                       key={`${tech.category}-${tech.name}`}
-                      type="button"
-                      initial={motionEnabled ? { opacity: 0, scale: 0.95 } : false}
-                      animate={{ opacity: 1, scale: 1 }}
+                      initial={motionEnabled ? { opacity: 0, y: 6 } : false}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: motionEnabled ? 0.2 : 0,
-                        delay: motionEnabled ? index * 0.015 : 0,
+                        delay: motionEnabled ? index * 0.012 : 0,
                       }}
-                      onClick={() => handleTechSelect(tech.name)}
-                      aria-pressed={isSelected}
-                      aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
-                      className={`tech-float-chip relative rounded-lg border px-3 py-1.5 text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                        isSelected
-                          ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
-                          : "border-jade-border bg-background-secondary/80 text-cream/90 hover:border-jade/35 hover:bg-jade/10"
-                      }`}
                     >
-                      {tech.name}
-                    </motion.button>
+                      <button
+                        type="button"
+                        onClick={() => handleTechSelect(tech.name)}
+                        aria-pressed={isSelected}
+                        aria-label={`${tech.name}${isSelected ? ", selected" : ""}. Show related projects.`}
+                        className={`skill-row interactive-lift flex w-full min-h-12 items-center gap-3 rounded-xl border px-3 py-2.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                          isSelected
+                            ? "border-jade/60 bg-jade/20 text-jade-bright shadow-glow-sm"
+                            : "border-jade-border bg-background-secondary/70 text-cream/90 hover:border-jade/40 hover:bg-jade/10"
+                        }`}
+                      >
+                        <span className="skill-row__icon flex h-9 w-9 items-center justify-center rounded-lg border border-jade-border bg-card/60">
+                          <TechLogo name={tech.name} size={20} />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate text-sm font-medium">
+                            {tech.name}
+                          </span>
+                          <span className="mt-0.5 block truncate text-[11px] uppercase tracking-[0.12em] text-muted">
+                            {tech.category}
+                          </span>
+                        </span>
+                      </button>
+                    </motion.li>
                   );
                 })}
-              </motion.div>
+              </motion.ul>
             </GlassPanel>
 
             <RelatedProjectsPanel

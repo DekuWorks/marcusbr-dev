@@ -20,6 +20,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Legacy neural-interface experiment — removed from page UI; keep sources offline.
+    "components/neural/**",
   ]),
 ]);
 

@@ -75,11 +75,14 @@ marcusbr-dev/
 │   ├── page.tsx              # Main portfolio page
 │   └── projects/[slug]/      # Featured product detail pages
 ├── components/
+│   ├── cinematic/            # Atmosphere, roles, section reveals
 │   ├── projects/             # Featured product cards & gallery
 │   └── sections/             # Page sections (FeaturedProducts)
 ├── lib/
+│   ├── cinematic/            # Ambient asset paths & hero roles
 │   ├── projects.ts           # Typed featured product data model
 │   └── site.ts               # Site metadata & contact info
+├── public/cinematic/         # Abstract ambient WebP textures
 ├── public/projects/          # Per-project icons & screenshots
 │   ├── bookmarked/
 │   ├── gridlock/
@@ -122,14 +125,18 @@ See `docs/project-assets-needed.md` for the asset checklist.
 
 | Token      | Hex       |
 | ---------- | --------- |
-| Background | `#0D1310` |
-| Secondary Background | `#101813` |
+| Background | `#050807` |
+| Secondary Background | `#0A100D` |
 | Jade Green | `#3EB489` |
 | Jade Bright | `#4ADE9A` |
 | Jade Border | `rgba(62, 180, 137, 0.22)` |
-| Cream Text | `#EEE7DC` |
-| Card       | `#151C18` |
-| Muted Text | `#B7B2A8` |
+| Foreground | `#F2F4F3` |
+| Card       | `rgba(14, 20, 17, 0.72)` |
+| Muted Text | `#9AA39E` |
+
+## Cinematic Atmosphere
+
+Abstract ambient textures live in `public/cinematic/` (WebP, lazy-loaded). Generated offline via Higgsfield and committed locally — production never depends on temporary CDN URLs. See `public/cinematic/README.md`.
 
 ## License
 

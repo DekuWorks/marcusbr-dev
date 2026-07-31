@@ -8,15 +8,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0D1310",
-        "background-secondary": "#101813",
+        background: "#050807",
+        "background-secondary": "#0A100D",
         jade: "#3EB489",
         "jade-bright": "#4ADE9A",
         "jade-border": "rgba(62, 180, 137, 0.22)",
-        cream: "#EEE7DC",
-        card: "#151C18",
-        muted: "#B7B2A8",
-        graphite: "#0D1310",
+        cream: "#F2F4F3",
+        card: "rgba(14, 20, 17, 0.72)",
+        muted: "#9AA39E",
+        graphite: "#050807",
         "ai-accent": "#818CF8",
         "violet-accent": "#A78BFA",
         gold: {

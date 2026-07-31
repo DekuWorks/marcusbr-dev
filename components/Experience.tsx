@@ -29,7 +29,6 @@ import TiltCard from "@/components/motion/TiltCard";
 import CursorSpotlight from "@/components/liquid/CursorSpotlight";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
 import { useLiquidInteractionEmitter } from "@/hooks/useLiquidInteraction";
-import AnimatedGrid from "@/components/liquid/AnimatedGrid";
 import { experiences } from "@/lib/experience";
 
 function isCurrentRole(period: string): boolean {
@@ -205,12 +204,36 @@ export default function Experience() {
   const { motionEnabled } = useMotionEnabled();
   const { emit } = useLiquidInteractionEmitter();
   const [showFullTimeline, setShowFullTimeline] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const fullTimelineRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const trackId = useId();
   const fullTimelineId = useId();
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const updateProgress = () => {
+      const rect = section.getBoundingClientRect();
+      const view = window.innerHeight || 1;
+      const total = rect.height + view;
+      const traveled = view - rect.top;
+      const next = Math.min(1, Math.max(0, traveled / total));
+      setScrollProgress(next);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
 
   const updateScrollState = useCallback(() => {
     const track = trackRef.current;
@@ -274,12 +297,26 @@ export default function Experience() {
 
   return (
     <section
+      ref={sectionRef}
       id="experience"
       aria-labelledby="experience-heading"
       className="relative w-full section-spacing"
     >
-      <AnimatedGrid className="opacity-25 lg:hidden" density="fine" />
       <PortfolioContainer className="relative">
+        <div
+          className="experience-progress"
+          role="progressbar"
+          aria-label="Experience section scroll progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(scrollProgress * 100)}
+        >
+          <div
+            className="experience-progress__bar"
+            style={{ transform: `scaleX(${scrollProgress})` }}
+          />
+        </div>
+
         <motion.div
           initial={motionEnabled ? { opacity: 0, y: 20 } : false}
           whileInView={{ opacity: 1, y: 0 }}

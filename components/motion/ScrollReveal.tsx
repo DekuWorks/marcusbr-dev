@@ -13,10 +13,10 @@ type ScrollRevealProps = {
 };
 
 const directionOffset = {
-  up: { y: 24, x: 0 },
-  down: { y: -24, x: 0 },
-  left: { x: 24, y: 0 },
-  right: { x: -24, y: 0 },
+  up: { y: 28, x: 0 },
+  down: { y: -28, x: 0 },
+  left: { x: 28, y: 0 },
+  right: { x: -28, y: 0 },
 };
 
 export default function ScrollReveal({
@@ -35,10 +35,11 @@ export default function ScrollReveal({
         motionEnabled ? { opacity: 0, x: offset.x, y: offset.y } : false
       }
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-70px" }}
       transition={{
-        duration: motionEnabled ? 0.45 : 0,
+        duration: motionEnabled ? 0.4 : 0,
         delay: motionEnabled ? delay : 0,
+        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {children}

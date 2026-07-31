@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint components lib app hooks",
+    "lint": "eslint components lib app hooks --ignore-pattern 'components/neural/**'",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "liquid:assets": "node scripts/process-liquid-metal-assets.mjs",
+    "liquid:assets:generate": "node scripts/process-liquid-metal-assets.mjs --generate",
+    "neural:assets": "node scripts/process-neural-assets.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
@@ -30,6 +33,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "sharp": "^0.35.3",
+    "simple-icons": "^16.27.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.4"

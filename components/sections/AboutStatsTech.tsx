@@ -33,8 +33,15 @@ export default function AboutStatsTech() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: motionEnabled ? 0.45 : 0 }}
-            className="glass-card rounded-2xl p-6 sm:p-8 lg:col-span-3"
+            className="glass-card relative overflow-hidden rounded-2xl border border-jade/20 p-6 shadow-glow-sm sm:p-8 lg:col-span-3"
           >
+            <div
+              className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-jade/10 blur-3xl"
+              aria-hidden
+            />
+            <p className="mb-2 text-[11px] font-semibold tracking-[0.2em] text-jade uppercase">
+              About
+            </p>
             <h2
               id="about-heading"
               className="text-2xl font-bold text-cream sm:text-3xl"
@@ -79,7 +86,7 @@ export default function AboutStatsTech() {
           >
             {stats.map((stat) => (
               <CursorSpotlight key={stat.label} className="rounded-xl">
-                <div className="glass-card flex h-full flex-col items-center justify-center rounded-xl p-4 text-center sm:p-5">
+                <div className="glass-card interactive-lift flex h-full flex-col items-center justify-center rounded-xl border border-jade/15 p-4 text-center sm:p-5">
                   <stat.icon className="mb-2 h-6 w-6 text-jade" aria-hidden />
                   <p className="text-2xl font-bold text-jade-bright sm:text-3xl">
                     {stat.value}

@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import SiteLogo from "./SiteLogo";
 import CommandPaletteHint from "./CommandPaletteHint";
 import SectionHashLink from "@/components/nav/SectionHashLink";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
+import { CINEMATIC_ASSETS } from "@/lib/cinematic/assets";
 import { SITE } from "@/lib/site";
 
 const quickLinks = [
@@ -25,8 +27,18 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-jade/10 bg-background/35 py-12 backdrop-blur-md">
-      <PortfolioContainer>
+    <footer className="footer-cinematic relative w-full overflow-hidden py-12">
+      <div className="footer-cinematic__ambient" aria-hidden>
+        <Image
+          src={CINEMATIC_ASSETS.contactGlow}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          loading="lazy"
+        />
+      </div>
+      <PortfolioContainer className="relative z-10">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div>
             <SectionHashLink
@@ -43,21 +55,21 @@ export default function Footer() {
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <a
                 href={SITE.social.github}
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted transition-colors hover:border-jade/40 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
+                className="social-icon-btn flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
                 aria-label="GitHub profile"
               >
                 <GitHubIcon className="h-5 w-5" />
               </a>
               <a
                 href={SITE.social.linkedin}
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted transition-colors hover:border-jade/40 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
+                className="social-icon-btn flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
                 aria-label="LinkedIn profile"
               >
                 <LinkedInIcon className="h-5 w-5" />
               </a>
               <a
                 href={`mailto:${SITE.email}`}
-                className="flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted transition-colors hover:border-jade/40 hover:text-jade focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
+                className="social-icon-btn flex h-11 w-11 items-center justify-center rounded-lg border border-jade-border text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade"
                 aria-label="Send email"
               >
                 <span className="text-sm font-semibold">@</span>

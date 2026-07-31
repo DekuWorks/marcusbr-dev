@@ -1,11 +1,12 @@
 /** Card for a single featured project in the horizontal carousel. */
 "use client";
 
-import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import TiltCard from "@/components/motion/TiltCard";
 import CursorSpotlight from "@/components/liquid/CursorSpotlight";
+import ProjectTransitionLink from "@/components/cinematic/ProjectTransitionLink";
 import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
+import TechLogo from "@/components/tech/TechLogo";
 import ProjectConceptIconDisplay from "./ProjectConceptIconDisplay";
 import ProjectTrackerProgress from "./ProjectTrackerProgress";
 
@@ -47,17 +48,17 @@ export default function FeaturedProjectCarouselCard({
     <article className="h-full w-full">
       <CursorSpotlight className="h-full rounded-2xl">
       <TiltCard
-        maxTilt={8}
+        maxTilt={10}
         className="featured-product-card group flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/45 backdrop-blur-md"
         style={{ "--project-accent": project.accent } as React.CSSProperties}
       >
         <div className="featured-card-shine" aria-hidden />
-      <Link
+      <ProjectTransitionLink
         href={detailUrl}
         className="group/screenshot relative block overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-inset"
         aria-label={`View ${project.name} project details`}
       >
-        <div className="project-concept-icon-slot relative aspect-[16/10] w-full">
+        <div className="project-concept-icon-slot project-open-vt relative aspect-[16/10] w-full">
           <ProjectConceptIconDisplay
             icon={project.icon}
             alt={`${project.name} app icon`}
@@ -65,7 +66,7 @@ export default function FeaturedProjectCarouselCard({
             priority={priority}
           />
         </div>
-      </Link>
+      </ProjectTransitionLink>
 
       <div className="flex flex-1 flex-col p-5 max-md:items-center max-md:text-center">
         <div className="min-w-0 max-md:w-full">
@@ -79,13 +80,14 @@ export default function FeaturedProjectCarouselCard({
           {project.technologies.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-md border border-jade-border bg-background-secondary/80 px-2 py-0.5 text-[11px] text-muted"
+              className="inline-flex items-center gap-1.5 rounded-md border border-jade-border bg-background-secondary/80 px-2 py-1 text-[11px] text-muted"
             >
+              <TechLogo name={tech} size={12} />
               {tech}
             </span>
           ))}
           {project.technologies.length > 4 && (
-            <span className="rounded-md border border-jade-border bg-background-secondary/80 px-2 py-0.5 text-[11px] text-muted">
+            <span className="rounded-md border border-jade-border bg-background-secondary/80 px-2 py-1 text-[11px] text-muted">
               +{project.technologies.length - 4}
             </span>
           )}
@@ -124,13 +126,13 @@ export default function FeaturedProjectCarouselCard({
                 {getProjectLiveUrlLabel(project)}
               </a>
             )}
-            <Link
+            <ProjectTransitionLink
               href={detailUrl}
               className="inline-flex min-h-11 items-center gap-1 text-sm font-medium text-jade transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
             >
               Details
               <ArrowUpRight className="btn-icon-shift h-4 w-4" aria-hidden />
-            </Link>
+            </ProjectTransitionLink>
           </div>
         </div>
       </div>

@@ -20,9 +20,9 @@ interface ButtonProps {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-jade text-background hover:bg-jade/90 shadow-glow-sm border border-jade/30",
+    "bg-jade text-background hover:bg-jade-bright shadow-glow-sm border border-jade/40",
   secondary:
-    "glass-card text-cream hover:border-jade/30 hover:shadow-glow-sm",
+    "glass-card text-cream hover:border-jade/40 hover:shadow-glow-sm hover:bg-card/80",
   ghost:
     "text-muted hover:text-cream hover:bg-white/5 border border-transparent",
 };

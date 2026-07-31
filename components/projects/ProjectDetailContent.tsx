@@ -3,6 +3,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getProjectLiveUrlLabel, type FeaturedProject } from "@/lib/projects";
 import { SITE } from "@/lib/site";
 import Button from "@/components/Button";
+import CinematicBackground from "@/components/cinematic/CinematicBackground";
 import { GitHubIcon } from "@/components/icons/SocialIcons";
 import ProjectAppIcon from "@/components/projects/ProjectAppIcon";
 import ProjectScreenshotGallery from "@/components/projects/ProjectScreenshotGallery";
@@ -20,7 +21,7 @@ function DetailSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-jade-border bg-card/60 p-6 sm:p-8">
+    <section className="glass-card rounded-2xl p-6 sm:p-8">
       <h2 className="text-xl font-bold text-cream">{title}</h2>
       <div className="mt-4 text-sm leading-relaxed text-muted sm:text-base">
         {children}
@@ -33,8 +34,9 @@ export default function ProjectDetailContent({
   project,
 }: ProjectDetailContentProps) {
   return (
-    <div className="grid-background min-h-screen">
-      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-16">
+    <div className="relative min-h-screen overflow-x-hidden">
+      <CinematicBackground />
+      <div className="relative z-10 mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-16">
         <Link
           href="/#projects"
           className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-jade-bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -44,12 +46,14 @@ export default function ProjectDetailContent({
         </Link>
 
         <header className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
-          <ProjectAppIcon
-            src={project.icon}
-            alt={`${project.name} app icon`}
-            size="lg"
-            priority
-          />
+          <div className="project-open-vt">
+            <ProjectAppIcon
+              src={project.icon}
+              alt={`${project.name} app icon`}
+              size="lg"
+              priority
+            />
+          </div>
           <div className="flex-1">
             <p className="text-sm font-medium text-jade-bright">
               {project.statusLabel}

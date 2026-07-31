@@ -1,6 +1,7 @@
 /** Contact CTA section with recruiter quick-actions and availability info. */
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -19,6 +20,7 @@ import GlassPanel from "@/components/liquid/GlassPanel";
 import PortfolioContainer from "@/components/layout/PortfolioContainer";
 import ReadableCopy from "@/components/layout/ReadableCopy";
 import { useMotionEnabled } from "@/hooks/useEffectsPreference";
+import { CINEMATIC_ASSETS } from "@/lib/cinematic/assets";
 import { SITE } from "@/lib/site";
 
 const recruiterActions = [
@@ -60,8 +62,21 @@ export default function CTABar() {
           transition={{ duration: motionEnabled ? 0.45 : 0 }}
           className="relative"
         >
-          <LiquidBorder className="cta-liquid-border overflow-hidden rounded-2xl shadow-glow">
+          <LiquidBorder className="cta-liquid-border cta-cinematic overflow-hidden rounded-2xl shadow-glow">
             <GlassPanel className="cta-liquid-panel relative overflow-hidden rounded-2xl border-0 p-8 sm:p-10 lg:p-12">
+              <div
+                className="cta-cinematic__bg pointer-events-none absolute inset-0"
+                aria-hidden
+              >
+                <Image
+                  src={CINEMATIC_ASSETS.contactGlow}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1800px) 100vw, 1800px"
+                  className="object-cover"
+                  loading="lazy"
+                />
+              </div>
               <div
                 className="cta-liquid-panel__ambient pointer-events-none absolute inset-0"
                 aria-hidden

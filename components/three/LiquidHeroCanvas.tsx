@@ -23,6 +23,7 @@ import {
 } from "@/hooks/useElementVisibility";
 import LiquidBlob from "./LiquidBlob";
 import LiquidDroplets from "./LiquidDroplets";
+import LiquidEnvironment, { useLiquidEnvMap } from "./LiquidEnvironment";
 import LiquidGrid from "./LiquidGrid";
 import { useWebGLSupport } from "@/hooks/useWebGLSupport";
 import SceneFallback from "./SceneFallback";
@@ -37,6 +38,7 @@ function LiquidScene({
   bloom,
   dropletCount,
   blobSegments,
+  blobScale,
   gridDensity,
   deformationSpeed,
   interactionRef,
@@ -46,11 +48,14 @@ function LiquidScene({
   bloom: boolean;
   dropletCount: number;
   blobSegments: number;
+  blobScale: number;
   gridDensity: number;
   deformationSpeed: number;
   interactionRef: ReturnType<typeof useLiquidInteraction>["stateRef"];
   onTick: (delta: number) => void;
 }) {
+  const envMap = useLiquidEnvMap();
+
   useFrame((_, delta) => {
     if (!paused) onTick(delta);
   });
@@ -58,9 +63,12 @@ function LiquidScene({
   return (
     <>
       <color attach="background" args={["#0d1310"]} />
-      <ambientLight intensity={0.38} />
-      <pointLight position={[3, 4, 2]} intensity={1.35} color="#4ade9a" />
-      <pointLight position={[-3, -1, -2]} intensity={0.58} color="#22d3ee" />
+      {/* TextureLoader + map= — never files= on .webp (drei GainMapLoader → /i/ 404) */}
+      <LiquidEnvironment map={envMap} intensity={0.7} />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[3.2, 4.2, 2.4]} intensity={1.35} color="#d8f5e8" />
+      <pointLight position={[-3.4, -0.6, -2.2]} intensity={0.65} color="#22d3ee" />
+      <pointLight position={[0.6, 2.8, -2.8]} intensity={0.75} color="#4ade9a" />
       <LiquidGrid
         density={gridDensity}
         speed={deformationSpeed}
@@ -70,8 +78,10 @@ function LiquidScene({
       <LiquidBlob
         segments={blobSegments}
         speed={deformationSpeed}
+        scale={blobScale}
         paused={paused}
         interactionRef={interactionRef}
+        envMap={envMap}
       />
       <LiquidDroplets
         count={dropletCount}
@@ -82,9 +92,9 @@ function LiquidScene({
       {bloom && (
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={0.48}
-            luminanceThreshold={0.45}
-            luminanceSmoothing={0.88}
+            intensity={0.42}
+            luminanceThreshold={0.62}
+            luminanceSmoothing={0.72}
             mipmapBlur
           />
         </EffectComposer>
@@ -134,6 +144,7 @@ export default function LiquidHeroCanvas({ className = "" }: LiquidHeroCanvasPro
             bloom={bloomEnabled && settings.bloom}
             dropletCount={dropletCount}
             blobSegments={settings.blobSegments}
+            blobScale={settings.blobScale}
             gridDensity={settings.gridDensity}
             deformationSpeed={settings.deformationSpeed * liquidSpeed}
             interactionRef={stateRef}

@@ -31,7 +31,7 @@ export default function LiquidGrid({
   const lines = useMemo(() => {
     const size = 6 * density;
     const divisions = Math.floor(20 * density);
-    const geometry = new THREE.GridHelper(size, divisions, "#245a48", "#183528");
+    const geometry = new THREE.GridHelper(size, divisions, "#3a5a58", "#1c2e2c");
     geometry.position.y = -1.8;
     return geometry;
   }, [density]);
