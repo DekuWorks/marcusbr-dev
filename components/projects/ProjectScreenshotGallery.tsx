@@ -190,7 +190,7 @@ export default function ProjectScreenshotGallery({
             <button
               type="button"
               onClick={goPrev}
-              className="absolute top-1/2 left-2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-jade/25 bg-background/80 text-cream backdrop-blur-sm transition-colors hover:border-jade/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade motion-safe:max-sm:hidden"
+              className="absolute top-1/2 left-2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-jade/25 bg-background/95 text-cream transition-colors hover:border-jade/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade motion-safe:max-sm:hidden"
               aria-label="Previous screenshot"
               aria-controls={galleryId}
             >
@@ -199,7 +199,7 @@ export default function ProjectScreenshotGallery({
             <button
               type="button"
               onClick={goNext}
-              className="absolute top-1/2 right-2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-jade/25 bg-background/80 text-cream backdrop-blur-sm transition-colors hover:border-jade/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade motion-safe:max-sm:hidden"
+              className="absolute top-1/2 right-2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-jade/25 bg-background/95 text-cream transition-colors hover:border-jade/50 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade motion-safe:max-sm:hidden"
               aria-label="Next screenshot"
               aria-controls={galleryId}
             >
@@ -239,7 +239,7 @@ export default function ProjectScreenshotGallery({
           aria-modal="true"
           aria-label="Screenshot lightbox"
           tabIndex={-1}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/92 p-4"
           onClick={() => setLightboxOpen(false)}
         >
           <button

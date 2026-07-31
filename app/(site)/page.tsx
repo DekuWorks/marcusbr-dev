@@ -3,6 +3,7 @@
  *
  * Above-fold: Hero, CurrentlyBuilding. Below-fold sections are dynamically
  * imported with skeleton loaders to reduce initial JS bundle.
+ * Atmosphere lives in `(site)/layout.tsx` (shared with project deep links).
  */
 
 import type { Metadata } from "next";
@@ -10,7 +11,6 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import SkipLink from "@/components/SkipLink";
 import Hero from "@/components/Hero";
-import CinematicBackground from "@/components/cinematic/CinematicBackground";
 import CommandSideRail from "@/components/cinematic/CommandSideRail";
 import { SITE } from "@/lib/site";
 import { SITE_DESCRIPTION, buildDefaultOpenGraph, buildDefaultTwitter } from "@/lib/seo";
@@ -55,45 +55,42 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden pb-[env(safe-area-inset-bottom,0px)]">
-      <CinematicBackground />
-      <div className="relative z-10">
-        <SkipLink />
-        <Navbar />
-        <CommandSideRail />
-        <main
-          id="main-content"
-          tabIndex={-1}
-          className="flex w-full flex-col items-center outline-none"
-        >
-          <Hero />
-          <SectionReveal delay={0.02}>
-            <CurrentlyBuilding />
-          </SectionReveal>
-          <SectionReveal delay={0.04}>
-            <SectionErrorBoundary sectionLabel="Featured Projects">
-              <FeaturedProjects />
-            </SectionErrorBoundary>
-          </SectionReveal>
-          <SectionReveal delay={0.06}>
-            <AboutStatsTech />
-          </SectionReveal>
-          <SectionReveal delay={0.08}>
-            <SectionErrorBoundary sectionLabel="Technology Stack">
-              <TechnologySystem />
-            </SectionErrorBoundary>
-          </SectionReveal>
-          <SectionReveal delay={0.1}>
-            <SectionErrorBoundary sectionLabel="Experience">
-              <Experience />
-            </SectionErrorBoundary>
-          </SectionReveal>
-          <SectionReveal delay={0.12}>
-            <CTABar />
-          </SectionReveal>
-        </main>
-        <Footer />
-      </div>
-    </div>
+    <>
+      <SkipLink />
+      <Navbar />
+      <CommandSideRail />
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex w-full flex-col items-center outline-none"
+      >
+        <Hero />
+        <SectionReveal delay={0.02}>
+          <CurrentlyBuilding />
+        </SectionReveal>
+        <SectionReveal delay={0.04}>
+          <SectionErrorBoundary sectionLabel="Featured Projects">
+            <FeaturedProjects />
+          </SectionErrorBoundary>
+        </SectionReveal>
+        <SectionReveal delay={0.06}>
+          <AboutStatsTech />
+        </SectionReveal>
+        <SectionReveal delay={0.08}>
+          <SectionErrorBoundary sectionLabel="Technology Stack">
+            <TechnologySystem />
+          </SectionErrorBoundary>
+        </SectionReveal>
+        <SectionReveal delay={0.1}>
+          <SectionErrorBoundary sectionLabel="Experience">
+            <Experience />
+          </SectionErrorBoundary>
+        </SectionReveal>
+        <SectionReveal delay={0.12}>
+          <CTABar />
+        </SectionReveal>
+      </main>
+      <Footer />
+    </>
   );
 }

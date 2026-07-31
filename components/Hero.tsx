@@ -166,7 +166,7 @@ export default function Hero() {
                 {heroStats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="rounded-xl border border-jade-border bg-card/45 px-2.5 py-3 text-center backdrop-blur-md"
+                    className="rounded-xl border border-jade-border bg-card/90 px-2.5 py-3 text-center"
                   >
                     <dt className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted sm:text-[11px]">
                       {stat.label}
@@ -251,7 +251,7 @@ export default function Hero() {
                   key={badge.label}
                   {...fade(0.48 + index * 0.06, 10)}
                 >
-                  <div className="flex items-center gap-2 rounded-full border border-jade-border bg-card/55 px-3 py-2 text-xs text-cream shadow-glow-sm backdrop-blur-md">
+                  <div className="flex items-center gap-2 rounded-full border border-jade-border bg-card/90 px-3 py-2 text-xs text-cream shadow-glow-sm">
                     <badge.icon
                       className="h-3.5 w-3.5 shrink-0 text-jade"
                       aria-hidden

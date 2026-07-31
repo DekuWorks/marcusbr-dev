@@ -17,7 +17,8 @@
   --graphite: #050807;
   --ai-accent: #818cf8;
   --violet-accent: #a78bfa;
-  --glass-bg: rgba(12, 18, 15, 0.52);
+  /* Opaque enough that backdrop-blur does not sample flickering WebGL/video */
+  --glass-bg: rgba(12, 18, 15, 0.82);
   --glass-border: rgba(62, 180, 137, 0.2);
   --ambient-jade: rgba(62, 180, 137, 0.14);
 
@@ -169,7 +170,8 @@ body {
 
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(1.15);
+  /* Soft blur only — heavy blur over liquid/video stacks causes flicker */
+  backdrop-filter: blur(8px) saturate(1.08);
   border: 1px solid var(--glass-border);
   box-shadow:
     inset 0 1px 0 rgba(62, 180, 137, 0.08),
@@ -200,10 +202,11 @@ body {
   overflow: hidden;
   background: linear-gradient(
     145deg,
-    rgba(21, 28, 24, 0.42) 0%,
-    rgba(16, 24, 19, 0.38) 100%
+    rgba(21, 28, 24, 0.88) 0%,
+    rgba(16, 24, 19, 0.84) 100%
   );
-  backdrop-filter: blur(14px);
+  /* Prefer solid fill over heavy blur sampling of liquid/video */
+  backdrop-filter: none;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease,
@@ -1629,7 +1632,7 @@ body {
 
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(1.15);
+  backdrop-filter: blur(8px) saturate(1.08);
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
   box-shadow:
@@ -1679,9 +1682,9 @@ body {
 .liquid-border__content {
   position: relative;
   border-radius: inherit;
-  background: rgba(21, 28, 24, 0.5);
+  background: rgba(21, 28, 24, 0.88);
   border: 1px solid rgba(62, 180, 137, 0.2);
-  backdrop-filter: blur(12px);
+  backdrop-filter: none;
 }
 
 /* ── Cursor spotlight ── */
@@ -2853,7 +2856,8 @@ a:focus-visible .btn-icon-shift {
   position: absolute;
   inset: 0;
   opacity: 0.28;
-  mix-blend-mode: screen;
+  /* soft-light avoids screen-blend flash over cinematic stack */
+  mix-blend-mode: soft-light;
   pointer-events: none;
 }
 
@@ -2866,7 +2870,7 @@ a:focus-visible .btn-icon-shift {
   position: absolute;
   inset: 0;
   opacity: 0.55;
-  mix-blend-mode: screen;
+  mix-blend-mode: soft-light;
 }
 
 .cta-cinematic__bg img {
@@ -2876,9 +2880,9 @@ a:focus-visible .btn-icon-shift {
 .footer-cinematic {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(5, 8, 7, 0.2) 0%, rgba(5, 8, 7, 0.72) 100%);
+    linear-gradient(180deg, rgba(5, 8, 7, 0.55) 0%, rgba(5, 8, 7, 0.92) 100%);
   border-top: 1px solid rgba(62, 180, 137, 0.12);
-  backdrop-filter: blur(16px);
+  backdrop-filter: none;
 }
 
 .project-open-vt {

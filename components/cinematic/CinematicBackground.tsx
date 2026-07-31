@@ -144,7 +144,7 @@ export default function CinematicBackground() {
           alt=""
           fill
           sizes="100vw"
-          className={`object-cover opacity-28 mix-blend-screen ${motionEnabled ? "cinematic-bg__drift" : ""}`}
+          className={`object-cover opacity-28 mix-blend-soft-light ${motionEnabled ? "cinematic-bg__drift" : ""}`}
           priority={false}
           loading="lazy"
         />

@@ -63,7 +63,7 @@ export default function FeaturedProjectCard({
       <CursorSpotlight className="h-full rounded-2xl">
         <LiquidBorder
           accent={project.accent}
-          className="featured-product-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/45 p-5 backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-jade/40 hover:shadow-glow-sm sm:p-6"
+          className="featured-product-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-jade-border bg-card/90 p-5 transition-[border-color,box-shadow] duration-300 hover:border-jade/40 hover:shadow-glow-sm sm:p-6"
           style={
             {
               "--project-accent": project.accent,

@@ -116,7 +116,7 @@ export default function FeaturedProjects() {
             type="button"
             onClick={() => scrollByCard(-1)}
             disabled={!canScrollLeft}
-            className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/70 text-cream shadow-glow-sm backdrop-blur-md transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-left-4"
+            className="absolute top-1/2 -left-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream shadow-glow-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-left-4"
             aria-label="Scroll to previous projects"
             aria-controls={trackId}
           >
@@ -157,7 +157,7 @@ export default function FeaturedProjects() {
             type="button"
             onClick={() => scrollByCard(1)}
             disabled={!canScrollRight}
-            className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/70 text-cream shadow-glow-sm backdrop-blur-md transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-right-4"
+            className="absolute top-1/2 -right-2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-jade-border bg-card/90 text-cream shadow-glow-sm transition-colors hover:border-jade/40 hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jade disabled:pointer-events-none disabled:opacity-30 sm:flex xl:-right-4"
             aria-label="Scroll to next projects"
             aria-controls={trackId}
           >
