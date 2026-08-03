@@ -6,7 +6,7 @@ export const SITE = {
   email: "marcusb0611@gmail.com",
   phone: "8645247473",
   recruiterSummary:
-    "Full Stack Developer and AI Engineer with 8+ years of experience building SaaS platforms, native and cross-platform mobile apps, secure APIs, cloud-native systems, and AI-assisted product experiences. Strong background in React, TypeScript, Swift/SwiftUI, Flutter, React Native, .NET, Python/FastAPI, Supabase, Azure, AWS, and end-to-end product architecture.",
+    "Full Stack Developer and AI Engineer with 8+ years of experience building SaaS platforms, native and cross-platform mobile apps, secure APIs, cloud-native systems, and AI-assisted product experiences. Strong background in React, TypeScript, Swift/SwiftUI, Flutter, React Native, .NET, Python/FastAPI, Rails, Supabase, Azure, AWS, and end-to-end product architecture.",
   social: {
     github: "https://github.com/DekuWorks",
     linkedin: "https://www.linkedin.com/in/marcus-brown-6b1643259/",
@@ -39,6 +39,7 @@ export const FEATURED_TECHNOLOGIES = [
   "C#",
   "Python",
   "FastAPI",
+  "Rails",
   "Supabase",
   "AWS",
   "Azure",

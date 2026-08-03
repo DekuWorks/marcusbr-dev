@@ -39,6 +39,8 @@ export const techStack = [
       "Python",
       "FastAPI",
       "Django",
+      "Ruby",
+      "Rails",
       "Node.js",
       "Express",
       "REST APIs",

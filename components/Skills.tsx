@@ -14,7 +14,7 @@ const skillGroups = [
   },
   {
     title: "Backend",
-    skills: ["C#", ".NET 8", "Python", "Django", "Node.js", "REST APIs", "Express", "Supabase"],
+    skills: ["C#", ".NET 8", "Python", "Django", "Ruby", "Rails", "Node.js", "REST APIs", "Express", "Supabase"],
   },
   {
     title: "Database",
