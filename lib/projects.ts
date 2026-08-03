@@ -157,6 +157,62 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       "A live beta surfaces real scheduling friction fast — users need instant availability clarity before AI suggestions add value.",
   },
   {
+    id: "rigscout",
+    name: "RigScout",
+    category: "PC Parts Price Tracking and Build Platform",
+    synopsis:
+      "RigScout helps PC builders find components, compare retailer prices, track complete builds, monitor price history, and receive deal alerts.",
+    longDescription:
+      "RigScout combines a dark-first hardware dashboard, market analytics, and a beginner build assistant so builders can discover parts, compare prices across retailers, plan compatible builds, and catch deal alerts without juggling tabs.",
+    icon: asset("rigscout", "icon.webp"),
+    screenshots: [asset("rigscout", "screenshot-01.webp")],
+    screenshotAlts: [
+      "RigScout dashboard with build tracking and market analytics",
+    ],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "FastAPI",
+      "Python",
+      "TanStack Query",
+    ],
+    status: "In Development",
+    statusLabel: "PC Build Intelligence",
+    accent: "#00C2FF",
+    liveUrl: "https://rigscout.co",
+    caseStudyUrl: "/projects/rigscout/",
+    featured: true,
+    filters: ["saas"],
+    conceptUI: false,
+    problem:
+      "PC builders bounce between retailer sites, spreadsheets, and forums to track prices, check compatibility, and catch deals — losing time and missing drops.",
+    solution:
+      "RigScout unifies part discovery, retailer price comparison, build planning, price history, and deal alerts in one approachable dashboard for beginners and enthusiasts.",
+    features: [
+      "Discover parts with search, filters, and deal scoring",
+      "Retailer price comparison and 90-day history charts",
+      "Build Lab with compatibility guidance and shareable builds",
+      "Watchlists and deal alert notifications",
+      "Beginner Learn guides for PC building basics",
+      "Dashboard with market analytics and build summaries",
+    ],
+    architecture:
+      "React + Vite web app with Supabase auth/Postgres/RLS, a FastAPI Python service for retailer sync and alert jobs, and GitHub Pages for the frontend.",
+    developmentFocus:
+      "Live at rigscout.co — wiring live retailer credentials, refining Build Lab, and expanding alert delivery.",
+    trackerPhase: "In Development",
+    trackerProgress: 70,
+    trackerDetail:
+      "Live beta — catalog, builds, and alerts shipping; retailer keys next.",
+    lessonsLearned:
+      "A production-safe empty catalog beats demo data in prod — real retailer feeds must be explicit before the product feels trustworthy.",
+    orbitPosition: [0.95, -0.25, 0.7],
+  },
+  {
     id: "bookmarked",
     name: "Bookmarked",
     category: "Social Reading and Book Discovery Platform",
@@ -327,6 +383,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
 export const FEATURED_PROJECT_ORDER = [
   "shuchu",
   "daypilot",
+  "rigscout",
   "bookmarked",
   "avryo",
   "gridlock",
@@ -334,6 +391,7 @@ export const FEATURED_PROJECT_ORDER = [
 
 /** Display order for the Currently Building tracker on the homepage. */
 export const CURRENTLY_BUILDING_ORDER = [
+  "rigscout",
   "daypilot",
   "shuchu",
   "bookmarked",

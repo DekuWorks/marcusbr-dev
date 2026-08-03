@@ -12,6 +12,7 @@ describe("portfolioNodes", () => {
     );
     expect(nodes.some((n) => n.id === "gridlock")).toBe(true);
     expect(nodes.some((n) => n.id === "shuchu")).toBe(true);
+    expect(nodes.some((n) => n.id === "rigscout")).toBe(true);
     expect(nodes.every((n) => n.href.length > 0)).toBe(true);
   });
 
