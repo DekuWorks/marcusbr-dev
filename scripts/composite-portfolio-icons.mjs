@@ -18,7 +18,7 @@ const DARK_THRESHOLD = 18;
 // Light-corner icons: flood-fill edge light pixels to transparent.
 const LIGHT_MATTE_ONLY = ["shuchu", "bookmarked", "rigscout", "241runners"];
 // Dark-corner icons: flood-fill edge dark pixels to transparent.
-const DARK_MATTE_ONLY = ["avryo", "gridlock"];
+const DARK_MATTE_ONLY = ["avryo"];
 
 function cornersAreLight(data, width, height) {
   const sample = (x, y) => {
