@@ -96,13 +96,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "Native SwiftUI client (local-first SwiftData) with Supabase for auth, PostgreSQL, RLS, Edge Functions, and StoreKit subscriptions.",
     developmentFocus:
-      "App Store review for Shuchu Focus 1.0 (build 5) — 2.5.1 Screen Time strip done; upload/resubmit and Family Controls entitlement next.",
-    trackerPhase: "App Store Review",
-    trackerProgress: 88,
+      "Not live yet — preparing Shuchu Focus 1.0 (build 5) for App Store Connect upload/resubmit after the Guideline 2.5.1 Screen Time fix; Family Controls entitlement still pending.",
+    trackerPhase: "App Store Prep",
+    trackerProgress: 85,
     trackerDetail:
-      "Build 5 ready — ASC resubmit after Guideline 2.5.1 fix.",
+      "Not on the App Store yet — build 5 ready locally; ASC resubmit next.",
     lessonsLearned:
-      "Store review forces hard product trade-offs — shipping Focus Protection as Unavailable beat blocking the whole 1.0 release.",
+      "App Store review forces hard product trade-offs — Focus Protection as Unavailable beats blocking the whole 1.0 submission.",
   },
   {
     id: "daypilot",
