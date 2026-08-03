@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 import type { FeaturedProject } from "@/lib/projects";
 
 export const SITE_DESCRIPTION =
-  "Marcus Brown is a Senior Full Stack Developer and AI Engineer with 8+ years building SaaS platforms, cross-platform mobile applications, secure APIs, and AI-assisted product experiences with React, TypeScript, Flutter, React Native, .NET, Python, Supabase, Azure, and AWS.";
+  "Marcus Brown is a Senior Full Stack Developer and AI Engineer with 8+ years building SaaS platforms, native and cross-platform mobile apps, secure APIs, and AI-assisted product experiences with React, TypeScript, Swift/SwiftUI, Flutter, React Native, .NET, Python/FastAPI, Supabase, Azure, and AWS.";
 
 export function getSiteUrl(): string {
   return process.env.NEXT_PUBLIC_SITE_URL ?? SITE.url;
