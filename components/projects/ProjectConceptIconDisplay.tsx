@@ -32,7 +32,6 @@ export default function ProjectConceptIconDisplay({
   priority = false,
 }: ProjectConceptIconDisplayProps) {
   const dimension = DIMENSIONS[size];
-  const needsTightCrop = icon.includes("/daypilot/");
 
   return (
     <div
@@ -44,9 +43,7 @@ export default function ProjectConceptIconDisplay({
           alt={alt}
           width={dimension}
           height={dimension}
-          className={`project-concept-icon ${SIZE_CLASSES[size]} ${
-            needsTightCrop ? "project-concept-icon--tight-crop" : ""
-          }`}
+          className={`project-concept-icon ${SIZE_CLASSES[size]}`}
           priority={priority}
           loading={priority ? "eager" : "lazy"}
         />

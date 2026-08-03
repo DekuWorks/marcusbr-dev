@@ -1287,10 +1287,6 @@ body {
   border-radius: 22%;
 }
 
-.project-concept-icon--tight-crop {
-  transform: scale(1.28);
-}
-
 .project-app-icon-frame {
   display: flex;
   align-items: center;
