@@ -404,9 +404,10 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       "Secure storage",
       "Biometric authentication",
     ],
-    status: "In Development",
-    statusLabel: "Secure Ownership Management",
+    status: "Active",
+    statusLabel: "Digital Armory",
     accent: "#6B8CAE",
+    liveUrl: "https://apps.apple.com/us/app/gridlock-inventory/id6792421805",
     caseStudyUrl: "/projects/gridlock/",
     featured: true,
     filters: ["mobile", "saas"],
@@ -429,11 +430,11 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React Native + Expo with Supabase backend, encrypted local storage for sensitive fields, and biometric gate for app access.",
     developmentFocus:
-      "Phases 0–18 complete — production hardening, EAS store builds, and App Store / Play submission prep.",
-    trackerPhase: "Release Prep",
-    trackerProgress: 90,
+      "Live on the App Store as GRIDLOCK Inventory 1.0 — active maintenance, stability fixes, and post-launch polish.",
+    trackerPhase: "Live / Maintenance",
+    trackerProgress: 100,
     trackerDetail:
-      "Full product roadmap done — store submission and hardening next.",
+      "App Store live (1.0) — maintenance and post-launch updates in progress.",
     lessonsLearned:
       "Privacy-first inventory needs encrypted serials and sanitized shares before any social or billing surface ships.",
   },
@@ -453,10 +454,10 @@ export const FEATURED_PROJECT_ORDER = [
 export const CURRENTLY_BUILDING_ORDER = [
   "241runners",
   "shuchu",
+  "gridlock",
   "daypilot",
   "rigscout",
   "avryo",
-  "gridlock",
   "bookmarked",
 ] as const;
 
