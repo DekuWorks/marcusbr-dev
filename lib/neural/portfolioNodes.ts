@@ -23,6 +23,7 @@ const PROJECT_ORBIT: Record<string, [number, number, number]> = {
   shuchu: [1.15, 0.35, 0.2],
   daypilot: [0.55, 0.85, -0.75],
   rigscout: [0.95, -0.25, 0.7],
+  "241runners": [-0.9, 0.45, -0.35],
   bookmarked: [-0.7, 0.65, -0.7],
   avryo: [-1.15, 0.15, 0.25],
   gridlock: [-0.35, -0.75, 0.85],

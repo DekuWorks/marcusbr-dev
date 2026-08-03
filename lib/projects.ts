@@ -320,6 +320,62 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
       "Concept UI validated the dashboard layout early — trustworthy account aggregation must come before AI explanations add value.",
   },
   {
+    id: "241runners",
+    name: "241 Runners",
+    category: "Missing Person Awareness and Community Safety App",
+    synopsis:
+      "241 Runners is a community-driven mobile app for missing person cases, sighting reports, and real-time alerts that help families and responders act faster.",
+    longDescription:
+      "241 Runners connects families, volunteers, and responders around active missing person cases — with secure profiles, map-based sightings, photo evidence, push alerts, and Apple/Google sign-in built for privacy and community response.",
+    icon: asset("241runners", "icon.webp"),
+    screenshots: [asset("241runners", "screenshot-01.webp")],
+    screenshotAlts: [
+      "241 Runners mobile sign-in screen with Apple and Google authentication",
+    ],
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      ".NET 8",
+      "Azure",
+      "Azure SQL",
+      "Push notifications",
+      "Maps & location",
+    ],
+    status: "Client Project",
+    statusLabel: "Missing Person Safety App",
+    accent: "#C1392B",
+    liveUrl: "https://241runnersawareness.org",
+    caseStudyUrl: "/projects/241runners/",
+    featured: true,
+    filters: ["mobile", "client"],
+    conceptUI: false,
+    deviceFrame: true,
+    problem:
+      "Families and communities lack a fast, connected way to share verified missing person information, report sightings, and alert nearby helpers in real time.",
+    solution:
+      "241 Runners puts case browsing, GPS sighting reports, secure auth, and push alerts in one mobile app so communities can respond faster and help reunite families.",
+    features: [
+      "Active missing person case browsing",
+      "Sighting reports with photos and GPS location",
+      "Interactive map of nearby cases and alerts",
+      "Push notifications for new cases and updates",
+      "Apple Sign-In and Google Sign-In",
+      "Role-aware profiles for parents, guardians, and responders",
+    ],
+    architecture:
+      "React Native + Expo mobile client with a .NET 8 API on Azure, Azure SQL for case data, secure auth, and push notifications for community alerts.",
+    developmentFocus:
+      "App Store and Play review cycle — polishing case flows, map sightings, and notification reliability for production release.",
+    trackerPhase: "Client Delivery",
+    trackerProgress: 90,
+    trackerDetail:
+      "Mobile app built — store review and production hardening in progress.",
+    lessonsLearned:
+      "Mission-critical safety apps need privacy-first auth and clear emergency disclaimers before feature expansion earns trust.",
+    orbitPosition: [-0.9, 0.45, -0.35],
+  },
+  {
     id: "gridlock",
     name: "Gridlock",
     category: "Secure Firearm Inventory and Ownership Management App",
@@ -384,6 +440,7 @@ export const FEATURED_PROJECT_ORDER = [
   "shuchu",
   "daypilot",
   "rigscout",
+  "241runners",
   "bookmarked",
   "avryo",
   "gridlock",
@@ -392,6 +449,7 @@ export const FEATURED_PROJECT_ORDER = [
 /** Display order for the Currently Building tracker on the homepage. */
 export const CURRENTLY_BUILDING_ORDER = [
   "rigscout",
+  "241runners",
   "daypilot",
   "shuchu",
   "bookmarked",
