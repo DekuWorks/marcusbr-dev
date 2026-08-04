@@ -368,11 +368,11 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     architecture:
       "React Native + Expo mobile client with a .NET 8 API on Azure, Azure SQL for case data, secure auth, and push notifications for community alerts.",
     developmentFocus:
-      "iOS 1.0.1 resubmit with updated black App Store icon (traffic light + nav arrow) and flush mobile UI polish.",
+      "iOS 1.0.1 build 166 in App Review — black App Store icon, profile/map fixes, edge-to-edge polish.",
     trackerPhase: "App Store Connect",
-    trackerProgress: 95,
+    trackerProgress: 96,
     trackerDetail:
-      "New opaque 1024 App Store icon + edge-to-edge UI; replacing prior WAITING_FOR_REVIEW binary.",
+      "ASC WAITING_FOR_REVIEW on build 166 with updated icon + profile photo/role/date + map resilience.",
     lessonsLearned:
       "Mission-critical safety apps need privacy-first auth and clear emergency disclaimers before feature expansion earns trust.",
     orbitPosition: [-0.9, 0.45, -0.35],
