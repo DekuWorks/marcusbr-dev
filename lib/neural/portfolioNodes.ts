@@ -21,6 +21,7 @@ export type PortfolioNeuralNode = {
 
 const PROJECT_ORBIT: Record<string, [number, number, number]> = {
   shuchu: [1.15, 0.35, 0.2],
+  questbound: [0.4, 0.95, 0.55],
   daypilot: [0.55, 0.85, -0.75],
   rigscout: [0.95, -0.25, 0.7],
   "241runners": [-0.9, 0.45, -0.35],

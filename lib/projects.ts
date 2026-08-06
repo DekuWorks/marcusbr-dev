@@ -438,10 +438,65 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     lessonsLearned:
       "Privacy-first inventory needs encrypted serials and sanitized shares before any social or billing surface ships.",
   },
+  {
+    id: "questbound",
+    name: "Questbound",
+    category: "Social Dating App for Gamers",
+    synopsis:
+      "Questbound is a social and dating app for gamers — swipe to discover players, join lobbies and communities, and find your player two.",
+    longDescription:
+      "Questbound brings gamer matchmaking, lobby discovery, communities, and chat into one iOS app with a dark cyberpunk-lite brand. Built as an Expo/React Native monorepo so product surfaces can ship together without splitting the stack early.",
+    icon: asset("questbound", "icon.webp"),
+    screenshots: [asset("questbound", "screenshot-01.webp")],
+    screenshotAlts: [
+      "Questbound Browse Lobbies screen with game lobbies and join actions",
+    ],
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Expo Router",
+      "Supabase",
+      "PostgreSQL",
+      "Turborepo",
+    ],
+    status: "In Development",
+    statusLabel: "Gamer Social & Dating",
+    accent: "#E84A8A",
+    caseStudyUrl: "/projects/questbound/",
+    featured: true,
+    filters: ["mobile", "saas"],
+    conceptUI: false,
+    deviceFrame: true,
+    problem:
+      "Gamers looking for teammates or a partner bounce between Discord servers, LFG posts, and dating apps that ignore how people actually play.",
+    solution:
+      "Questbound combines swipe-based player discovery with lobbies, communities, and chat so matching starts from shared games and play style.",
+    features: [
+      "Swipe-based player discovery",
+      "Browse lobbies by game, platform, and vibe",
+      "Communities and events for recurring groups",
+      "In-app chat for matches and lobbies",
+      "Gamer profiles with games, roles, and preferences",
+      "Dark cyberpunk-lite brand with pink-to-purple accents",
+    ],
+    architecture:
+      "Expo/React Native iOS client in a Turborepo monorepo with shared TypeScript packages; Supabase planned for auth, Postgres, and realtime as the product leaves mock-data prototyping.",
+    developmentFocus:
+      "iOS Expo MVP in active build — lobbies, discover, chat, and profile shells shipping against shared packages; backend wiring next.",
+    trackerPhase: "In Development",
+    trackerProgress: 42,
+    trackerDetail:
+      "Mobile monorepo MVP — lobbies and discover UI live; auth/backend next.",
+    lessonsLearned:
+      "Shared packages pay off early in a social app — types and UI tokens keep swipe, lobbies, and chat from drifting while the product is still mock-driven.",
+    orbitPosition: [0.4, 0.95, 0.55],
+  },
 ];
 
 export const FEATURED_PROJECT_ORDER = [
   "shuchu",
+  "questbound",
   "daypilot",
   "rigscout",
   "241runners",
@@ -452,6 +507,7 @@ export const FEATURED_PROJECT_ORDER = [
 
 /** Display order for the Currently Building tracker on the homepage. */
 export const CURRENTLY_BUILDING_ORDER = [
+  "questbound",
   "241runners",
   "shuchu",
   "gridlock",

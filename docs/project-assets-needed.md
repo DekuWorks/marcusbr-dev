@@ -8,6 +8,7 @@ Track approved final assets for the Featured Products section.
 - [x] Gridlock approved app icon
 - [x] Shuchu approved app icon
 - [x] Avryo approved app icon
+- [x] Questbound approved app icon
 
 ## Bookmarked Screenshots
 
@@ -37,6 +38,13 @@ Track approved final assets for the Featured Products section.
 - [x] Avryo Hub accounts screen screenshot (production) — `screenshot-02`
 - [x] Avryo activity transactions screenshot (production) — `screenshot-03`
 - [x] Avryo AI assistant screenshot (production) — `screenshot-04`
+
+## Questbound Screenshots
+
+- [x] Questbound Browse Lobbies screenshot (simulator) — `screenshot-01`
+- [ ] Questbound Discover / swipe screenshot (simulator)
+- [ ] Questbound Matches or Chat screenshot (simulator)
+- [ ] Questbound Profile screenshot (simulator)
 
 ## Notes
 
